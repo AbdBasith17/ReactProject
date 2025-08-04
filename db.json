@@ -1,0 +1,279 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "img": "https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dwb57d0b59/Y0685240/Y0685240_F068524009_E01_GHC.jpg?sw=800",
+      "title": "Dior Sauvage Eau de Toilette",
+      "category": "men",
+      "price": 8200,
+      "description": "Bold, fresh, and masculine scent with bergamot, pepper, and amberwood.",
+      "ml": "300 ml"
+    },
+    {
+      "id": "2",
+      "img": "https://m.media-amazon.com/images/I/51T8w3UJtAL._UF1000,1000_QL80_.jpg",
+      "title": "Bleu de Chanel",
+      "category": "men",
+      "price": 9400,
+      "description": "Woody aromatic fragrance with citrus and sandalwood notes.",
+      "ml": "300 ml"
+    },
+    {
+      "id": "3",
+      "img": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/armani/7025307/0/aPqcSktSCw-1_Product_3614273662420-Armani-Acqua-Di-Gio-Eau-De-Parfum-125ml_94fbea0280139b780095c8ca8a9b9cdf8f98a38c_1658118500.png",
+      "title": "Acqua Di Gio by Giorgio Armani",
+      "category": "men",
+      "price": 7800,
+      "description": "Fresh aquatic scent with marine, citrus, and woody tones.",
+      "ml": "300 ml"
+    },
+    {
+      "id": "4",
+      "img": "https://assets.myntassets.com/w_412,q_auto:best,dpr_2,fl_progressive/assets/images/2233588/2022/8/6/f2e6ede7-a97d-486a-91e1-27e39f6f548d1659770117152PacoRabanneMen1MillionEaudeToilette100ML1.jpg",
+      "title": "1 Million by Paco Rabanne",
+      "category": "men",
+      "price": 7100,
+      "description": "Warm and spicy with notes of cinnamon, leather, and amber.",
+      "ml": "300 ml"
+    },
+    {
+      "id": "5",
+      "img": "https://m.media-amazon.com/images/I/61knAWmGjtL.jpg",
+      "title": "David Beckham Instinct",
+      "category": "men",
+      "price": 2200,
+      "description": "Aromatic fougère with grapefruit, bergamot, and star anise.",
+      "ml": "300 ml"
+    },
+    {
+      "id": "6",
+      "img": "https://altfragrance.in/cdn/shop/files/208.png?v=1716379445&width=1946",
+      "title": "Yves Saint Laurent L'Homme",
+      "category": "men",
+      "price": 7300,
+      "description": "Fresh and woody with ginger, bergamot, and vetiver.",
+      "ml": "300 ml"
+    },
+    {
+      "id": "7",
+      "img": "https://www.perfumeaddicts.in/wp-content/uploads/2024/02/burberry-touch-pour-homme-for-men-100ml-edt-main-1.webp",
+      "title": "Burberry Men",
+      "category": "men",
+      "price": 5400,
+      "description": "Classic scent with lavender, mint, and cedarwood.",
+      "ml": "300 ml"
+    },
+    {
+      "id": "8",
+      "img": "https://www.versace.com/dw/image/v2/BGWN_PRD/on/demandware.static/-/Sites-ver-master-catalog/default/dwcc47a2f0/original/90_R740011-R200MLS_RNUL_20_Eros~EDT~200~ml-Accessories-Versace-online-store_0_1.jpg?sw=850&q=85&strip=true",
+      "title": "Versace Eros",
+      "category": "men",
+      "price": 8800,
+      "description": "Intense masculine fragrance with mint, green apple, and tonka bean.",
+      "ml": "300 ml"
+    },
+    {
+      "id": "9",
+      "img": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/000000000491937637/SrkkzzJ8R-000000000491937637_1.jpeg",
+      "title": "Calvin Klein Eternity for Men",
+      "category": "men",
+      "price": 4600,
+      "description": "Refreshing scent with lavender, lemon, and sandalwood.",
+      "ml": "300 ml"
+    },
+    {
+      "id": "10",
+      "img": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/000000000494434339/CLNop5Qw-S-000000000494434339_1.jpg",
+      "title": "Montblanc Legend",
+      "category": "men",
+      "price": 5900,
+      "description": "Elegant, subtle fragrance with pineapple and sandalwood.",
+      "ml": "300 ml"
+    },
+    {
+      "id": "11",
+      "img": "https://img.tatacliq.com/images/i10/658Wx734H/MP000000007971283_658Wx734H_202303032035571.jpeg",
+      "title": "Bvlgari Man in Black",
+      "category": "men",
+      "price": 9700,
+      "description": "Spicy amber scent with rum, spices, and leather.",
+      "ml": "300 ml"
+    },
+    {
+      "id": "12",
+      "img": "https://assets.myntassets.com/w_412,q_60,dpr_2,fl_progressive/assets/images/10293481/2025/6/16/1f94f6b3-44e3-4223-bb02-4aa9c69812781750066624472-Boss-Men-Bottled-Eau-De-Toilette-100-ml-3781750066623569-1.jpg",
+      "title": "Hugo Boss Bottled",
+      "category": "men",
+      "price": 6800,
+      "description": "Warm and spicy fragrance with apple, cinnamon, and sandalwood.",
+      "ml": "300 ml"
+    },
+    {
+      "id": "13",
+      "img": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/000000000490844718/TTChFUDPZKG-000000000490844718_1.jpg",
+      "title": "Gucci Guilty Pour Homme",
+      "category": "men",
+      "price": 8600,
+      "description": "Aromatic fougère with lavender, lemon, and patchouli.",
+      "ml": "300 ml"
+    },
+    {
+      "id": "14",
+      "img": "https://assets.ajio.com/medias/sys_master/root/20230609/hwuh/64835936d55b7d0c635ec418/-1117Wx1400H-4937225550-multi-MODEL.jpg",
+      "title": "Prada L'Homme",
+      "category": "men",
+      "price": 9900,
+      "description": "Sophisticated blend of iris, amber, and neroli.",
+      "ml": "300 ml"
+    },
+    {
+      "id": "15",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRY7lBwnCo_KJvTuAPXFY80zpKY6x8ycmZv8Gslo04ENUSYXWtZfU1Qerk12ff7iJC-tC0&usqp=CAU",
+      "title": "Lacoste Blanc",
+      "category": "men",
+      "price": 5200,
+      "description": "Fresh and clean with grapefruit, rosemary, and cedarwood.",
+      "ml": "300 ml"
+    },
+    {
+      "id": "16",
+      "img": "https://scentoria.co.in/cdn/shop/files/Chanel_No_5_100_ML_EDP_Tester.jpg?v=1713941378&width=900",
+      "title": "Chanel No. 5",
+      "category": "women",
+      "price": 10500,
+      "description": "Timeless floral with May rose, jasmine, and citrus notes.",
+      "ml": "300 ml"
+    },
+    {
+      "id": "17",
+      "img": "https://images-static.nykaa.com/media/catalog/product/d/b/db992abDIORX00000185.jpg",
+      "title": "Miss Dior Eau de Parfum",
+      "category": "women",
+      "price": 9800,
+      "description": "Romantic floral blend with roses, patchouli, and vanilla.",
+      "ml": "300 ml"
+    },
+    {
+      "id": "18",
+      "img": "https://static.sweetcare.com/img/prd/488/v-638200526909275122/versace-011427vg_02.jpg",
+      "title": "Versace Bright Crystal",
+      "category": "women",
+      "price": 6700,
+      "description": "Delicate floral with pomegranate, peony, and lotus.",
+      "ml": "300 ml"
+    },
+    {
+      "id": "19",
+      "img": "https://media.gucci.com/style/DarkGray_Center_0_0_490x490/1739263543/827092_99999_0099_001_100_0000_Light-gucci-bloom-parfum-100ml.jpg",
+      "title": "Gucci Bloom",
+      "category": "women",
+      "price": 8200,
+      "description": "White floral fragrance with jasmine, tuberose, and rangoon creeper.",
+      "ml": "300 ml"
+    },
+    {
+      "id": "20",
+      "img": "https://m.media-amazon.com/images/I/51TjGyzc0HL._UF1000,1000_QL80_.jpg",
+      "title": "Carolina Herrera Good Girl",
+      "category": "women",
+      "price": 8700,
+      "description": "Sweet and spicy scent with almond, coffee, and jasmine.",
+      "ml": "300 ml"
+    },
+    {
+      "id": "21",
+      "img": "https://momperfume.in/cdn/shop/files/black-opium-ysl-1_f5543f66-ca48-47f3-a086-0a6ecd12325f.jpg?v=1720104850",
+      "title": "Yves Saint Laurent Black Opium",
+      "category": "women",
+      "price": 8900,
+      "description": "Warm, seductive fragrance with coffee, vanilla, and white flowers.",
+      "ml": "300 ml"
+    },
+    {
+      "id": "22",
+      "img": "https://images-static.nykaa.com/media/catalog/product/e/0/e0fc934763511009824_1.jpg?tr=w-500",
+      "title": "DKNY Be Delicious",
+      "category": "women",
+      "price": 5400,
+      "description": "Fruity floral with apple, cucumber, and grapefruit.",
+      "ml": "300 ml"
+    },
+    {
+      "id": "23",
+      "img": "https://img.tatacliq.com/images/i24//658Wx734H/MP000000019262304_658Wx734H_202505242113391.jpeg",
+      "title": "Tom Ford Rose Prick",
+      "category": "women",
+      "price": 13500,
+      "description": "Bold rose-centric fragrance with Sichuan pepper and turmeric.",
+      "ml": "300 ml"
+    },
+    {
+      "id": "24",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2dkkDNq4--bXoJnf32b6oUvsgSIHp0m6q1Q&s",
+      "title": "Jo Malone Peony & Blush Suede",
+      "category": "women",
+      "price": 9200,
+      "description": "Elegant floral with red apple, peony, and suede.",
+      "ml": "300 ml"
+    },
+    {
+      "id": "25",
+      "img": "https://a.cdnsbn.com/images/products/l/33606835006-2.jpg",
+      "title": "Bvlgari Omnia Crystalline",
+      "category": "women",
+      "price": 7600,
+      "description": "Clean, soft scent with bamboo, pear, and lotus flower.",
+      "ml": "300 ml"
+    },
+    {
+      "id": "26",
+      "img": "https://momperfume.in/cdn/shop/files/lancome-la-vie-est-belle-iris-absolu-eau-de-parfum_efcc50ee-ca8b-475c-b15b-af16becad5ed.png?v=1720103313",
+      "title": "Lancôme La Vie Est Belle",
+      "category": "women",
+      "price": 9900,
+      "description": "Sweet floral with iris, patchouli, and gourmand notes.",
+      "ml": "300 ml"
+    },
+    {
+      "id": "27",
+      "img": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/ralph-lauren/68006635001/0/O1JaJXfVMb-1_Product_3360377002968-Ralph-Lauren-Romance-Eau-De-Parfum-100ml_ada30d48ffbd95ee5e47f18de90f720482c05011_1643652827.png",
+      "title": "Ralph Lauren Romance",
+      "category": "women",
+      "price": 6100,
+      "description": "Fresh floral with rose, violet, and ginger",
+      "ml": "300 ml"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "name": "a",
+      "email": "a@gmail.com",
+      "password": "test123"
+    },
+    {
+      "id": "7576",
+      "name": "basith",
+      "email": "basith@gmail.com",
+      "password": "123"
+    },
+    {
+      "id": "eca4",
+      "name": "arshu",
+      "email": "arshu",
+      "password": "1234"
+    },
+    {
+      "id": "02f3",
+      "name": "yasir",
+      "email": "yasir@gmail.com",
+      "password": "1212"
+    },
+    {
+      "id": "e726",
+      "name": "nabeel11",
+      "email": "nabeel11@gmail.com",
+      "password": "2222"
+    }
+  ]
+}

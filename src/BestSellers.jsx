@@ -35,9 +35,12 @@ const idfetch=["6","11","16","22"]
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-10">
         {products.map(i => (
 
+         
           <ItemCard
             key={i.id}
+            id={i.id}
             image={i.img}
+            category={i.category}
             title={i.title}
             price={`₹${i.price}`}
             ml={i.ml}

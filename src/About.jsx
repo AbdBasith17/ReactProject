@@ -5,8 +5,8 @@ const About = () => {
     <div className="relative w-full h-[calc(100vh-4rem)] bg-cover bg-center flex items-center">
     
       <div className="max-w-4xl mx-auto text-center mb-12">
-        <h1 className="text-SM font-thin-bold">ABOUT</h1>
-        <h1 className="text-4xl font-thin-bold">PERF<span className='text-green-8500'>AURA</span></h1>
+        <h1 className="text-SM  font-thin-bold">ABOUT</h1>
+        <h1 className="text-4xl font-thin-bold">PERF<span className='text-green-800'>AURA</span></h1>
         <br />
 
         <p className="text-xl text-gray-900 leading-relaxed">

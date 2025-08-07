@@ -22,7 +22,7 @@ function Change(){
 
     return(
          <div
-      className="w-screen h-90  bg-cover bg-center transition-all duration-1000 ease-in-out "
+      className="w-screen h-80  bg-cover bg-center transition-all duration-1000 ease-in-out "
       style={{ backgroundImage: `url(${images[currentIndex]})` }}
     >
       <div className="w-full h-full flex items-center justify-center">

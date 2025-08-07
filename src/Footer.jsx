@@ -5,7 +5,7 @@ import { FaXTwitter } from "react-icons/fa6";
 
 function Footer() {
   return (
-    <footer className="bg-gray-100 text-gray-950 pt-10 pb-6 px-8 mt-10 mb-0">
+    <footer className="bg-gray-100  bottom-0 text-gray-950 pt-10 pb-6 px-8 mt-10 mb-0">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 border-b border-gray-300 pb-8">
         <div>
          <h2 className="text-2xl font-thin-bold pb-5 pr-30">PERFAURA</h2>

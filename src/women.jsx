@@ -36,7 +36,9 @@ function WomenPage() {
 
           <ItemCard
             key={i.id}
+            id={i.id}
             image={i.img}
+            category={i.category}
             title={i.title}
             price={`₹${i.price}`}
             ml={i.ml}

@@ -64,7 +64,7 @@ function Register() {
         }}
       >
         <div className="relative flex flex-col backdrop-blur-sm shadow-xl border border-slate-200 w-96 rounded-lg">
-          <div className="relative m-2.5 mt-4 items-center shadow-sm flex justify-center text-slate-800 h-15 rounded-md border border-slate-200">
+          <div className="relative m-2.5 mt-4 items-center shadow-sm flex justify-center text-green-800 h-15 rounded-md border border-slate-200">
             <span className="text-2xl font-bold font-sans">Register</span>
           </div>
 
@@ -117,7 +117,7 @@ function Register() {
           <div className="p-6 pt-0">
             <button
               onClick={handleReg}
-              className="w-full rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+              className="w-full rounded-md bg-green-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-green-700 focus:shadow-none active:bg-slate-700 hover:bg-green-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
               type="button"
             >
               Register
@@ -125,7 +125,7 @@ function Register() {
 
             <p className="flex justify-center mt-6 text-sm text-slate-600">
               Already have an account?
-              <a href="#signup" className="ml-1 text-sm font-semibold text-slate-700 underline">
+              <a href="/signin" className="ml-1 text-sm font-semibold text-slate-700 underline">
                 Login
               </a>
             </p>

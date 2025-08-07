@@ -13,7 +13,7 @@ function ProductPage() {
         setProducts(response.data);
       })
       .catch((error) => {
-        console.error("Error fetching products:", error);
+        console.error("fetch err" ,error);
       });
   }, []);
 
@@ -40,6 +40,7 @@ function ProductPage() {
             id={i.id}
             image={i.img}
             title={i.title}
+            caregory ={i.caregory}
             price={`₹${i.price}`}
             ml={i.ml}
 

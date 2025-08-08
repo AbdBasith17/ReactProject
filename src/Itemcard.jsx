@@ -2,8 +2,10 @@ import React from 'react';
 import { PiHeartStraightThin } from "react-icons/pi";
 import { useNavigate } from 'react-router-dom';
 import { FaHeartCirclePlus } from "react-icons/fa6";
+import AddToWishlistButton from './Addtowish';
 
-function ItemCard({ id,image, title, price, ml }) {
+
+function ItemCard({ id,image, title, category,price, ml }) {
   const navigate = useNavigate();
   // console.log('Re ID:', id);
 
@@ -13,12 +15,16 @@ function ItemCard({ id,image, title, price, ml }) {
  
   navigate(`/productview/${id}`);
 }} className='cursor-pointer'> 
-      <div className="relative">
-
-        <button className="absolute top-2 right-2 text-gray-500 hover:text-green-700 cursor-pointer"
-        value={"add to bfev"}>
-          <FaHeartCirclePlus  size={30} />
-        </button>
+         <div className="relative">
+          <AddToWishlistButton
+            product={{
+              id,
+              title,
+              price,
+              img: image,
+              category
+            }}
+          />
 
         
         <img

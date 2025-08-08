@@ -1,28 +1,52 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaRegHeart, FaTrashAlt } from "react-icons/fa";
+import { FaHeartCircleMinus } from "react-icons/fa6";
 
-const wishlistItems = [
-  {
-    id: 1,
-    name: "Classic Denim Jacket",
-    price: "$59.99",
-    image: "https://via.placeholder.com/200x250?text=Product+1",
-  },
-  {
-    id: 2,
-    name: "Cotton Oversized Hoodie",
-    price: "$39.99",
-    image: "https://via.placeholder.com/200x250?text=Product+2",
-  },
-  {
-    id: 3,
-    name: "Slim Fit Chinos",
-    price: "$45.00",
-    image: "https://via.placeholder.com/200x250?text=Product+3",
-  },
-];
+
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Wishlist() {
+  const [wishlistItems, setWishlistItems] = useState([]);
+  const [wishlistId, setWishlistId] = useState(null);
+const navigate=useNavigate()
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  useEffect(() => {
+    if (!user) return;
+
+    // Fetch the wishlist for the current user
+    const fetchWishlist = async () => {
+      try {
+        const res = await axios.get(`http://localhost:3000/wishlists?userId=${user.id}`);
+        if (res.data.length > 0) {
+          setWishlistItems(res.data[0].items);
+          setWishlistId(res.data[0].id);
+        } else {
+          setWishlistItems([]);
+        }
+      } catch (error) {
+        console.error("Failed to fetch wishlist:", error);
+      }
+    };
+
+    fetchWishlist();
+  }, [user]);
+
+  const handleRemove = async (productId) => {
+    const updatedItems = wishlistItems.filter(item => item.id !== productId);
+    setWishlistItems(updatedItems);
+
+    try {
+      await axios.put(`http://localhost:3000/wishlists/${wishlistId}`, {
+        userId: user.id,
+        items: updatedItems
+      });
+    } catch (error) {
+      console.error("Failed to update wishlist:", error);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 py-10 px-6 md:px-12">
       <div className="max-w-6xl mx-auto">
@@ -34,26 +58,43 @@ export default function Wishlist() {
         {wishlistItems.length === 0 ? (
           <p className="text-gray-500">Your wishlist is currently empty.</p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 cursor-pointer sm:grid-cols-2 lg:grid-cols-3 gap-6" >
             {wishlistItems.map((item) => (
               <div
                 key={item.id}
-                className="bg-white shadow rounded-md p-4 relative group transition hover:shadow-md"
+                onClick={() => {
+ 
+  navigate(`/productview/${item.id}`);
+}} 
+                className="flex flex-col justify-between border border-gray-200 rounded-xl shadow-md bg-white h-full w-full"
               >
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="w-full h-60 object-cover rounded-md mb-4"
-                />
-                <h3 className="text-lg font-medium">{item.name}</h3>
-                <p className="text-sm text-gray-600">{item.price}</p>
+                <div className="relative">
+                  <button
+                    className="absolute top-2 right-2 p-3 text-gray-500 hover:text-red-600"
+                    title="Remove from Wishlist"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleRemove(item.id);
+                    }}
+                  >
+                    <FaHeartCircleMinus size={30} />
+                  </button>
 
-                <button
-                  className="absolute top-3 right-3 text-gray-500 hover:text-red-500 transition"
-                  title="Remove from Wishlist"
-                >
-                  <FaTrashAlt />
-                </button>
+                  <img
+                    src={item.img}
+                    alt={item.title}
+                    className="w-full max-h-72 object-contain p-4"
+                  />
+                </div>
+
+                <div className="flex flex-col flex-grow px-4 pb-4 text-center">
+                  <h3 className="text-xl font-semibold text-gray-800 mb-1 px-4">
+                    {item.title}
+                  </h3>
+                  <p className="text-orange-500 text-xl font-semibold mb-2">
+                    {item.price}
+                  </p>
+                </div>
               </div>
             ))}
           </div>

@@ -6,6 +6,7 @@ import { useLocation, useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Serching from "./search";
+import axios from "axios";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -13,36 +14,55 @@ function Navbar() {
 
   const isCartPage = (path) => location.pathname === path;
 
-  const handleClick = () => {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const user = JSON.parse(localStorage.getItem("user"));
+ const handleClick = async (type) => {
+  const user = JSON.parse(localStorage.getItem("user"));
 
-    if (!user) {
-      toast.info(
-        <div className="flex items-center justify-between gap-4">
-          <span>Please log in to continue.</span>
-          <button
-            className="text-sm text-green-800 border border-green-800 px-3 py-1 rounded hover:bg-green-800 hover:text-white transition"
-            onClick={() => {
-              toast.dismiss();
-              navigate("/signin");
-            }}
-          >
-            Login
-          </button>
-        </div>,
-        {
-          autoClose: false,
-          style: { width: "340px" },
-        }
-      );
-    } else if (cart.length > 0) {
-      navigate("/cart");
-    } else {
+  if (!user) {
+    toast.info(
+      <div className="flex items-center justify-between gap-4">
+        <span>Please log in to continue.</span>
+        <button
+          className="text-sm text-green-800 border border-green-800 px-3 py-1 rounded hover:bg-green-800 hover:text-white transition"
+          onClick={() => {
+            toast.dismiss();
+            navigate("/signin");
+          }}
+        >
+          Login
+        </button>
+      </div>,
+      {
+        autoClose: false,
+        style: { width: "340px" },
+      }
+    );
+    return;
+  }
+
+  if (type === "cart") {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    if (cart.length === 0) {
       toast.info("Your cart is empty.", { autoClose: 1500 });
-      navigate("/cart");
     }
-  };
+    navigate("/cart");
+    return;
+  }
+
+  if (type === "wishlist") {
+    try {
+      const res = await axios.get(`http://localhost:3000/wishlists?userId=${user.id}`);
+      const wishlist = res.data[0];
+
+      if (!wishlist || wishlist.items.length === 0) {
+        toast.info("Your wishlist is empty.", { autoClose: 1500 });
+      }
+
+      navigate("/wishlist");
+    } catch (error) {
+      console.error("Error fetching wishlist:", error);
+
+    }
+  }}
 
   return (
     <nav className="sticky top-0 z-50 bg-white/75 backdrop-blur-md shadow">
@@ -84,14 +104,14 @@ function Navbar() {
     
         <div className="flex flex-1 justify-end gap-6 items-center">
           <Serching />
-          <button className="btn btn-ghost btn-circle" >
+          <button className="btn btn-ghost cursor-pointer btn-circle" onClick={()=>{handleClick("wishlist")}} >
             <FaHeart
               className={isCartPage("/wish") ? "text-green-800" : "text-black"}
               size={22}
             />
           </button>
 
-          <button className="btn btn-ghost btn-circle cursor-pointer" onClick={handleClick}>
+          <button className="btn btn-ghost btn-circle cursor-pointer" onClick={()=>{handleClick("cart")}}>
             <IoCartSharp
               className={isCartPage("/cart") ? "text-green-800" : "text-black"}
               size={25}
@@ -113,4 +133,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default Navbar

@@ -2,7 +2,7 @@ import React from 'react';
 import { PiHeartStraightThin } from "react-icons/pi";
 import { useNavigate } from 'react-router-dom';
 import { FaHeartCirclePlus } from "react-icons/fa6";
-import AddToWishlistButton from './Addtowish';
+import AddToWishlistButton from '../Wishlist/Addtowish';
 
 
 function ItemCard({ id,image, title, category,price, ml }) {

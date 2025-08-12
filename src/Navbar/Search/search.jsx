@@ -47,7 +47,7 @@ function Serching() {
         onClick={() => setOpen(!open)}
         className="text-black hover:text-green-700 transition-all"
       >
-        <RiSearchFill size={24} />
+        <RiSearchFill size={27} />
       </button>
 
       <div

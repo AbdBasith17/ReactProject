@@ -5,12 +5,18 @@ import { MdAccountCircle } from "react-icons/md";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Serching from "./search";
+import Serching from "./Search/search";
 import axios from "axios";
+import { MdVerifiedUser } from "react-icons/md";
+
+
 
 function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const user = JSON.parse(localStorage.getItem("user"));
+
 
   const isCartPage = (path) => location.pathname === path;
 
@@ -69,7 +75,7 @@ function Navbar() {
       <div className="relative flex items-center px-10 py-7">
       
         <div className="flex flex-1">
-          <ul className="flex gap-8 text-lg font-thin-bold ">
+          <ul className="flex gap-8 text-xl font-thin-bold ">
             <li className="cursor-pointer">
               <Link to="/"
                 className={isCartPage("/") ? "text-green-800 border-l-7 pl-3 rounded-4xl"  : "text-black"}
@@ -107,26 +113,34 @@ function Navbar() {
           <button className="btn btn-ghost cursor-pointer btn-circle" onClick={()=>{handleClick("wishlist")}} >
             <FaHeart
               className={isCartPage("/wish") ? "text-green-800" : "text-black"}
-              size={22}
+              size={25}
             />
           </button>
 
           <button className="btn btn-ghost btn-circle cursor-pointer" onClick={()=>{handleClick("cart")}}>
             <IoCartSharp
               className={isCartPage("/cart") ? "text-green-800" : "text-black"}
-              size={25}
+              size={31}
             />
           </button>
 
+
           <button
-            className="btn btn-ghost btn-circle cursor-pointer"
-            onClick={() => navigate("/userdata")}
-          >
-            <MdAccountCircle
-              className={isCartPage("/userdata") ? "text-green-800" : "text-black"}
-              size={27}
-            />
-          </button>
+  className="btn btn-ghost btn-circle cursor-pointer"
+  onClick={() => navigate("/userdata")}
+>
+  {user ? (
+    <div className="flex">
+      <p className="text-xl pr-2">Hello <span className="text-green-800 font-semibold">{user.name}</span></p>
+    <MdAccountCircle
+      className={isCartPage("/userdata") ? "text-green-800" : "text-black"}
+      size={30}
+    /></div>
+  ) : (
+   <p className="text-md font-medium px-2 py-1  bg-black text-white border rounded-xl border-slate-600 hover:bg-green-700">Login</p>
+  )}
+</button>
+
         </div>
       </div>
     </nav>

@@ -7,7 +7,8 @@
       "category": "men",
       "price": 8200,
       "description": "Bold, fresh, and masculine scent with bergamot, pepper, and amberwood.",
-      "ml": "300 ml"
+      "ml": "300 ml",
+      "isActive": true
     },
     {
       "id": "2",
@@ -16,7 +17,8 @@
       "category": "men",
       "price": 9400,
       "description": "Woody aromatic fragrance with citrus and sandalwood notes.",
-      "ml": "200 ml"
+      "ml": "200 ml",
+      "isActive": false
     },
     {
       "id": "3",
@@ -25,7 +27,8 @@
       "category": "men",
       "price": 7800,
       "description": "Fresh aquatic scent with marine, citrus, and woody tones.",
-      "ml": "400 ml"
+      "ml": "400 ml",
+      "isActive": true
     },
     {
       "id": "4",
@@ -34,7 +37,8 @@
       "category": "men",
       "price": 7100,
       "description": "Warm and spicy with notes of cinnamon, leather, and amber.",
-      "ml": "300 ml"
+      "ml": "300 ml",
+      "isActive": true
     },
     {
       "id": "5",
@@ -43,7 +47,8 @@
       "category": "men",
       "price": 2200,
       "description": "Aromatic fougère with grapefruit, bergamot, and star anise.",
-      "ml": "300 ml"
+      "ml": "300 ml",
+      "isActive": true
     },
     {
       "id": "6",
@@ -52,7 +57,8 @@
       "category": "men",
       "price": 7300,
       "description": "Fresh and woody with ginger, bergamot, and vetiver.",
-      "ml": "300 ml"
+      "ml": "300 ml",
+      "isActive": true
     },
     {
       "id": "7",
@@ -61,7 +67,8 @@
       "category": "men",
       "price": 5400,
       "description": "Classic scent with lavender, mint, and cedarwood.",
-      "ml": "300 ml"
+      "ml": "300 ml",
+      "isActive": true
     },
     {
       "id": "8",
@@ -70,7 +77,8 @@
       "category": "men",
       "price": 8800,
       "description": "Intense masculine fragrance with mint, green apple, and tonka bean.",
-      "ml": "300 ml"
+      "ml": "300 ml",
+      "isActive": true
     },
     {
       "id": "9",
@@ -79,7 +87,8 @@
       "category": "men",
       "price": 4600,
       "description": "Refreshing scent with lavender, lemon, and sandalwood.",
-      "ml": "300 ml"
+      "ml": "300 ml",
+      "isActive": true
     },
     {
       "id": "10",
@@ -88,7 +97,8 @@
       "category": "men",
       "price": 5900,
       "description": "Elegant, subtle fragrance with pineapple and sandalwood.",
-      "ml": "300 ml"
+      "ml": "300 ml",
+      "isActive": true
     },
     {
       "id": "11",
@@ -97,7 +107,8 @@
       "category": "men",
       "price": 9700,
       "description": "Spicy amber scent with rum, spices, and leather.",
-      "ml": "300 ml"
+      "ml": "300 ml",
+      "isActive": true
     },
     {
       "id": "12",
@@ -106,7 +117,8 @@
       "category": "men",
       "price": 6800,
       "description": "Warm and spicy fragrance with apple, cinnamon, and sandalwood.",
-      "ml": "300 ml"
+      "ml": "300 ml",
+      "isActive": true
     },
     {
       "id": "13",
@@ -115,7 +127,8 @@
       "category": "men",
       "price": 8600,
       "description": "Aromatic fougère with lavender, lemon, and patchouli.",
-      "ml": "300 ml"
+      "ml": "300 ml",
+      "isActive": true
     },
     {
       "id": "14",
@@ -124,7 +137,8 @@
       "category": "men",
       "price": 9900,
       "description": "Sophisticated blend of iris, amber, and neroli.",
-      "ml": "300 ml"
+      "ml": "300 ml",
+      "isActive": true
     },
     {
       "id": "15",
@@ -133,7 +147,8 @@
       "category": "men",
       "price": 5200,
       "description": "Fresh and clean with grapefruit, rosemary, and cedarwood.",
-      "ml": "300 ml"
+      "ml": "300 ml",
+      "isActive": true
     },
     {
       "id": "16",
@@ -142,7 +157,8 @@
       "category": "women",
       "price": 10500,
       "description": "Timeless floral with May rose, jasmine, and citrus notes.",
-      "ml": "300 ml"
+      "ml": "300 ml",
+      "isActive": true
     },
     {
       "id": "17",
@@ -151,7 +167,8 @@
       "category": "women",
       "price": 9800,
       "description": "Romantic floral blend with roses, patchouli, and vanilla.",
-      "ml": "300 ml"
+      "ml": "300 ml",
+      "isActive": true
     },
     {
       "id": "18",
@@ -160,7 +177,8 @@
       "category": "women",
       "price": 6700,
       "description": "Delicate floral with pomegranate, peony, and lotus.",
-      "ml": "300 ml"
+      "ml": "300 ml",
+      "isActive": true
     },
     {
       "id": "19",
@@ -169,7 +187,8 @@
       "category": "women",
       "price": 8200,
       "description": "White floral fragrance with jasmine, tuberose, and rangoon creeper.",
-      "ml": "300 ml"
+      "ml": "300 ml",
+      "isActive": true
     },
     {
       "id": "20",
@@ -178,7 +197,8 @@
       "category": "women",
       "price": 8700,
       "description": "Sweet and spicy scent with almond, coffee, and jasmine.",
-      "ml": "300 ml"
+      "ml": "300 ml",
+      "isActive": true
     },
     {
       "id": "21",
@@ -187,7 +207,8 @@
       "category": "women",
       "price": 8900,
       "description": "Warm, seductive fragrance with coffee, vanilla, and white flowers.",
-      "ml": "300 ml"
+      "ml": "300 ml",
+      "isActive": true
     },
     {
       "id": "22",
@@ -196,7 +217,8 @@
       "category": "women",
       "price": 5400,
       "description": "Fruity floral with apple, cucumber, and grapefruit.",
-      "ml": "300 ml"
+      "ml": "300 ml",
+      "isActive": true
     },
     {
       "id": "23",
@@ -205,7 +227,8 @@
       "category": "women",
       "price": 13500,
       "description": "Bold rose-centric fragrance with Sichuan pepper and turmeric.",
-      "ml": "300 ml"
+      "ml": "300 ml",
+      "isActive": true
     },
     {
       "id": "24",
@@ -214,7 +237,8 @@
       "category": "women",
       "price": 9200,
       "description": "Elegant floral with red apple, peony, and suede.",
-      "ml": "300 ml"
+      "ml": "300 ml",
+      "isActive": true
     },
     {
       "id": "25",
@@ -223,7 +247,8 @@
       "category": "women",
       "price": 7600,
       "description": "Clean, soft scent with bamboo, pear, and lotus flower.",
-      "ml": "300 ml"
+      "ml": "300 ml",
+      "isActive": true
     },
     {
       "id": "26",
@@ -232,7 +257,8 @@
       "category": "women",
       "price": 9900,
       "description": "Sweet floral with iris, patchouli, and gourmand notes.",
-      "ml": "300 ml"
+      "ml": "300 ml",
+      "isActive": true
     },
     {
       "id": "27",
@@ -241,39 +267,473 @@
       "category": "women",
       "price": 6100,
       "description": "Fresh floral with rose, violet, and ginger",
-      "ml": "300 ml"
+      "ml": "300 ml",
+      "isActive": true
+    },
+    {
+      "id": "d6f3",
+      "title": "",
+      "price": "",
+      "category": "",
+      "img": "",
+      "description": "",
+      "ml": "",
+      "isActive": true
+    },
+    {
+      "id": "79ce",
+      "title": "",
+      "price": "",
+      "category": "",
+      "img": "",
+      "description": "",
+      "ml": "",
+      "isActive": true
     }
   ],
   "users": [
     {
       "id": "1",
-      "name": "a",
-      "email": "a@gmail.com",
-      "password": "test123"
+      "name": "admin",
+      "email": "admin@gmail.com",
+      "password": "admin123",
+      "orders": [],
+      "isActive": true,
+      "role": "admin"
     },
     {
       "id": "7576",
       "name": "basith",
       "email": "basith@gmail.com",
-      "password": "123"
+      "password": "123",
+      "orders": [
+        {
+          "date": "8/9/2025, 11:30:19 AM",
+          "items": [
+            {
+              "id": "2",
+              "img": "https://m.media-amazon.com/images/I/51T8w3UJtAL._UF1000,1000_QL80_.jpg",
+              "title": "Bleu de Chanel",
+              "category": "men",
+              "price": 9400,
+              "description": "Woody aromatic fragrance with citrus and sandalwood notes.",
+              "ml": "200 ml",
+              "quantity": 1
+            }
+          ],
+          "total": 9400,
+          "dispatched": true
+        },
+        {
+          "date": "8/9/2025, 11:31:15 AM",
+          "items": [
+            {
+              "id": "2",
+              "img": "https://m.media-amazon.com/images/I/51T8w3UJtAL._UF1000,1000_QL80_.jpg",
+              "title": "Bleu de Chanel",
+              "category": "men",
+              "price": 9400,
+              "description": "Woody aromatic fragrance with citrus and sandalwood notes.",
+              "ml": "200 ml",
+              "quantity": 1
+            }
+          ],
+          "total": 9400,
+          "dispatched": true
+        },
+        {
+          "date": "8/9/2025, 11:32:05 AM",
+          "items": [
+            {
+              "id": "2",
+              "img": "https://m.media-amazon.com/images/I/51T8w3UJtAL._UF1000,1000_QL80_.jpg",
+              "title": "Bleu de Chanel",
+              "category": "men",
+              "price": 9400,
+              "description": "Woody aromatic fragrance with citrus and sandalwood notes.",
+              "ml": "200 ml",
+              "quantity": 1
+            }
+          ],
+          "total": 9400,
+          "dispatched": true
+        },
+        {
+          "date": "8/9/2025, 11:35:22 AM",
+          "items": [
+            {
+              "id": "1",
+              "img": "https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dwb57d0b59/Y0685240/Y0685240_F068524009_E01_GHC.jpg?sw=800",
+              "title": "Dior Sauvage Eau de Toilette",
+              "category": "men",
+              "price": 8200,
+              "description": "Bold, fresh, and masculine scent with bergamot, pepper, and amberwood.",
+              "ml": "300 ml",
+              "quantity": 2
+            },
+            {
+              "id": "21",
+              "img": "https://momperfume.in/cdn/shop/files/black-opium-ysl-1_f5543f66-ca48-47f3-a086-0a6ecd12325f.jpg?v=1720104850",
+              "title": "Yves Saint Laurent Black Opium",
+              "category": "women",
+              "price": 8900,
+              "description": "Warm, seductive fragrance with coffee, vanilla, and white flowers.",
+              "ml": "300 ml",
+              "quantity": 1
+            },
+            {
+              "id": "6",
+              "img": "https://altfragrance.in/cdn/shop/files/208.png?v=1716379445&width=1946",
+              "title": "Yves Saint Laurent L'Homme",
+              "category": "men",
+              "price": 7300,
+              "description": "Fresh and woody with ginger, bergamot, and vetiver.",
+              "ml": "300 ml",
+              "quantity": 1
+            }
+          ],
+          "total": 32600,
+          "dispatched": true
+        },
+        {
+          "date": "8/9/2025, 11:39:41 AM",
+          "items": [
+            {
+              "id": "16",
+              "img": "https://scentoria.co.in/cdn/shop/files/Chanel_No_5_100_ML_EDP_Tester.jpg?v=1713941378&width=900",
+              "title": "Chanel No. 5",
+              "category": "women",
+              "price": 10500,
+              "description": "Timeless floral with May rose, jasmine, and citrus notes.",
+              "ml": "300 ml",
+              "quantity": 1
+            }
+          ],
+          "total": 10500,
+          "dispatched": true
+        },
+        {
+          "date": "8/9/2025, 11:46:35 AM",
+          "items": [
+            {
+              "id": "16",
+              "img": "https://scentoria.co.in/cdn/shop/files/Chanel_No_5_100_ML_EDP_Tester.jpg?v=1713941378&width=900",
+              "title": "Chanel No. 5",
+              "category": "women",
+              "price": 10500,
+              "description": "Timeless floral with May rose, jasmine, and citrus notes.",
+              "ml": "300 ml",
+              "quantity": 1
+            }
+          ],
+          "total": 10500,
+          "dispatched": true
+        },
+        {
+          "date": "8/9/2025, 11:47:03 AM",
+          "items": [
+            {
+              "id": "17",
+              "img": "https://images-static.nykaa.com/media/catalog/product/d/b/db992abDIORX00000185.jpg",
+              "title": "Miss Dior Eau de Parfum",
+              "category": "women",
+              "price": 9800,
+              "description": "Romantic floral blend with roses, patchouli, and vanilla.",
+              "ml": "300 ml",
+              "quantity": 1
+            }
+          ],
+          "total": 9800,
+          "dispatched": true
+        },
+        {
+          "date": "8/9/2025, 11:47:43 AM",
+          "items": [
+            {
+              "id": "22",
+              "img": "https://images-static.nykaa.com/media/catalog/product/e/0/e0fc934763511009824_1.jpg?tr=w-500",
+              "title": "DKNY Be Delicious",
+              "category": "women",
+              "price": 5400,
+              "description": "Fruity floral with apple, cucumber, and grapefruit.",
+              "ml": "300 ml",
+              "quantity": 1
+            }
+          ],
+          "total": 5400,
+          "dispatched": true
+        },
+        {
+          "date": "8/9/2025, 4:38:26 PM",
+          "items": [
+            {
+              "id": "2",
+              "img": "https://m.media-amazon.com/images/I/51T8w3UJtAL._UF1000,1000_QL80_.jpg",
+              "title": "Bleu de Chanel",
+              "category": "men",
+              "price": 9400,
+              "description": "Woody aromatic fragrance with citrus and sandalwood notes.",
+              "ml": "200 ml",
+              "quantity": 1
+            },
+            {
+              "id": "10",
+              "img": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/000000000494434339/CLNop5Qw-S-000000000494434339_1.jpg",
+              "title": "Montblanc Legend",
+              "category": "men",
+              "price": 5900,
+              "description": "Elegant, subtle fragrance with pineapple and sandalwood.",
+              "ml": "300 ml",
+              "quantity": 1
+            },
+            {
+              "id": "25",
+              "img": "https://a.cdnsbn.com/images/products/l/33606835006-2.jpg",
+              "title": "Bvlgari Omnia Crystalline",
+              "category": "women",
+              "price": 7600,
+              "description": "Clean, soft scent with bamboo, pear, and lotus flower.",
+              "ml": "300 ml",
+              "quantity": 1
+            }
+          ],
+          "total": 22900,
+          "dispatched": true
+        },
+        {
+          "date": "8/12/2025, 9:25:45 AM",
+          "items": [
+            {
+              "id": "2",
+              "img": "https://m.media-amazon.com/images/I/51T8w3UJtAL._UF1000,1000_QL80_.jpg",
+              "title": "Bleu de Chanel",
+              "category": "men",
+              "price": 9400,
+              "description": "Woody aromatic fragrance with citrus and sandalwood notes.",
+              "ml": "200 ml",
+              "quantity": 2
+            }
+          ],
+          "total": 18800,
+          "dispatched": true
+        },
+        {
+          "date": "8/12/2025, 10:50:40 AM",
+          "items": [
+            {
+              "id": "16",
+              "img": "https://scentoria.co.in/cdn/shop/files/Chanel_No_5_100_ML_EDP_Tester.jpg?v=1713941378&width=900",
+              "title": "Chanel No. 5",
+              "category": "women",
+              "price": 10500,
+              "description": "Timeless floral with May rose, jasmine, and citrus notes.",
+              "ml": "300 ml",
+              "isActive": true,
+              "quantity": 1
+            }
+          ],
+          "total": 10500,
+          "dispatched": true
+        },
+        {
+          "date": "8/12/2025, 11:20:54 AM",
+          "items": [
+            {
+              "id": "2",
+              "img": "https://m.media-amazon.com/images/I/51T8w3UJtAL._UF1000,1000_QL80_.jpg",
+              "title": "Bleu de Chanel",
+              "category": "men",
+              "price": 9400,
+              "description": "Woody aromatic fragrance with citrus and sandalwood notes.",
+              "ml": "200 ml",
+              "isActive": true,
+              "quantity": 1
+            }
+          ],
+          "total": 9400,
+          "dispatched": true
+        },
+        {
+          "date": "8/12/2025, 5:23:50 PM",
+          "items": [
+            {
+              "id": "2",
+              "img": "https://m.media-amazon.com/images/I/51T8w3UJtAL._UF1000,1000_QL80_.jpg",
+              "title": "Bleu de Chanel",
+              "category": "men",
+              "price": 9400,
+              "description": "Woody aromatic fragrance with citrus and sandalwood notes.",
+              "ml": "200 ml",
+              "isActive": false,
+              "quantity": 1
+            },
+            {
+              "id": "11",
+              "img": "https://img.tatacliq.com/images/i10/658Wx734H/MP000000007971283_658Wx734H_202303032035571.jpeg",
+              "title": "Bvlgari Man in Black",
+              "category": "men",
+              "price": 9700,
+              "description": "Spicy amber scent with rum, spices, and leather.",
+              "ml": "300 ml",
+              "isActive": true,
+              "quantity": 1
+            }
+          ],
+          "total": 19100,
+          "dispatched": true
+        },
+        {
+          "date": "8/12/2025, 5:39:47 PM",
+          "items": [
+            {
+              "id": "22",
+              "img": "https://images-static.nykaa.com/media/catalog/product/e/0/e0fc934763511009824_1.jpg?tr=w-500",
+              "title": "DKNY Be Delicious",
+              "category": "women",
+              "price": 5400,
+              "description": "Fruity floral with apple, cucumber, and grapefruit.",
+              "ml": "300 ml",
+              "isActive": true,
+              "quantity": 1
+            }
+          ],
+          "total": 5400,
+          "dispatched": true
+        }
+      ],
+      "isActive": true,
+      "role": "user"
     },
     {
       "id": "eca4",
       "name": "arshu",
-      "email": "arshu",
-      "password": "1234"
+      "email": "arshu@gmail.com",
+      "password": "123456",
+      "orders": [
+        {
+          "date": "8/12/2025, 2:33:05 PM",
+          "items": [
+            {
+              "id": "11",
+              "img": "https://img.tatacliq.com/images/i10/658Wx734H/MP000000007971283_658Wx734H_202303032035571.jpeg",
+              "title": "Bvlgari Man in Black",
+              "category": "men",
+              "price": 9700,
+              "description": "Spicy amber scent with rum, spices, and leather.",
+              "ml": "300 ml",
+              "isActive": true,
+              "quantity": 1
+            },
+            {
+              "id": "2",
+              "img": "https://m.media-amazon.com/images/I/51T8w3UJtAL._UF1000,1000_QL80_.jpg",
+              "title": "Bleu de Chanel",
+              "category": "men",
+              "price": 9400,
+              "description": "Woody aromatic fragrance with citrus and sandalwood notes.",
+              "ml": "200 ml",
+              "isActive": true,
+              "quantity": 1
+            }
+          ],
+          "total": 19100,
+          "dispatched": true
+        },
+        {
+          "date": "8/12/2025, 2:33:23 PM",
+          "items": [
+            {
+              "id": "1",
+              "img": "https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dwb57d0b59/Y0685240/Y0685240_F068524009_E01_GHC.jpg?sw=800",
+              "title": "Dior Sauvage Eau de Toilette",
+              "category": "men",
+              "price": 8200,
+              "description": "Bold, fresh, and masculine scent with bergamot, pepper, and amberwood.",
+              "ml": "300 ml",
+              "isActive": true,
+              "quantity": 1
+            }
+          ],
+          "total": 8200,
+          "dispatched": true
+        },
+        {
+          "date": "8/12/2025, 2:39:27 PM",
+          "items": [
+            {
+              "id": "6",
+              "img": "https://altfragrance.in/cdn/shop/files/208.png?v=1716379445&width=1946",
+              "title": "Yves Saint Laurent L'Homme",
+              "category": "men",
+              "price": 7300,
+              "description": "Fresh and woody with ginger, bergamot, and vetiver.",
+              "ml": "300 ml",
+              "isActive": true,
+              "quantity": 1
+            },
+            {
+              "id": "1",
+              "img": "https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dwb57d0b59/Y0685240/Y0685240_F068524009_E01_GHC.jpg?sw=800",
+              "title": "Dior Sauvage Eau de Toilette",
+              "category": "men",
+              "price": 8200,
+              "description": "Bold, fresh, and masculine scent with bergamot, pepper, and amberwood.",
+              "ml": "300 ml",
+              "isActive": true,
+              "quantity": 1
+            },
+            {
+              "id": "18",
+              "img": "https://static.sweetcare.com/img/prd/488/v-638200526909275122/versace-011427vg_02.jpg",
+              "title": "Versace Bright Crystal",
+              "category": "women",
+              "price": 6700,
+              "description": "Delicate floral with pomegranate, peony, and lotus.",
+              "ml": "300 ml",
+              "isActive": true,
+              "quantity": 1
+            }
+          ],
+          "total": 22200,
+          "dispatched": true
+        }
+      ],
+      "isActive": true,
+      "role": "user"
     },
     {
       "id": "02f3",
       "name": "yasir",
       "email": "yasir@gmail.com",
-      "password": "1212"
+      "password": "1212",
+      "orders": [],
+      "isActive": true,
+      "role": "user"
     },
     {
       "id": "e726",
       "name": "nabeel11",
       "email": "nabeel11@gmail.com",
-      "password": "2222"
+      "password": "2222",
+      "orders": [],
+      "isActive": true,
+      "role": "user"
+    },
+    {
+      "id": "f66c",
+      "name": "98677",
+      "email": "nabeelkuttan@gmail.com",
+      "password": "1234",
+      "isActive": true,
+      "role": "user"
+    },
+    {
+      "id": "633b",
+      "name": "salman",
+      "email": "salman@gmail.com",
+      "password": "12345",
+      "role": "user",
+      "isActive": false
     }
   ],
   "wishlists": [
@@ -302,10 +762,35 @@
           "id": "1",
           "title": "Dior Sauvage Eau de Toilette",
           "price": "₹8200",
-          "img": "https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dwb57d0b59/Y0685240/Y0685240_F068524009_E01_GHC.jpg?sw=800"
+          "img": "https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dwb57d0b59/Y0685240/Y0685240_F068524009_E01_GHC.jpg?sw=800",
+          "category": "men"
+        },
+        {
+          "id": "2",
+          "title": "Bleu de Chanel",
+          "price": "₹9400",
+          "img": "https://m.media-amazon.com/images/I/51T8w3UJtAL._UF1000,1000_QL80_.jpg"
         }
       ],
       "id": "beab"
+    },
+    {
+      "userId": "eca4",
+      "items": [
+        {
+          "id": "3",
+          "title": "Acqua Di Gio by Giorgio Armani",
+          "price": "₹7800",
+          "img": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/armani/7025307/0/aPqcSktSCw-1_Product_3614273662420-Armani-Acqua-Di-Gio-Eau-De-Parfum-125ml_94fbea0280139b780095c8ca8a9b9cdf8f98a38c_1658118500.png"
+        },
+        {
+          "id": "4",
+          "title": "1 Million by Paco Rabanne",
+          "price": "₹7100",
+          "img": "https://assets.myntassets.com/w_412,q_auto:best,dpr_2,fl_progressive/assets/images/2233588/2022/8/6/f2e6ede7-a97d-486a-91e1-27e39f6f548d1659770117152PacoRabanneMen1MillionEaudeToilette100ML1.jpg"
+        }
+      ],
+      "id": "ed74"
     }
   ]
 }

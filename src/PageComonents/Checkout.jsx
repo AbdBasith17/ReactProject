@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import {Link } from 'react-router-dom'
-import { MdOutlineAssignmentReturn } from "react-icons/md";
+import {Link ,useNavigate} from 'react-router-dom'
+
+import axios from 'axios';
 
 const Checkout = () => {
   const [cartItems, setCartItems] = useState([]);
-  const [orderPlaced, setOrderPlaced] = useState(false);
+  
+    const user = JSON.parse(localStorage.getItem('user'));
+    const navigate=useNavigate()
 
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -13,22 +16,42 @@ const Checkout = () => {
 
   const total = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
-  const handlePlaceOrder = () => {
-    setOrderPlaced(true);
-    localStorage.removeItem('cart');
+   const handlePlaceOrder = async () => {
+  if (!user) return;
+
+  const order = {
+    date: new Date().toLocaleString(),
+    items: cartItems,
+    total: total,
   };
 
-  if (orderPlaced) {
-    return (
-      <div className="container mx-auto px-4 py-30 max-w-2xl h-80 text-center">
-        <h2 className="text-3xl font-bold text-green-600 mb-4">Order Placed Successfully!</h2>
-        <p className="text-gray-600">Thank you for your purchase.</p>
-        <br />
-        <Link to='/productpage' className="text-2xl font-bold flex items-center justify-center text-gray-500 mb-4">Continue <span className='text-green-600 ml-3 flex items-center'>Shopping <MdOutlineAssignmentReturn className='ml-3' size={30}/></span></Link> 
+  try {
+    // Get current user from DB
+    const res = await axios.get(`http://localhost:3000/users/${user.id}`);
+    const existingOrders = res.data.orders || [];
 
-      </div>
-    );
+    // Add new order
+    const updatedUser = {
+      ...res.data,
+      orders: [...existingOrders, order],
+    };
+
+    // Update user with new order
+    await axios.put(`http://localhost:3000/users/${user.id}`, updatedUser);
+
+    // Clear cart in localStorage AND state
+    localStorage.removeItem("cart");
+    setCartItems([]); // <--- Clear cart in React state too
+
+   navigate('/orderplaced', { replace: true });
+ // <--- Set orderPlaced AFTER clearing cart state
+  } catch (err) {
+    console.error("Error placing order:", err);
   }
+};
+
+
+ 
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-5xl">

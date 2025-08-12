@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function SignIn() {
   const [email, setEmail] = useState('');
@@ -9,22 +9,33 @@ function SignIn() {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    
-      const res = await axios.get('http://localhost:3000/users?email=' + email + '&password=' + password);
-      
+    try {
+         const res = await axios.get('http://localhost:3000/users?email=' + email + '&password=' + password);
+
       if (res.data.length > 0) {
         const user = res.data[0];
 
+        if (!user.isActive) {
+          setError('Your account is deactivated. Please contact support.');
+          return;
+        }
+
+ 
         console.log("Login successful:", user);
-
         localStorage.setItem('user', JSON.stringify(user));
-        navigate('/');
 
-      } 
-      else {
+        if (user.role === 'admin') {
+          navigate('/admin/admindash'); 
+        } else {
+          navigate('/');
+        }
+      } else {
         setError('Invalid email or password');
       }
-    
+    } catch (err) {
+      console.error(err);
+      setError('Something went wrong. Please try again.');
+    }
   };
 
   return (
@@ -47,7 +58,6 @@ function SignIn() {
           </div>
 
           <div className="flex flex-col gap-4 px-6 py-4">
-            
             <div className="w-full max-w-sm min-w-[200px]">
               <label className="block mb-2 text-sm font-normal text-slate-900">Email</label>
               <input
@@ -58,9 +68,6 @@ function SignIn() {
                 placeholder="Enter Email"
               />
             </div>
-
-        
-
 
             <div className="w-full max-w-sm min-w-[200px]">
               <label className="block mb-2 text-sm font-normal text-slate-900">Password</label>
@@ -80,9 +87,6 @@ function SignIn() {
             </div>
           )}
 
-
-
-    
           <div className="p-6 pt-0">
             <button
               className="w-full rounded-md bg-green-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-green-700 focus:shadow-none active:bg-green-700 hover:bg-green-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
@@ -94,12 +98,12 @@ function SignIn() {
 
             <p className="flex justify-center mt-6 text-sm text-slate-600">
               Don't have an account?
-              <a
-                href="/register"
+              <Link
+                to="/register"
                 className="ml-1 text-sm font-semibold text-slate-700 underline"
               >
                 Register
-              </a>
+              </Link>
             </p>
           </div>
         </div>

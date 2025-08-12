@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function Register() {
  
@@ -30,12 +31,15 @@ function Register() {
   alert('Password must be at least 4 characters long.');
   return;
 }
+1 
 
     try {
       await axios.post('http://localhost:3000/users', {
         name,
         email,
-        password
+        password,
+        role:"user",
+        isActive:true
       });
 
       alert('User registered successfully!');
@@ -125,9 +129,9 @@ function Register() {
 
             <p className="flex justify-center mt-6 text-sm text-slate-600">
               Already have an account?
-              <a href="/signin" className="ml-1 text-sm font-semibold text-slate-700 underline">
+              <Link to="/signin" className="ml-1 text-sm font-semibold text-slate-700 underline">
                 Login
-              </a>
+              </Link>
             </p>
           </div>
         </div>

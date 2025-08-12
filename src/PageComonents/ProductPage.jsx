@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import ItemCard from "./Itemcard";
+import ItemCard from "../Othercomponets/Itemcard";
 import axios from "axios";
-import Change from "./Change";
+import Change from "../Home/Change";
+import { Link } from "react-router-dom";
 
 function ProductPage() {
   const [products, setProducts] = useState([]);
 
 
   useEffect(() => {
-    axios.get("http://localhost:3000/products")
+   axios.get("http://localhost:3000/products?isActive=true")
       .then((response) => {
         setProducts(response.data);
       })
@@ -51,7 +52,7 @@ function ProductPage() {
       </div>
        <div className="text-center text-sm text-gray-500 pt-6 border-t border-gray-300 font-bold">
         
-       <a href="/productpage"  className="pt-10">Go to TOP</a>
+       <Link to="/productpage"  className="pt-10">Go to TOP</Link>
       </div>
 
     </div>

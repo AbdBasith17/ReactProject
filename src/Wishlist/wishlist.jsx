@@ -15,7 +15,7 @@ const navigate=useNavigate()
   useEffect(() => {
     if (!user) return;
 
-    // Fetch the wishlist for the current user
+   
     const fetchWishlist = async () => {
       try {
         const res = await axios.get(`http://localhost:3000/wishlists?userId=${user.id}`);

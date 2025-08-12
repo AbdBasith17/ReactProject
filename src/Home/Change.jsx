@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import bg1 from './assets/1-1-scaled.jpg';
-import bg2 from './assets/2-1-scaled.jpg';
-import bg3 from './assets/3-1-scaled.jpg';
-import bg4 from './assets/4-1-scaled.jpg';
-import bg5 from './assets/5-1-scaled.jpg';
-import bg6 from './assets/6-1-scaled.jpg';
+import bg1 from './images/1-1-scaled.jpg';
+import bg2 from './images/2-1-scaled.jpg';
+import bg3 from './images/3-1-scaled.jpg';
+import bg4 from './images/4-1-scaled.jpg';
+import bg5 from './images/5-1-scaled.jpg';
+import bg6 from './images/6-1-scaled.jpg';
 
 const images = [bg1, bg2, bg3,bg4,bg5,bg6];
 

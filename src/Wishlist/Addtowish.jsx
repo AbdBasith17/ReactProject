@@ -33,6 +33,8 @@ const AddToWishlistButton = ({ product }) => {
 
   const handleAddToWishlist = async (e) => {
     e.stopPropagation();
+  
+    
 
     if (!user) {
       toast.error("Please log in to add to wishlist.");

@@ -869,6 +869,34 @@
             }
           ],
           "total": 9700
+        },
+        {
+          "date": "23/8/2025, 3:18:14 pm",
+          "items": [
+            {
+              "id": "17",
+              "img": "https://images-static.nykaa.com/media/catalog/product/d/b/db992abDIORX00000185.jpg",
+              "title": "Miss Dior Eau de Parfum",
+              "category": "women",
+              "price": 9800,
+              "description": "Romantic floral blend with roses, patchouli, and vanilla.",
+              "ml": "300 ml",
+              "isActive": true,
+              "quantity": 2
+            },
+            {
+              "id": "3",
+              "img": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/armani/7025307/0/aPqcSktSCw-1_Product_3614273662420-Armani-Acqua-Di-Gio-Eau-De-Parfum-125ml_94fbea0280139b780095c8ca8a9b9cdf8f98a38c_1658118500.png",
+              "title": "Acqua Di Gio by Giorgio Armani",
+              "category": "men",
+              "price": 7800,
+              "description": "Fresh aquatic scent with marine, citrus, and woody tones.",
+              "ml": "400 ml",
+              "isActive": true,
+              "quantity": 1
+            }
+          ],
+          "total": 27400
         }
       ],
       "isActive": true,

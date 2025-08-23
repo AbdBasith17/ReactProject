@@ -26,25 +26,24 @@ const Checkout = () => {
   };
 
   try {
-    // Get current user from DB
+  
     const res = await axios.get(`http://localhost:3000/users/${user.id}`);
     const existingOrders = res.data.orders || [];
 
-    // Add new order
+    
     const updatedUser = {
       ...res.data,
       orders: [...existingOrders, order],
     };
 
-    // Update user with new order
     await axios.put(`http://localhost:3000/users/${user.id}`, updatedUser);
 
-    // Clear cart in localStorage AND state
+   
     localStorage.removeItem("cart");
-    setCartItems([]); // <--- Clear cart in React state too
+    setCartItems([]);
 
    navigate('/orderplaced', { replace: true });
- // <--- Set orderPlaced AFTER clearing cart state
+
   } catch (err) {
     console.error("Error placing order:", err);
   }

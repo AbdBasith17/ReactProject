@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer
+} from 'recharts';
 
 function Dashboard() {
   const [stats, setStats] = useState({
@@ -11,6 +19,11 @@ function Dashboard() {
   });
 
   const [revenueData, setRevenueData] = useState([]);
+
+  const formatDate = (isoString) => {
+    const date = new Date(isoString);
+    return date.toLocaleDateString('en-GB'); 
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,8 +42,7 @@ function Dashboard() {
           const orderTotal = parseFloat(order.total || 0);
           revenue += orderTotal;
 
-          // Extract date only (YYYY-MM-DD)
-          const date = order.date ? order.date.split('T')[0] : 'Unknown';
+          const date = order.date ? formatDate(order.date) : 'Unknown';
 
           if (date !== 'Unknown') {
             revenueByDate[date] = (revenueByDate[date] || 0) + orderTotal;
@@ -40,7 +52,7 @@ function Dashboard() {
 
       const chartData = Object.entries(revenueByDate)
         .map(([date, total]) => ({ date, revenue: total }))
-        .sort((a, b) => new Date(a.date) - new Date(b.date));
+        .sort((a, b) => new Date(a.date.split('/').reverse().join('-')) - new Date(b.date.split('/').reverse().join('-')));
 
       setStats({
         users: userRes.data.length,
@@ -65,6 +77,7 @@ function Dashboard() {
   return (
     <div className="p-6 space-y-6 bg-white min-h-screen">
       <h1 className="text-2xl font-bold text-gray-800">Dashboard</h1>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {cards.map((card, idx) => (
           <div
@@ -79,6 +92,7 @@ function Dashboard() {
 
       <div className="mt-10 bg-white p-6 rounded-lg border border-gray-200 shadow">
         <h2 className="text-xl font-semibold mb-4 text-gray-700">Revenue Over Time</h2>
+
         {revenueData.length > 0 ? (
           <>
             <ResponsiveContainer width="100%" height={300}>
@@ -90,6 +104,7 @@ function Dashboard() {
                 <Bar dataKey="revenue" fill="#22c55e" />
               </BarChart>
             </ResponsiveContainer>
+
             <div className="mt-6 max-h-48 overflow-y-auto border border-gray-300 rounded p-3">
               <h3 className="font-semibold mb-2">Revenue Details</h3>
               <ul className="text-gray-700 text-sm">

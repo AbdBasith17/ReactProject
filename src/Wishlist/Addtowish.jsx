@@ -32,7 +32,8 @@ const AddToWishlistButton = ({ product }) => {
   }, [user, product.id]);
 
   const handleAddToWishlist = async (e) => {
-    e.stopPropagation();
+   e.preventDefault();  
+  e.stopPropagation();
   
     
 
@@ -44,7 +45,7 @@ const AddToWishlistButton = ({ product }) => {
     try {
       if (isInWishlist) {
         toast.info("Already in your wishlist.");
-        navigate('/wishlist')
+      
         return;
       }
 
@@ -62,9 +63,9 @@ const AddToWishlistButton = ({ product }) => {
           ...res.data,
           items: updatedItems,
         });
+        
 
         setIsInWishlist(true);
-        toast.success("Added to wishlist!");
       } else {
         const newWishlist = await axios.post(`http://localhost:3000/wishlists`, {
           userId: user.id,
@@ -81,16 +82,16 @@ const AddToWishlistButton = ({ product }) => {
 
         setWishlistId(newWishlist.data.id);
         setIsInWishlist(true);
-        toast.success("Added to wishlist!");
+        
       }
     } catch (err) {
-      console.error("Error updating wishlist:", err);
       toast.error("Failed to add to wishlist.");
     }
   };
 
   return (
-    <button
+    <div
+    type="button"
       className="absolute top-2 right-2 text-gray-500 hover:text-green-700 cursor-pointer"
       onClick={handleAddToWishlist}
       title={isInWishlist ? "Already in Wishlist" : "Add to Wishlist"}
@@ -100,7 +101,7 @@ const AddToWishlistButton = ({ product }) => {
       ) : (
         <FaHeartCirclePlus size={30} />
       )}
-    </button>
+    </div>
   );
 };
 

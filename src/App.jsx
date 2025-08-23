@@ -28,11 +28,14 @@ import Users from './admindash/pages/user';
 import Orders from './admindash/pages/order';
 import AdminRouteProtect from './Routeprotector/adminrouteprotect';
 import LogRoute from './Routeprotector/Loginprotect';
+import NonAdminRoute from './Routeprotector/NonAdminroute';
+
+
 
 
 function AppLayout() {
   const location = useLocation();
-  const hideNav = ['/signin', '/register','/admin/admindash','/admin/product','/admin/user','/admin/order'];
+  const hideNav = ['/signin','/flag', '/register','/admin','/admin/admindash','/admin/product','/admin/user','/admin/order'];
   const hideLayout = hideNav.includes(location.pathname);
 
   return (
@@ -40,20 +43,22 @@ function AppLayout() {
       {/* <ScrollToTop /> */}
       {!hideLayout && <Navbar />}
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<NonAdminRoute><Home /></NonAdminRoute>} />
         <Route path="/signin" element={<LogRoute><SignIn /></LogRoute> }/>
         <Route path="/register" element={<Register />} />
-        <Route path="/productpage" element={<ProductPage />} />
-        <Route path="/productview/:id" element={<ProductOverview />} />
+        <Route path="/productpage" element={<NonAdminRoute><ProductPage /></NonAdminRoute>} />
+        <Route path="/productview/:id" element={<NonAdminRoute><ProductOverview /></NonAdminRoute>} />
         <Route path="/men" element={<MenPage />} />
         <Route path="/women" element={<WomenPage />} />
-        <Route path="/cart" element={<Routeprotect><Cart /></Routeprotect>} />
-        <Route path="/orderplaced" element={<Routeprotect><OrderPlaced /></Routeprotect>} />
+        <Route path="/cart" element={<NonAdminRoute><Routeprotect><Cart /></Routeprotect></NonAdminRoute>} />
+        <Route path="/orderplaced" element={<NonAdminRoute><Routeprotect><OrderPlaced /></Routeprotect></NonAdminRoute>} />
 
-        <Route path="/wishlist" element={<Wishlist />} />
+        <Route path="/wishlist" element={<NonAdminRoute><Wishlist /></NonAdminRoute>} />
 
         <Route path="/checkout" element={<Routeprotect><Checkout /></Routeprotect>} />
-        <Route path="/userdata" element={<UserDashboard />} />
+        <Route path="/userdata" element={<NonAdminRoute><UserDashboard /></NonAdminRoute>} />
+       
+
 
 
 

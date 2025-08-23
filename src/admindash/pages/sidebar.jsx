@@ -22,7 +22,7 @@ function Sidebar() {
               onClick={() => {
                 localStorage.removeItem('user');
                 closeToast();
-                navigate('/');
+                navigate('/signin');
               }}
             >
               Logout

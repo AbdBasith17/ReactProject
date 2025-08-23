@@ -11,7 +11,7 @@ function UserDetails() {
     toast.info(
       <div className="flex items-center justify-between gap-4 w-200">
         <span>Are you sure you want to logout?</span>
-        <div className="flex gap-2">
+        <div className="flex gap-2 w-150">
           <button
             onClick={() => {
               localStorage.removeItem("user");

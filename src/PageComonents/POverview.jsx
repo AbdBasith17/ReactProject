@@ -78,7 +78,7 @@ function ProductOverview() {
             <h1 className="text-5xl font-normal mb-4">{products.title}</h1>
 
             <p className='mb-2'>
-              <span className="text-xl text-gray-500 line-through font-semibold mb-5">₹{'oldprice'}</span>{' '}
+              <span className="text-xl text-gray-500 line-through font-semibold mb-5"></span>{' '}
               <span className="text-2xl text-green-600 font-semibold mb-4">₹{products.price}</span>
             </p>
             <p className="text-gray-700 mb-2">{products.description}</p>
@@ -104,8 +104,7 @@ function ProductOverview() {
           <div className="mb-8">
             <h2 className="text-2xl font-semibold mb-3 border-b border-gray-200 pb-2">Product Description</h2>
             <p className="text-gray-700 leading-relaxed">
-              Experience the luxury of Carolina Herrera's Good Girl fragrance. This bold scent captures the essence of duality—
-              sophisticated yet playful, elegant yet energetic. Crafted with premium ingredients for lasting freshness and allure.
+             Discover the essence of elegance and individuality with our carefully curated selection of perfumes. Each fragrance is crafted with premium ingredients to deliver a lasting impression — whether you prefer something fresh and floral, warm and woody, or bold and exotic. Perfect for daily wear or special occasions, our collection includes signature scents from the world's most renowned brands. Find your next favorite fragrance and express your unique style through scent.
             </p>
           </div>
 

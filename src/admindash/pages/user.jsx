@@ -31,7 +31,7 @@ function Users() {
     <div>
       <h1 className="text-2xl font-bold mb-4 text-gray-800">User Management</h1>
 
-      {/* Search Bar */}
+     
       <input
         type="text"
         placeholder="Search by name or email"
@@ -39,6 +39,8 @@ function Users() {
         onChange={(e) => setSearchTerm(e.target.value)}
         className="mb-6 w-full p-2 border rounded"
       />
+
+
 
       {filteredUsers.length > 0 ? (
         filteredUsers.map((user) => (

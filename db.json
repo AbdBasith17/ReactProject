@@ -1,94 +1,93 @@
 {
   "products": [
-    {
-      "id": "1",
-      "img": "https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dwb57d0b59/Y0685240/Y0685240_F068524009_E01_GHC.jpg?sw=800",
-      "title": "Dior Sauvage Eau de Toilette",
-      "category": "men",
-      "price": 8200,
-      "description": "Bold, fresh, and masculine scent with bergamot, pepper, and amberwood.",
-      "ml": "300 ml",
-      "isActive": true
-    },
-    {
-      "id": "2",
-      "img": "https://m.media-amazon.com/images/I/51T8w3UJtAL._UF1000,1000_QL80_.jpg",
-      "title": "Bleu de Chanel",
-      "category": "men",
-      "price": 9400,
-      "description": "Woody aromatic fragrance with citrus and sandalwood notes.",
-      "ml": "200 ml",
-      "isActive": false
-    },
-    {
-      "id": "3",
-      "img": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/armani/7025307/0/aPqcSktSCw-1_Product_3614273662420-Armani-Acqua-Di-Gio-Eau-De-Parfum-125ml_94fbea0280139b780095c8ca8a9b9cdf8f98a38c_1658118500.png",
-      "title": "Acqua Di Gio by Giorgio Armani",
-      "category": "men",
-      "price": 7800,
-      "description": "Fresh aquatic scent with marine, citrus, and woody tones.",
-      "ml": "400 ml",
-      "isActive": true
-    },
-    {
-      "id": "4",
-      "img": "https://assets.myntassets.com/w_412,q_auto:best,dpr_2,fl_progressive/assets/images/2233588/2022/8/6/f2e6ede7-a97d-486a-91e1-27e39f6f548d1659770117152PacoRabanneMen1MillionEaudeToilette100ML1.jpg",
-      "title": "1 Million by Paco Rabanne",
-      "category": "men",
-      "price": 7100,
-      "description": "Warm and spicy with notes of cinnamon, leather, and amber.",
-      "ml": "300 ml",
-      "isActive": true
-    },
-    {
-      "id": "5",
-      "img": "https://m.media-amazon.com/images/I/61knAWmGjtL.jpg",
-      "title": "David Beckham Instinct",
-      "category": "men",
-      "price": 2200,
-      "description": "Aromatic fougère with grapefruit, bergamot, and star anise.",
-      "ml": "300 ml",
-      "isActive": true
-    },
-    {
-      "id": "6",
-      "img": "https://altfragrance.in/cdn/shop/files/208.png?v=1716379445&width=1946",
-      "title": "Yves Saint Laurent L'Homme",
-      "category": "men",
-      "price": 7300,
-      "description": "Fresh and woody with ginger, bergamot, and vetiver.",
-      "ml": "300 ml",
-      "isActive": true
-    },
-    {
-      "id": "7",
-      "img": "https://www.perfumeaddicts.in/wp-content/uploads/2024/02/burberry-touch-pour-homme-for-men-100ml-edt-main-1.webp",
-      "title": "Burberry Men",
-      "category": "men",
-      "price": 5400,
-      "description": "Classic scent with lavender, mint, and cedarwood.",
-      "ml": "300 ml",
-      "isActive": true
-    },
-    {
-      "id": "8",
-      "img": "https://www.versace.com/dw/image/v2/BGWN_PRD/on/demandware.static/-/Sites-ver-master-catalog/default/dwcc47a2f0/original/90_R740011-R200MLS_RNUL_20_Eros~EDT~200~ml-Accessories-Versace-online-store_0_1.jpg?sw=850&q=85&strip=true",
-      "title": "Versace Eros",
-      "category": "men",
-      "price": 8800,
-      "description": "Intense masculine fragrance with mint, green apple, and tonka bean.",
-      "ml": "300 ml",
-      "isActive": true
-    },
+  {
+    "id": "1",
+    "img": "https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dwb57d0b59/Y0685240/Y0685240_F068524009_E01_GHC.jpg?sw=800",
+    "title": "Dior Sauvage Eau de Toilette",
+    "category": "men",
+    "price": 8200,
+    "description": "Bold, fresh, and masculine scent with bergamot, pepper, and amberwood. Inspired by wide open landscapes, Dior Sauvage offers a raw yet sophisticated fragrance experience with sparkling citrus balanced by spice and earthy woods, making it perfect for confident men.",
+    "ml": "300 ml",
+    "isActive": true
+  },
+  {
+    "id": "2",
+    "img": "https://m.media-amazon.com/images/I/51T8w3UJtAL._UF1000,1000_QL80_.jpg",
+    "title": "Bleu de Chanel",
+    "category": "men",
+    "price": 9400,
+    "description": "Woody aromatic fragrance with citrus and sandalwood notes. A timeless and modern classic, Bleu de Chanel radiates elegance with its crisp grapefruit, dry cedarwood, and subtle incense undertones, making it a versatile choice for both day and night.",
+    "ml": "200 ml",
+    "isActive": false
+  },
+  {
+    "id": "3",
+    "img": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/armani/7025307/0/aPqcSktSCw-1_Product_3614273662420-Armani-Acqua-Di-Gio-Eau-De-Parfum-125ml_94fbea0280139b780095c8ca8a9b9cdf8f98a38c_1658118500.png",
+    "title": "Acqua Di Gio by Giorgio Armani",
+    "category": "men",
+    "price": 7800,
+    "description": "Fresh aquatic scent with marine, citrus, and woody tones. Reminiscent of ocean waves and Mediterranean breezes, it features bright lime, sea notes, and a deep cedar finish for an endlessly refreshing yet refined fragrance.",
+    "ml": "400 ml",
+    "isActive": true
+  },
+  {
+    "id": "4",
+    "img": "https://assets.myntassets.com/w_412,q_auto:best,dpr_2,fl_progressive/assets/images/2233588/2022/8/6/f2e6ede7-a97d-486a-91e1-27e39f6f548d1659770117152PacoRabanneMen1MillionEaudeToilette100ML1.jpg",
+    "title": "1 Million by Paco Rabanne",
+    "category": "men",
+    "price": 7100,
+    "description": "Warm and spicy with notes of cinnamon, leather, and amber. Housed in its iconic gold bar bottle, this fragrance combines rich spices with luxurious leather and sweet amber for a bold and extravagant masculine scent.",
+    "ml": "300 ml",
+    "isActive": true
+  },
+  {
+    "id": "5",
+    "img": "https://m.media-amazon.com/images/I/61knAWmGjtL.jpg",
+    "title": "David Beckham Instinct",
+    "category": "men",
+    "price": 2200,
+    "description": "Aromatic fougère with grapefruit, bergamot, and star anise. Effortless yet charming, Instinct fuses vibrant citrus with a subtle spice, creating a sporty and elegant everyday fragrance for confident men.",
+    "ml": "300 ml",
+    "isActive": true
+  },
+  {
+    "id": "6",
+    "img": "https://altfragrance.in/cdn/shop/files/208.png?v=1716379445&width=1946",
+    "title": "Yves Saint Laurent L'Homme",
+    "category": "men",
+    "price": 7300,
+    "description": "Fresh and woody with ginger, bergamot, and vetiver. A charismatic balance of brightness and depth, L'Homme blends crisp citrus with spicy ginger and smoky woods, exuding sophistication for urban gentlemen.",
+    "ml": "300 ml",
+    "isActive": true
+  },
+  {
+    "id": "7",
+    "img": "https://www.perfumeaddicts.in/wp-content/uploads/2024/02/burberry-touch-pour-homme-for-men-100ml-edt-main-1.webp",
+    "title": "Burberry Men",
+    "category": "men",
+    "price": 5400,
+    "description": "Classic scent with lavender, mint, and cedarwood. Burberry Men evokes timeless British elegance with refined lavender and fresh mint warmed by soft woods, making it suitable for daily wear.",
+    "ml": "300 ml",
+    "isActive": true
+  },
+  {
+    "id": "8",
+    "img": "https://www.versace.com/dw/image/v2/BGWN_PRD/on/demandware.static/-/Sites-ver-master-catalog/default/dwcc47a2f0/original/90_R740011-R200MLS_RNUL_20_Eros~EDT~200~ml-Accessories-Versace-online-store_0_1.jpg?sw=850&q=85&strip=true",
+    "title": "Versace Eros",
+    "category": "men",
+    "price": 8800,
+    "description": "Intense masculine fragrance with mint, green apple, and tonka bean. Inspired by love and passion, Eros is refreshing yet sensual, mixing vibrant fruits with warm vanilla-tonka to craft a powerful signature scent.",
+    "ml": "300 ml",
+    "isActive": true
+  },
+    
     {
       "id": "9",
       "img": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/000000000491937637/SrkkzzJ8R-000000000491937637_1.jpeg",
       "title": "Calvin Klein Eternity for Men",
       "category": "men",
       "price": 4600,
-      "description": "Refreshing scent with lavender, lemon, and sandalwood.",
-      "ml": "300 ml",
-      "isActive": true
+      "description": "Refreshing scent with lavender, lemon, and sandalwood. Eternity for Men celebrates timeless style with clean citrus and aromatic herbs layered over creamy sandalwood, conveying sophistication and everyday elegance."
     },
     {
       "id": "10",
@@ -96,9 +95,7 @@
       "title": "Montblanc Legend",
       "category": "men",
       "price": 5900,
-      "description": "Elegant, subtle fragrance with pineapple and sandalwood.",
-      "ml": "300 ml",
-      "isActive": true
+      "description": "Elegant, subtle fragrance with pineapple and sandalwood. Montblanc Legend evokes confidence with its blend of fruity freshness and smooth woods, making it ideal for both professional and casual settings."
     },
     {
       "id": "11",
@@ -106,9 +103,7 @@
       "title": "Bvlgari Man in Black",
       "category": "men",
       "price": 9700,
-      "description": "Spicy amber scent with rum, spices, and leather.",
-      "ml": "300 ml",
-      "isActive": true
+      "description": "Spicy amber scent with rum, spices, and leather. Bold and mysterious, Man in Black fuses boozy warmth with smoky leather and rich spices for a distinctive, statement-making presence."
     },
     {
       "id": "12",
@@ -116,9 +111,7 @@
       "title": "Hugo Boss Bottled",
       "category": "men",
       "price": 6800,
-      "description": "Warm and spicy fragrance with apple, cinnamon, and sandalwood.",
-      "ml": "300 ml",
-      "isActive": true
+      "description": "Warm and spicy fragrance with apple, cinnamon, and sandalwood. Boss Bottled pairs crisp apple with spiced cinnamon, set against a backdrop of smooth woods, creating a modern, versatile scent for any occasion."
     },
     {
       "id": "13",
@@ -126,9 +119,7 @@
       "title": "Gucci Guilty Pour Homme",
       "category": "men",
       "price": 8600,
-      "description": "Aromatic fougère with lavender, lemon, and patchouli.",
-      "ml": "300 ml",
-      "isActive": true
+      "description": "Aromatic fougère with lavender, lemon, and patchouli. Gucci Guilty Pour Homme is sensual and rebellious, opening with invigorating citrus and building to a complex herbal and earthy base."
     },
     {
       "id": "14",
@@ -136,9 +127,7 @@
       "title": "Prada L'Homme",
       "category": "men",
       "price": 9900,
-      "description": "Sophisticated blend of iris, amber, and neroli.",
-      "ml": "300 ml",
-      "isActive": true
+      "description": "Sophisticated blend of iris, amber, and neroli. Prada L'Homme is understated yet refined, driven by powdery florals and resinous undertones for an elegant, modern fragrance perfect for work or evening."
     },
     {
       "id": "15",
@@ -146,9 +135,7 @@
       "title": "Lacoste Blanc",
       "category": "men",
       "price": 5200,
-      "description": "Fresh and clean with grapefruit, rosemary, and cedarwood.",
-      "ml": "300 ml",
-      "isActive": true
+      "description": "Fresh and clean with grapefruit, rosemary, and cedarwood. This energetic fragrance channels athletic minimalism, combining sparkling grapefruit and aromatic herbs with crisp woods for an effortlessly stylish scent."
     },
     {
       "id": "16",
@@ -156,19 +143,15 @@
       "title": "Chanel No. 5",
       "category": "women",
       "price": 10500,
-      "description": "Timeless floral with May rose, jasmine, and citrus notes.",
-      "ml": "300 ml",
-      "isActive": true
+      "description": "Timeless floral with May rose, jasmine, and citrus notes. Chanel No. 5 is an icon of sophistication, artfully balancing soft florals and sparkling aldehydes to craft a luxuriously classic, feminine aroma."
     },
     {
       "id": "17",
-      "img": "https://images-static.nykaa.com/media/catalog/product/d/b/db992abDIORX00000185.jpg",
+      "img": "https://m.media-amazon.com/images/I/61R1+HpKFPL._UF1000,1000_QL80_.jpg",
       "title": "Miss Dior Eau de Parfum",
       "category": "women",
       "price": 9800,
-      "description": "Romantic floral blend with roses, patchouli, and vanilla.",
-      "ml": "300 ml",
-      "isActive": true
+      "description": "Romantic floral blend with roses, patchouli, and vanilla. Miss Dior flourishes with vibrant rose petals over a rich, earthy patchouli and creamy vanilla, evoking youthful romance and refined grace."
     },
     {
       "id": "18",
@@ -176,9 +159,7 @@
       "title": "Versace Bright Crystal",
       "category": "women",
       "price": 6700,
-      "description": "Delicate floral with pomegranate, peony, and lotus.",
-      "ml": "300 ml",
-      "isActive": true
+      "description": "Delicate floral with pomegranate, peony, and lotus. Bright Crystal sparkles with lively fruity notes and soft floral heart, delivering a light, cheerful fragrance suited for spring and daytime wear."
     },
     {
       "id": "19",
@@ -186,9 +167,7 @@
       "title": "Gucci Bloom",
       "category": "women",
       "price": 8200,
-      "description": "White floral fragrance with jasmine, tuberose, and rangoon creeper.",
-      "ml": "300 ml",
-      "isActive": true
+      "description": "White floral fragrance with jasmine, tuberose, and rangoon creeper. Gucci Bloom surrounds the senses with lush, blooming garden notes for an exuberantly feminine, natural perfume experience."
     },
     {
       "id": "20",
@@ -196,9 +175,7 @@
       "title": "Carolina Herrera Good Girl",
       "category": "women",
       "price": 8700,
-      "description": "Sweet and spicy scent with almond, coffee, and jasmine.",
-      "ml": "300 ml",
-      "isActive": true
+      "description": "Sweet and spicy scent with almond, coffee, and jasmine. Good Girl dazzles with contradictions—creamy sweetness, mysterious dark coffee, and bright florals—for a bold, glamorous fragrance statement."
     },
     {
       "id": "21",
@@ -206,9 +183,7 @@
       "title": "Yves Saint Laurent Black Opium",
       "category": "women",
       "price": 8900,
-      "description": "Warm, seductive fragrance with coffee, vanilla, and white flowers.",
-      "ml": "300 ml",
-      "isActive": true
+      "description": "Warm, seductive fragrance with coffee, vanilla, and white flowers. Black Opium is addictively rich and sweet, blending deep coffee intensity with velvety florals and sensual vanilla for evening allure."
     },
     {
       "id": "22",
@@ -216,9 +191,7 @@
       "title": "DKNY Be Delicious",
       "category": "women",
       "price": 5400,
-      "description": "Fruity floral with apple, cucumber, and grapefruit.",
-      "ml": "300 ml",
-      "isActive": true
+      "description": "Fruity floral with apple, cucumber, and grapefruit. Be Delicious is juicy and fresh, bursting with crisp apple and vibrant citrus over soft floral tones for a playful, modern feminine scent."
     },
     {
       "id": "23",
@@ -226,9 +199,7 @@
       "title": "Tom Ford Rose Prick",
       "category": "women",
       "price": 13500,
-      "description": "Bold rose-centric fragrance with Sichuan pepper and turmeric.",
-      "ml": "300 ml",
-      "isActive": true
+      "description": "Bold rose-centric fragrance with Sichuan pepper and turmeric. Rose Prick offers a daring twist to classic rose, infusing spicy, herbal warmth and opulent floral intensity in a truly unique perfume."
     },
     {
       "id": "24",
@@ -236,9 +207,7 @@
       "title": "Jo Malone Peony & Blush Suede",
       "category": "women",
       "price": 9200,
-      "description": "Elegant floral with red apple, peony, and suede.",
-      "ml": "300 ml",
-      "isActive": true
+      "description": "Elegant floral with red apple, peony, and suede. Peony & Blush Suede is utterly romantic, blending juicy fruit with soft florals and luxurious leather undertones for a sophisticated everyday scent."
     },
     {
       "id": "25",
@@ -246,9 +215,7 @@
       "title": "Bvlgari Omnia Crystalline",
       "category": "women",
       "price": 7600,
-      "description": "Clean, soft scent with bamboo, pear, and lotus flower.",
-      "ml": "300 ml",
-      "isActive": true
+      "description": "Clean, soft scent with bamboo, pear, and lotus flower. Omnia Crystalline offers a bright, airy blend of gentle fruits and florals—perfect for those seeking a subtle, modern, and pure fragrance."
     },
     {
       "id": "26",
@@ -256,9 +223,7 @@
       "title": "Lancôme La Vie Est Belle",
       "category": "women",
       "price": 9900,
-      "description": "Sweet floral with iris, patchouli, and gourmand notes.",
-      "ml": "300 ml",
-      "isActive": true
+      "description": "Sweet floral with iris, patchouli, and gourmand notes. La Vie Est Belle celebrates joy with sweet gourmand undertones, radiant iris flowers, and earthy patchouli for a luminous, feel-good feminine scent."
     },
     {
       "id": "27",
@@ -266,9 +231,7 @@
       "title": "Ralph Lauren Romance",
       "category": "women",
       "price": 6100,
-      "description": "Fresh floral with rose, violet, and ginger",
-      "ml": "300 ml",
-      "isActive": true
+      "description": "Fresh floral with rose, violet, and ginger. Romance is light and enchanting, beautifully blending soft rose and sweet violet over a subtle spicy base, symbolizing timeless love and elegance."
     }
   ],
   "users": [
@@ -897,6 +860,62 @@
             }
           ],
           "total": 27400
+        },
+        {
+          "date": "9/1/2025, 3:01:56 PM",
+          "items": [
+            {
+              "id": "21",
+              "img": "https://momperfume.in/cdn/shop/files/black-opium-ysl-1_f5543f66-ca48-47f3-a086-0a6ecd12325f.jpg?v=1720104850",
+              "title": "Yves Saint Laurent Black Opium",
+              "category": "women",
+              "price": 8900,
+              "description": "Warm, seductive fragrance with coffee, vanilla, and white flowers.",
+              "ml": "300 ml",
+              "isActive": true,
+              "quantity": 2
+            }
+          ],
+          "total": 17800
+        },
+        {
+          "date": "9/1/2025, 3:12:43 PM",
+          "items": [
+            {
+              "id": "4",
+              "img": "https://assets.myntassets.com/w_412,q_auto:best,dpr_2,fl_progressive/assets/images/2233588/2022/8/6/f2e6ede7-a97d-486a-91e1-27e39f6f548d1659770117152PacoRabanneMen1MillionEaudeToilette100ML1.jpg",
+              "title": "1 Million by Paco Rabanne",
+              "category": "men",
+              "price": 7100,
+              "description": "Warm and spicy with notes of cinnamon, leather, and amber.",
+              "ml": "300 ml",
+              "isActive": true,
+              "quantity": 1
+            },
+            {
+              "id": "6",
+              "img": "https://altfragrance.in/cdn/shop/files/208.png?v=1716379445&width=1946",
+              "title": "Yves Saint Laurent L'Homme",
+              "category": "men",
+              "price": 7300,
+              "description": "Fresh and woody with ginger, bergamot, and vetiver.",
+              "ml": "300 ml",
+              "isActive": true,
+              "quantity": 1
+            },
+            {
+              "id": "10",
+              "img": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/000000000494434339/CLNop5Qw-S-000000000494434339_1.jpg",
+              "title": "Montblanc Legend",
+              "category": "men",
+              "price": 5900,
+              "description": "Elegant, subtle fragrance with pineapple and sandalwood.",
+              "ml": "300 ml",
+              "isActive": true,
+              "quantity": 1
+            }
+          ],
+          "total": 20300
         }
       ],
       "isActive": true,
@@ -979,10 +998,11 @@
       "userId": "eca4",
       "items": [
         {
-          "id": "3",
-          "title": "Acqua Di Gio by Giorgio Armani",
-          "price": "₹7800",
-          "img": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/armani/7025307/0/aPqcSktSCw-1_Product_3614273662420-Armani-Acqua-Di-Gio-Eau-De-Parfum-125ml_94fbea0280139b780095c8ca8a9b9cdf8f98a38c_1658118500.png"
+          "id": "11",
+          "title": "Bvlgari Man in Black",
+          "price": "₹9700",
+          "img": "https://img.tatacliq.com/images/i10/658Wx734H/MP000000007971283_658Wx734H_202303032035571.jpeg",
+          "category": "men"
         },
         {
           "id": "4",
@@ -991,10 +1011,10 @@
           "img": "https://assets.myntassets.com/w_412,q_auto:best,dpr_2,fl_progressive/assets/images/2233588/2022/8/6/f2e6ede7-a97d-486a-91e1-27e39f6f548d1659770117152PacoRabanneMen1MillionEaudeToilette100ML1.jpg"
         },
         {
-          "id": "11",
-          "title": "Bvlgari Man in Black",
-          "price": "₹9700",
-          "img": "https://img.tatacliq.com/images/i10/658Wx734H/MP000000007971283_658Wx734H_202303032035571.jpeg",
+          "id": "12",
+          "title": "Hugo Boss Bottled",
+          "price": "₹6800",
+          "img": "https://assets.myntassets.com/w_412,q_60,dpr_2,fl_progressive/assets/images/10293481/2025/6/16/1f94f6b3-44e3-4223-bb02-4aa9c69812781750066624472-Boss-Men-Bottled-Eau-De-Toilette-100-ml-3781750066623569-1.jpg",
           "category": "men"
         }
       ],

@@ -43,9 +43,9 @@ function Serching() {
   return (
     <div className="relative flex items-center">
      
-      <button
+      <button 
         onClick={() => setOpen(!open)}
-        className="text-black hover:text-green-700 transition-all"
+        className="text-black hover:text-green-700 transition-all cursor-pointer"
       >
         <RiSearchFill size={27} />
       </button>

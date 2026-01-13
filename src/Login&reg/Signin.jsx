@@ -6,35 +6,51 @@ function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async () => {
+    if (!email || !password) {
+      alert('Please enter both email and password');
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+
     try {
-         const res = await axios.get('http://localhost:3000/users?email=' + email + '&password=' + password);
+      const res = await axios.post('http://127.0.0.1:8000/api/auth/login/', {
+        email,
+        password,
+      });
 
-      if (res.data.length > 0) {
-        const user = res.data[0];
+      // Save tokens to localStorage
+      localStorage.setItem('access_token', res.data.access);
+      localStorage.setItem('refresh_token', res.data.refresh);
 
-        if (!user.isActive) {
-          setError('Your account is deactivated. Please contact support.');
-          return;
-        }
+      // Optional: save user info if backend sends it
+      if (res.data.user) {
+        localStorage.setItem('user', JSON.stringify(res.data.user));
+      }
 
- 
-        console.log("Login successful:", user);
-        localStorage.setItem('user', JSON.stringify(user));
+      alert('Login successful!');
 
-        if (user.role === 'admin') {
-          navigate('/admin/admindash'); 
-        } else {
-          navigate('/');
-        }
+      // Redirect based on role if backend sends role in user object
+      const role = res.data.user.role;
+      if (role === 'admin') {
+        navigate('/admin/admindash');
       } else {
-        setError('Invalid email or password');
+        navigate('/');
       }
     } catch (err) {
       console.error(err);
-      setError('Something went wrong. Please try again.');
+      if (err.response?.data?.detail) {
+        setError(err.response.data.detail);
+      } else {
+        setError('Invalid email or password');
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -92,8 +108,9 @@ function SignIn() {
               className="w-full rounded-md bg-green-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-green-700 focus:shadow-none active:bg-green-700 hover:bg-green-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
               type="button"
               onClick={handleLogin}
+              disabled={loading}
             >
-              Log in
+              {loading ? 'Logging in...' : 'Log in'}
             </button>
 
             <p className="flex justify-center mt-6 text-sm text-slate-600">

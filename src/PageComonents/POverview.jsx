@@ -64,13 +64,13 @@ function ProductOverview() {
 
   return (
     <>
-      <div className="max-w-5xl mx-auto py-10 px-10 m-10 backdrop-blur-sm border border-slate-200 shadow-xl rounded-md">
-        <div className="grid md:grid-cols-2 gap-6 items-center">
-          <div className="order-1">
+      <div className="max-w-5xl mx-auto py-10 pr-10  m-10 backdrop-blur-sm border border-slate-200 shadow-xl rounded-md">
+        <div className="grid md:grid-cols-2 gap-4 items-center">
+          <div className="">
             <img
               src={products.img}
               alt={products.title}
-              className="w-full max-w-sm object-contain rounded mx-auto"
+              className="w-[300px] h-[300px] object-contain rounded mx-auto"
             />
           </div>
 
@@ -81,7 +81,7 @@ function ProductOverview() {
               <span className="text-xl text-gray-500 line-through font-semibold mb-5"></span>{' '}
               <span className="text-2xl text-green-600 font-semibold mb-4">₹{products.price}</span>
             </p>
-            <p className="text-gray-700 mb-2">{products.description}</p>
+            <p className="text-gray-700 font-sans mb-2">{products.description}</p>
             <p className="text-xl text-green-600 font-semibold mb-2">
               {'Category:'} <span className="text-xl text-gray-500 font-semibold mb-4">{products.category}</span>
             </p>

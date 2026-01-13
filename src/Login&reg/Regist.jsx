@@ -1,58 +1,111 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
+// OTP Verification Component
+function OTPVerification({ email, onVerified }) {
+  const [otp, setOtp] = useState('');
+
+  const handleVerify = async () => {
+    try {
+      await axios.post('http://127.0.0.1:8000/api/auth/verify-otp/', {
+        email,
+        otp
+      });
+
+      alert('Email verified successfully!');
+      onVerified(); // redirect to login
+    } catch (err) {
+      alert('Invalid or expired OTP.');
+      console.error(err);
+    }
+  };
+
+  return (
+    <div className="flex flex-col items-center mt-10">
+      <h2 className="text-xl mb-4">Enter OTP sent to {email}</h2>
+      <input
+        type="text"
+        value={otp}
+        onChange={(e) => setOtp(e.target.value)}
+        placeholder="Enter OTP"
+        className="border px-3 py-2 rounded-md mb-4 w-64 text-center"
+      />
+      <button
+        onClick={handleVerify}
+        className="bg-green-800 text-white px-4 py-2 rounded-md hover:bg-green-700"
+      >
+        Verify OTP
+      </button>
+    </div>
+  );
+}
 
 function Register() {
- 
+  const navigate = useNavigate();
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [otpSent, setOtpSent] = useState(false); // New state for OTP screen
 
+  // ------------------------------
+  // Handle Registration
+  // ------------------------------
   const handleReg = async () => {
-
     const emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!name || !email || !password || !confirmPassword) {
       alert('Please fill in all fields.');
       return;
     }
-      if (!emailCheck.test(email)) {
-    alert('Please enter a valid email address.');
-    return;
-  }
+
+    if (!emailCheck.test(email)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
 
     if (password !== confirmPassword) {
       alert('Passwords do not match.');
       return;
     }
-    
+
     if (password.length < 4) {
-  alert('Password must be at least 4 characters long.');
-  return;
-}
-1 
+      alert('Password must be at least 4 characters long.');
+      return;
+    }
 
     try {
-      await axios.post('http://localhost:3000/users', {
-        name,
-        email,
-        password,
-        role:"user",
-        isActive:true
-      });
+      // ------------------------------
+      // Changed URL to Django backend
+      // ------------------------------
+     await axios.post('http://127.0.0.1:8000/api/auth/register/', {
+  name,
+  email,
+  password
+});
 
-      alert('User registered successfully!');
-      setName('');
-      setEmail('');
-      setPassword('');
-      setConfirmPassword('');
+      // ------------------------------
+      // Show OTP input screen instead of clearing form
+      // ------------------------------
+      alert('OTP sent to your email!');
+      setOtpSent(true);
     } catch (error) {
       console.error('Error posting user:', error);
       alert('Error registering user.');
     }
   };
 
+  // ------------------------------
+  // Render
+  // ------------------------------
+  // If OTP is sent, show OTPVerification component
+  if (otpSent) {
+    return <OTPVerification email={email} onVerified={() => navigate('/signin')} />;
+  }
+
+  // Registration Form
   return (
     <>
       <nav className="sticky top-0 z-50 bg-white/75 backdrop-blur-md shadow">

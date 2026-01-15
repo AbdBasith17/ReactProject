@@ -1,27 +1,27 @@
-
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import axios from "axios";
+import { useAuth } from "../../context/AuthContext";
+
 
 function UserDetails() {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"));
+  const { user, logout } = useAuth();
 
-  const handleLogout = () => {
+  const confirmLogout = () => {
     toast.info(
-      <div className="flex items-center justify-between gap-4 w-200">
+      <div className="flex items-center justify-between gap-4">
         <span>Are you sure you want to logout?</span>
-        <div className="flex gap-2 w-150">
+
+        <div className="flex gap-2">
           <button
-            onClick={() => {
-              localStorage.removeItem("user");
-              toast.dismiss();
-              navigate("/");
-            }}
+            onClick={handleLogout}
             className="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700"
           >
             Yes
           </button>
+
           <button
             onClick={() => toast.dismiss()}
             className="px-3 py-1 text-sm border rounded hover:bg-gray-200"
@@ -33,10 +33,28 @@ function UserDetails() {
       {
         autoClose: false,
         closeOnClick: false,
-        style: { width: "400px", minWidth: "400px" },
         closeButton: false,
+        style: { width: "400px" },
       }
     );
+  };
+
+  const handleLogout = async () => {
+    try {
+      await axios.post(
+        "http://127.0.0.1:8000/api/auth/logout/",
+        {},
+        { withCredentials: true } 
+      );
+
+      logout(); 
+      toast.dismiss();
+      toast.success("Logged out successfully");
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+      toast.error("Logout failed. Try again.");
+    }
   };
 
   if (!user) {
@@ -45,16 +63,15 @@ function UserDetails() {
         Already have an account?{" "}
         <Link
           to="/signin"
-          className="text-green-600 font-bold hover:text-green-800 text-5xl"
+          className="text-green-600 font-bold hover:text-green-800 text-2xl"
         >
           Login
         </Link>
-        <br />
-        <br />
-        Don't have an account?{" "}
+        <br /><br />
+        Don&apos;t have an account?{" "}
         <Link
           to="/register"
-          className="text-green-600 font-bold hover:text-green-800 text-5xl"
+          className="text-green-600 font-bold hover:text-green-800 text-2xl"
         >
           Register
         </Link>
@@ -68,8 +85,9 @@ function UserDetails() {
         Hello <span className="text-green-600">{user.name}</span>
       </h2>
       <p className="text-gray-600 mb-6">{user.email}</p>
+
       <button
-        onClick={handleLogout}
+        onClick={confirmLogout}
         className="px-4 py-2 border border-red-300 bg-red-100 text-red-600 rounded-md hover:bg-red-200 transition"
       >
         Logout

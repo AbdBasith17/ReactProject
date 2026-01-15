@@ -1,195 +1,171 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-// OTP Verification Component
-function OTPVerification({ email, onVerified }) {
-  const [otp, setOtp] = useState('');
+/* ----------------------------------
+    OTP VERIFICATION COMPONENT
+---------------------------------- */
+function OTPVerification({ email, onSuccess }) {
+  const [otp, setOtp] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleVerify = async () => {
+  const handleVerifyOTP = async (e) => {
+    e.preventDefault();
+    if (!otp) {
+      toast.error("Please enter OTP");
+      return;
+    }
+    setLoading(true);
     try {
-      await axios.post('http://127.0.0.1:8000/api/auth/verify-otp/', {
-        email,
-        otp
-      });
-
-      alert('Email verified successfully!');
-      onVerified(); // redirect to login
+      await axios.post("http://127.0.0.1:8000/api/auth/verify-otp/", { email, otp });
+      toast.success("Email verified!");
+      onSuccess();
     } catch (err) {
-      alert('Invalid or expired OTP.');
-      console.error(err);
+      toast.error("Invalid OTP");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="flex flex-col items-center mt-10">
-      <h2 className="text-xl mb-4">Enter OTP sent to {email}</h2>
-      <input
-        type="text"
-        value={otp}
-        onChange={(e) => setOtp(e.target.value)}
-        placeholder="Enter OTP"
-        className="border px-3 py-2 rounded-md mb-4 w-64 text-center"
-      />
-      <button
-        onClick={handleVerify}
-        className="bg-green-800 text-white px-4 py-2 rounded-md hover:bg-green-700"
-      >
-        Verify OTP
-      </button>
+    <div className="h-screen w-full flex items-center justify-center bg-white font-sans">
+      <div className="max-w-sm w-full px-10 text-center">
+        <h2 className="text-3xl font-light text-gray-900 mb-2 tracking-tight">Verify Email</h2>
+        <p className="text-gray-400 text-[10px] tracking-[0.2em] uppercase mb-8">
+          Code sent to <span className="text-emerald-800 font-bold lowercase">{email}</span>
+        </p>
+        <form onSubmit={handleVerifyOTP} className="space-y-6">
+          <input
+            type="text"
+            value={otp}
+            onChange={(e) => setOtp(e.target.value)}
+            className="w-full text-center text-3xl tracking-[0.4em] pb-2 border-b-2 border-gray-100 focus:border-emerald-800 outline-none transition-all font-light"
+            placeholder="000000"
+            maxLength={6}
+          />
+          <button type="submit" disabled={loading} className="w-full bg-[#1a3a32] text-white py-4 rounded-sm text-[12px] uppercase tracking-[0.3em] font-bold hover:bg-[#122b25] transition-all shadow-lg">
+            {loading ? "Verifying..." : "Confirm Code"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
 
+/* ----------------------------------
+    REGISTER COMPONENT
+---------------------------------- */
 function Register() {
   const navigate = useNavigate();
+  const [form, setForm] = useState({ name: "", email: "", password: "", confirmPassword: "" });
+  const [otpSent, setOtpSent] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [otpSent, setOtpSent] = useState(false); // New state for OTP screen
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  // ------------------------------
-  // Handle Registration
-  // ------------------------------
-  const handleReg = async () => {
-    const emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!name || !email || !password || !confirmPassword) {
-      alert('Please fill in all fields.');
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    if (form.password !== form.confirmPassword) {
+      toast.error("Passwords do not match");
       return;
     }
-
-    if (!emailCheck.test(email)) {
-      alert('Please enter a valid email address.');
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      alert('Passwords do not match.');
-      return;
-    }
-
-    if (password.length < 4) {
-      alert('Password must be at least 4 characters long.');
-      return;
-    }
-
+    setLoading(true);
     try {
-      // ------------------------------
-      // Changed URL to Django backend
-      // ------------------------------
-     await axios.post('http://127.0.0.1:8000/api/auth/register/', {
-  name,
-  email,
-  password
-});
-
-      // ------------------------------
-      // Show OTP input screen instead of clearing form
-      // ------------------------------
-      alert('OTP sent to your email!');
+      await axios.post("http://127.0.0.1:8000/api/auth/register/", { 
+        name: form.name, email: form.email, password: form.password 
+      });
       setOtpSent(true);
-    } catch (error) {
-      console.error('Error posting user:', error);
-      alert('Error registering user.');
+    } catch (err) {
+      toast.error("Registration failed");
+    } finally {
+      setLoading(false);
     }
   };
 
-  // ------------------------------
-  // Render
-  // ------------------------------
-  // If OTP is sent, show OTPVerification component
-  if (otpSent) {
-    return <OTPVerification email={email} onVerified={() => navigate('/signin')} />;
-  }
+  if (otpSent) return <OTPVerification email={form.email} onSuccess={() => navigate("/signin")} />;
 
-  // Registration Form
   return (
-    <>
-      <nav className="sticky top-0 z-50 bg-white/75 backdrop-blur-md shadow">
-        <div className="bg-base-400 shadow-sm flex justify-center items-stretch text-xl px-10 py-7">
-          <span className="text-2xl font-thin-bold">PERFAURA</span>
+    <div className="h-screen w-full flex bg-white font-sans overflow-hidden">
+      {/* LEFT SIDE: Form */}
+      <div className="w-full lg:w-1/2 flex flex-col relative">
+        {/* LOGO - Fixed Top Padding */}
+        <div className="p-8 lg:pl-20 lg:pt-12">
+          <h1 className="text-2xl font-bold tracking-tighter cursor-pointer" onClick={() => navigate("/")}>
+            PERF<span className="text-emerald-800 font-light tracking-[0.1em]">AURA</span>
+          </h1>
         </div>
-      </nav>
 
-      <div
-        className="w-full h-150 flex justify-center items-center"
-        style={{
-          backgroundImage: `url('https://img.freepik.com/free-vector/gradient-golden-linear-background_23-2148952495.jpg?semt=ais_items_boosted&w=740')`,
-        }}
-      >
-        <div className="relative flex flex-col backdrop-blur-sm shadow-xl border border-slate-200 w-96 rounded-lg">
-          <div className="relative m-2.5 mt-4 items-center shadow-sm flex justify-center text-green-800 h-15 rounded-md border border-slate-200">
-            <span className="text-2xl font-bold font-sans">Register</span>
+        {/* Content Container - Centered */}
+        <div className="flex-1 flex flex-col justify-center px-10 md:px-20 lg:px-32">
+          <div className="max-w-sm w-full mx-auto -mt-6">
+            <header className="mb-6">
+              <h2 className="text-4xl font-light text-gray-900 mb-1 tracking-tight">Create Account</h2>
+              <p className="text-gray-400 text-sm tracking-wide">Join the world of Perfaura.</p>
+            </header>
+
+            <form onSubmit={handleRegister} className="space-y-4">
+              {[
+                { label: "Full Name", name: "name", type: "text", placeholder: "John Doe" },
+                { label: "Email Address", name: "email", type: "email", placeholder: "name@company.com" },
+                { label: "Password", name: "password", type: "password", placeholder: "••••••••" },
+                { label: "Confirm Password", name: "confirmPassword", type: "password", placeholder: "••••••••" },
+              ].map((input) => (
+                <div key={input.name} className="group">
+                  <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400 mb-1 group-focus-within:text-emerald-800 transition-colors">
+                    {input.label}
+                  </label>
+                  <input
+                    type={input.type}
+                    name={input.name}
+                    value={form[input.name]}
+                    onChange={handleChange}
+                    placeholder={input.placeholder}
+                    className="w-full pb-1.5 text-base border-b border-gray-100 focus:border-emerald-800 outline-none transition-all bg-transparent text-gray-800 placeholder:text-gray-200"
+                    required
+                  />
+                </div>
+              ))}
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-[#1a3a32] text-white py-4 rounded-sm text-[12px] uppercase tracking-[0.3em] font-bold hover:bg-[#122b25] transition-all shadow-lg active:scale-[0.98] mt-4"
+              >
+                {loading ? "Creating Account..." : "Register"}
+              </button>
+            </form>
+
+            <footer className="mt-8 text-center">
+              <p className="text-[11px] text-gray-400 uppercase tracking-widest">
+                Already a member? <Link to="/signin" className="text-emerald-800 font-bold border-b border-emerald-800/30 hover:border-emerald-800 transition-colors">Sign In</Link>
+              </p>
+            </footer>
           </div>
+        </div>
 
-          <div className="flex flex-col gap-4 px-6 mt-1 mb-4">
-            <div className="w-full max-w-sm min-w-[200px]">
-              <label className="block mb-2 text-sm font-normal text-slate-900">Name</label>
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full bg-transparent placeholder:text-slate-500 text-slate-800 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-                placeholder="Your Name"
-              />
-            </div>
-
-            <div className="w-full max-w-sm min-w-[200px]">
-              <label className="block mb-2 text-sm font-normal text-slate-900">Email</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-transparent placeholder:text-slate-500 text-slate-800 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-                placeholder="Your Email"
-              />
-            </div>
-
-            <div className="w-full max-w-sm min-w-[200px]">
-              <label className="block mb-2 text-sm font-normal text-slate-900">Password</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-transparent placeholder:text-slate-500 text-slate-900 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-                placeholder="Enter Password"
-              />
-            </div>
-
-            <div className="w-full max-w-sm min-w-[200px]">
-              <label className="block mb-2 text-sm font-normal text-slate-900">Confirm Password</label>
-              <input
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full bg-transparent placeholder:text-slate-500 text-slate-900 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-                placeholder="Re-enter Password"
-              />
-            </div>
-          </div>
-
-          <div className="p-6 pt-0">
-            <button
-              onClick={handleReg}
-              className="w-full rounded-md bg-green-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-green-700 focus:shadow-none active:bg-slate-700 hover:bg-green-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-              type="button"
-            >
-              Register
-            </button>
-
-            <p className="flex justify-center mt-6 text-sm text-slate-600">
-              Already have an account?
-              <Link to="/signin" className="ml-1 text-sm font-semibold text-slate-700 underline">
-                Login
-              </Link>
-            </p>
-          </div>
+        {/* Legal Footer */}
+        <div className="p-10 lg:pl-20 text-[9px] text-gray-300 tracking-widest uppercase">
+          © 2026 Perfaura Fragrances
         </div>
       </div>
-    </>
+
+      {/* RIGHT SIDE: Visual */}
+      <div className="hidden lg:block lg:w-1/2 relative bg-[#1a3a32]">
+        <img
+          src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=2000&auto=format&fit=crop"
+          alt="Luxury Essence"
+          className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-overlay"
+        />
+        <div className="absolute inset-0 flex flex-col justify-end p-20 bg-gradient-to-t from-[#0a1a15]/80 to-transparent">
+          <h3 className="text-white text-5xl font-extralight leading-tight mb-4">
+            Begin Your <br />
+            <span className="italic font-serif text-emerald-100/90">Aromatic Journey.</span>
+          </h3>
+          <div className="w-12 h-[1px] bg-emerald-500"></div>
+        </div>
+      </div>
+    </div>
   );
 }
 

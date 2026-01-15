@@ -1,1 +1,26 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@1,300&display=swap');
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Cormorant Garamond", serif;
+
+  --color-emerald-900: #1a3a32;
+  --color-emerald-950: #0a1a15;
+}
+
+/* 3. Global Base Styles */
+@layer base {
+  body {
+    @apply font-sans antialiased text-gray-900 bg-white;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Ensuring the Serif parts of your login/register look elegant */
+  .font-serif {
+    font-family: var(--font-serif);
+    font-style: italic;
+  }
+}

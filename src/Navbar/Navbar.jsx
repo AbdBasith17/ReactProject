@@ -1,176 +1,80 @@
-import React, { useEffect, useState } from "react";
-import { FaHeart } from "react-icons/fa6";
-import { IoCartSharp } from "react-icons/io5";
-import { MdAccountCircle } from "react-icons/md";
+import React from "react";
+import { FaRegHeart } from "react-icons/fa6";
+import { IoCartOutline } from "react-icons/io5";
+import { HiOutlineUserCircle } from "react-icons/hi2";
 import { useLocation, useNavigate, Link } from "react-router-dom";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { useAuth } from "../context/AuthContext";
 import Serching from "./Search/search";
-import axios from "axios";
 
 function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { user, loading } = useAuth();
 
-  // 🔥 FIX: user state
-  const [user, setUser] = useState(null);
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  // 🔥 FIX: sync from localStorage
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
-
+  if (loading) return null;
   const isActive = (path) => location.pathname === path;
 
-  const handleClick = async (type) => {
-    if (!user) {
-      toast.info(
-        <div className="flex items-center justify-between gap-4">
-          <span>Please log in to continue.</span>
-          <button
-            className="text-sm text-green-800 border border-green-800 px-3 py-1 rounded hover:bg-green-800 hover:text-white transition"
-            onClick={() => {
-              toast.dismiss();
-              navigate("/signin");
-            }}
-          >
-            Login
-          </button>
-        </div>,
-        { autoClose: false, style: { width: "340px" } }
-      );
-      return;
-    }
-
-    if (type === "cart") {
-      navigate("/cart");
-    }
-
-    if (type === "wishlist") {
-      navigate("/wishlist");
-    }
-  };
-
   return (
-    <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur shadow-md">
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between lg:relative">
-
-        {/* hamburger */}
-        <button
-          className="lg:hidden"
-          onClick={() => setMenuOpen(!menuOpen)}
+    <nav className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
+      <div className="container mx-auto px-6 py-4 flex items-center justify-between">
+        
+        {/* LOGO */}
+        <h1 
+          className="text-2xl font-bold tracking-tighter cursor-pointer min-w-fit" 
+          onClick={() => navigate("/")}
         >
-          ☰
-        </button>
-
-        <h1 className="text-2xl font-semibold mx-auto lg:absolute lg:left-1/2 lg:-translate-x-1/2">
-          PERF<span className="text-green-800">AURA</span>
+          PERF<span className="text-emerald-800 font-light tracking-[0.1em]">AURA</span>
         </h1>
 
-        {/* mobile user */}
-        <div className="lg:hidden">
-          <button onClick={() => navigate(user ? "/userdata" : "/signin")}>
-            {user ? <MdAccountCircle size={28} /> : <p>Login</p>}
-          </button>
-        </div>
-
-        {/* desktop */}
-        <div className="hidden lg:flex justify-between items-center w-full">
-          <ul className="flex gap-8 text-lg font-medium">
-            <li>
-              <Link
-                to="/"
-                className={`pb-1 transition-colors duration-200 hover:text-green-800 ${isActive("/")
-                    ? "text-green-800 border-b-2 border-green-800"
-                    : "text-black"
+        {/* MENU */}
+        <ul className="hidden lg:flex items-center gap-10 mx-auto">
+          {[["/", "Home"], ["/productpage", "Collection"], ["/men", "Men"], ["/women", "Women"]].map(
+            ([path, label]) => (
+              <li key={path} className="relative group">
+                <Link
+                  to={path}
+                  className={`text-[13px] font-bold uppercase tracking-[0.2em] transition-colors duration-300 ${
+                    isActive(path) ? "text-emerald-800" : "text-gray-500 hover:text-emerald-700"
                   }`}
-              >
-                Home
-              </Link>
-            </li>
+                >
+                  {label}
+                </Link>
+                <span className={`absolute -bottom-1.5 left-0 h-[2px] bg-emerald-800 transition-all duration-300 ${
+                  isActive(path) ? "w-full" : "w-0 group-hover:w-full"
+                }`}></span>
+              </li>
+            )
+          )}
+        </ul>
 
-            <li>
-              <Link
-                to="/productpage"
-                className={`pb-1 transition-colors duration-200 hover:text-green-800 ${isActive("/productpage")
-                    ? "text-green-800 border-b-2 border-green-800"
-                    : "text-black"
-                  }`}
-              >
-                All
-              </Link>
-            </li>
-
-            <li>
-              <Link
-                to="/men"
-                className={`pb-1 transition-colors duration-200 hover:text-green-800 ${isActive("/men")
-                    ? "text-green-800 border-b-2 border-green-800"
-                    : "text-black"
-                  }`}
-              >
-                Men
-              </Link>
-            </li>
-
-            <li>
-              <Link
-                to="/women"
-                className={`pb-1 transition-colors duration-200 hover:text-green-800 ${isActive("/women")
-                    ? "text-green-800 border-b-2 border-green-800"
-                    : "text-black"
-                  }`}
-              >
-                Women
-              </Link>
-            </li>
-          </ul>
-
-
-          <div className="flex gap-5 items-center cursor-pointer">
-            <Serching />
-
-            <button
-              className="cursor-pointer transition-colors duration-200 hover:text-green-800"
-              onClick={() => handleClick("wishlist")}
-            >
-              <FaHeart size={23} />
+        {/* ACTIONS */}
+        <div className="flex items-center gap-4">
+          <Serching />
+          <div className="flex items-center gap-5 text-gray-700">
+            <button onClick={() => navigate("/wishlist")} className="hover:text-emerald-700 transition-transform">
+              <FaRegHeart size={22} />
+            </button>
+            <button onClick={() => navigate("/cart")} className="hover:text-emerald-700 transition-transform">
+              <IoCartOutline size={25} />
             </button>
 
-
-            <button
-              className="cursor-pointer transition-colors duration-200 hover:text-green-800"
-              onClick={() => handleClick("cart")}
-            >
-              <IoCartSharp size={27} />
-            </button>
-
-
-            <button
-              className="cursor-pointer transition-colors duration-200 hover:text-green-800"
-              onClick={() => navigate(user ? "/userdata" : "/signin")}
-            >
-              {user ? (
-                <div className="flex items-center gap-1">
-                  <p className="text-sm">
-                    Hello{" "}
-                    <span className="text-green-800 font-semibold">
-                      {user.name || user.email}
-                    </span>
-                  </p>
-                  <MdAccountCircle size={25} />
-                </div>
-              ) : (
-                <p className="text-sm font-medium px-2 py-1 bg-black text-white rounded hover:bg-green-700">
-                  Login
-                </p>
-              )}
-            </button>
-
+            <div className="border-l pl-5 border-gray-100 ml-1">
+              <button className="flex items-center gap-2 group" onClick={() => navigate("/userdata")}>
+                {user ? (
+                  <div className="flex items-center gap-2">
+                    <div className="text-right hidden xl:block leading-tight">
+                      <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold">Account</p>
+                      <p className="text-[12px] font-bold text-gray-800">{user.name.split(' ')[0]}</p>
+                    </div>
+                    <HiOutlineUserCircle size={28} className="text-emerald-800 group-hover:scale-110 transition-transform" />
+                  </div>
+                ) : (
+                  <span className="text-[11px] font-bold uppercase tracking-[0.2em] px-6 py-2.5 bg-emerald-900 text-white rounded-full hover:bg-emerald-800 transition-all shadow-md">
+                    Login
+                  </span>
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </div>

@@ -1,96 +1,128 @@
-import React, { useEffect, useState } from 'react';
-import { FaRegTrashCan } from "react-icons/fa6";
+import React from 'react';
+import { FaRegTrashCan, FaPlus, FaMinus } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([]);
+  const { cart, updateCartQty, removeFromCart } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    try {
-      const storedCart = JSON.parse(localStorage.getItem('cart'));
-      if (storedCart) {
-        setCartItems(storedCart);
-      } else {
-        setCartItems([]);
-      }
-    } catch (error) {
-      console.error("Error parsing cart from localStorage", error);
-      setCartItems([]);
-    }
-  }, []);
+  const total = cart.reduce((acc, item) => acc + (item.product.price * item.quantity), 0);
 
-  const updateQuantity = (id, quantity) => {
-    const updatedCart = cartItems.map(item =>
-      item.id === id ? { ...item, quantity: Math.max(1, quantity) } : item
+  if (cart.length === 0) {
+    return (
+      <div className="min-h-[60vh] flex flex-col items-center justify-center gap-4">
+        <h2 className="text-2xl font-light text-gray-400">Your cart is empty</h2>
+        <button
+          onClick={() => navigate('/productpage')}
+          className="text-emerald-800 font-bold uppercase tracking-widest text-sm border-b-2 border-emerald-800 pb-1"
+        >
+          Explore Collection
+        </button>
+      </div>
     );
-    setCartItems(updatedCart);
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
-  };
-
-  const removeItem = (id) => {
-    const updatedCart = cartItems.filter(item => item.id !== id);
-    setCartItems(updatedCart);
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
-  };
-
-  const total = cartItems.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
+  }
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 md:px-10 py-6">
-      <h2 className="text-3xl sm:text-4xl font-normal mb-4 text-center py-5">Your Cart</h2>
+    <div className="min-h-screen bg-white pb-20">
+      <div className="max-w-5xl mx-auto px-6 pt-10">
+        <h2 className="text-4xl font-black text-gray-900 mb-10 tracking-tight">Shopping Bag</h2>
 
-      {cartItems.length === 0 ? (
-        <p className="text-gray-500 text-center">Cart is empty.</p>
-      ) : (
-        <div className="flex flex-col gap-4 max-w-4xl backdrop-blur-sm border border-slate-200 shadow-xl rounded-md mx-auto">
-          {cartItems.map((item) => (
-            <div key={item.id} className="flex flex-col md:flex-row items-center justify-between gap-4 pb-5 px-4 sm:px-6 md:px-10 py-4 rounded shadow-sm bg-white">
-          
-              <div className="flex flex-col sm:flex-row items-center gap-4 w-full md:w-1/2">
-                <img src={item.img} alt={item.title} className="h-28 w-28 object-cover rounded" />
-                <div className="text-center sm:text-left">
-                  <h3 className="text-lg font-semibold">{item.title}</h3>
-                  <p className="text-sm text-gray-500">{item.category} • {item.ml}</p>
-                  <p className="text-sm font-medium text-gray-800 pt-2">₹{item.price}</p>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          {/* Items List */}
+          <div className="lg:col-span-2 space-y-8">
+            {cart.map((item) => (
+              <div key={item.product.id} className="flex gap-6 border-b border-gray-100 pb-8">
+                {/* Image */}
+                <div className="w-24 h-24 sm:w-32 sm:h-32 bg-[#F9F9F9] rounded-2xl flex-shrink-0 flex items-center justify-center p-4">
+                  <img
+                    // CHANGE THIS LINE: use item.product.image instead of the images array
+                    src={item.product.image || "/placeholder.png"}
+                    alt={item.product.title}
+                    className="max-h-full mix-blend-multiply object-contain"
+                    onError={(e) => { e.target.src = "/placeholder.png"; }}
+                  />
+                </div>
+
+                {/* Details */}
+                <div className="flex flex-col justify-between flex-grow py-1">
+                  <div>
+                    <div className="flex justify-between items-start">
+                      <h3 className="text-lg font-black text-gray-900 leading-tight uppercase tracking-tight">
+                        {item.product.title}
+                      </h3>
+                      <button
+                        onClick={() => removeFromCart(item.product.id)}
+                        className="text-gray-300 hover:text-red-500 transition-colors"
+                      >
+                        <FaRegTrashCan size={23} />
+                      </button>
+                    </div>
+                    <p className="text-xs text-emerald-600 font-bold uppercase tracking-widest mt-1">
+                      {item.product.brand || "brand name"}
+                    </p>
+                    <p className="text-sm text-gray-400 mt-1">{item.product.category}</p>
+                  </div>
+
+                  <div className="flex justify-between items-end mt-4">
+                    {/* Qty Selector */}
+                    <div className="flex items-center border border-gray-200 rounded-full px-3 py-1 bg-gray-50">
+                      <button
+                        onClick={() => updateCartQty(item.product.id, item.quantity - 1)}
+                        className="p-1 hover:text-emerald-700 transition-colors"
+                      >
+                        <FaMinus size={10} />
+                      </button>
+                      <span className="px-4 font-bold text-sm min-w-[30px] text-center">{item.quantity}</span>
+                      <button
+                        onClick={() => updateCartQty(item.product.id, item.quantity + 1)}
+                        className="p-1 hover:text-emerald-700 transition-colors"
+                      >
+                        <FaPlus size={10} />
+                      </button>
+                    </div>
+                    <p className="font-black text-gray-900">₹{item.subtotal}</p>
+                  </div>
                 </div>
               </div>
-
-              
-              <div className="flex flex-col sm:flex-row items-center justify-evenly w-full md:w-1/2 gap-3 sm:gap-5">
-                <div className="flex items-center border border-slate-300 shadow-sm rounded-md overflow-hidden">
-                  <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="w-8 h-9 hover:bg-gray-200">−</button>
-                  <div className="w-10 h-9 flex items-center justify-center border-slate-500">{item.quantity}</div>
-                  <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="w-8 h-9 hover:bg-gray-200">+</button>
-                </div>
-                <button
-                  onClick={() => removeItem(item.id)}
-                  className="px-3 w-auto font-light h-9 flex items-center border border-slate-300 bg-red-50 shadow-sm rounded-md text-red-500 hover:text-red-700"
-                >
-                  <FaRegTrashCan size={18} />
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {cartItems.length > 0 && (
-        <div className="mt-8  flex flex-col md:flex-row justify-between items-start md:items-center gap-4 max-w-4xl mx-auto">
-          <div className="text-lg p-1 font-semibold">
-          Total: <span className="text-green-700">₹{total.toFixed(2)}</span>
+            ))}
           </div>
-          <button
-            className="bg-green-800 text-white px-6 py-2 rounded hover:bg-green-700 transition"
-            onClick={() => navigate('/checkout')}
-          >
-            Proceed to Checkout
-          </button>
+
+          {/* Summary Sidebar */}
+          <div className="lg:col-span-1">
+            <div className="bg-[#F9F9F9] rounded-[2rem] p-8 sticky top-32">
+              <h3 className="text-xl font-black text-gray-900 mb-6 uppercase tracking-tight">Summary</h3>
+
+              <div className="space-y-4 mb-8">
+                <div className="flex justify-between text-gray-500 text-sm">
+                  <span>Subtotal</span>
+                  <span>₹{total}</span>
+                </div>
+                <div className="flex justify-between text-gray-500 text-sm">
+                  <span>Shipping</span>
+                  <span className="text-emerald-600 font-bold uppercase text-[10px]">Calculated at checkout</span>
+                </div>
+                <div className="border-t border-gray-200 pt-4 flex justify-between">
+                  <span className="font-black text-gray-900 uppercase tracking-widest text-xs">Total</span>
+                  <span className="font-black text-xl text-gray-900">₹{total}</span>
+                </div>
+              </div>
+
+              <button
+                className="w-full bg-black text-white py-5 rounded-full text-[11px] font-black uppercase tracking-[0.2em] hover:bg-emerald-800 transition-all"
+                onClick={() => navigate('/checkout')}
+              >
+                Proceed to Checkout
+              </button>
+
+              <p className="text-[10px] text-gray-400 text-center mt-6 leading-relaxed italic">
+                Shipping and taxes calculated during checkout. <br />
+                Secure encrypted payment.
+              </p>
+            </div>
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };

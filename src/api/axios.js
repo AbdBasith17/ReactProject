@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8000/api/auth/",
+  baseURL: "http://localhost:8000/api/",
   withCredentials: true,
 });
 
@@ -25,10 +25,10 @@ api.interceptors.response.use(
     const originalRequest = error.config;
 
     const skipRefreshEndpoints = [
-      "/login/",
-      "/logout/",
-      "/token/refresh/",
-      "/register/",
+      "auth/login/",
+      "auth/logout/",
+      "auth/token/refresh/",
+      "auth/register/",
     ];
 
     if (
@@ -55,7 +55,7 @@ api.interceptors.response.use(
     isRefreshing = true;
 
     try {
-      await api.post("/token/refresh/");
+      await api.post("auth/token/refresh/");
       processQueue();
       return api(originalRequest);
     } catch (err) {

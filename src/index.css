@@ -10,7 +10,7 @@
   --color-emerald-950: #0a1a15;
 }
 
-/* 3. Global Base Styles */
+
 @layer base {
   body {
     @apply font-sans antialiased text-gray-900 bg-white;
@@ -18,7 +18,7 @@
     padding: 0;
   }
 
-  /* Ensuring the Serif parts of your login/register look elegant */
+  
   .font-serif {
     font-family: var(--font-serif);
     font-style: italic;

@@ -1,105 +1,48 @@
 import React, { useEffect, useState } from "react";
 import { FaHeart, FaHeartCirclePlus } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { toast } from "react-toastify";
+import api from "../api/axios";
+import { useAuth } from "../context/AuthContext";
 
 const AddToWishlistButton = ({ product }) => {
-  const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"));
-  const [isInWishlist, setIsInWishlist] = useState(false);
-  const [wishlistId, setWishlistId] = useState(null);
+  const { wishlist, setWishlist, isAuthenticated } = useAuth();
+  const [btnLoading, setBtnLoading] = useState(false);
 
-  useEffect(() => {
-    const fetchWishlist = async () => {
-      if (!user) return;
+  // Instant check using global state
+  const isInWishlist = wishlist.some((item) => item.product.id === product.id);
 
-      try {
-        const res = await axios.get(`http://localhost:3000/wishlists?userId=${user.id}`);
-        const wishlist = res.data[0];
+ const handleToggleWishlist = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
 
-        if (wishlist) {
-          setWishlistId(wishlist.id);
-          const alreadyAdded = wishlist.items.some((item) => item.id === product.id);
-          setIsInWishlist(alreadyAdded);
-        }
-      } catch (err) {
-        console.error("Error checking wishlist:", err);
-      }
-    };
-
-    fetchWishlist();
-  }, [user, product.id]);
-
-  const handleAddToWishlist = async (e) => {
-   e.preventDefault();  
-  e.stopPropagation();
-  
-    
-
-    if (!user) {
-      toast.error("Please log in to add to wishlist.");
-      return;
-    }
+    if (!isAuthenticated) return toast.error("Please login");
 
     try {
-      if (isInWishlist) {
-        toast.info("Already in your wishlist.");
-      
-        return;
-      }
+        if (isInWishlist) {
+            await api.delete(`wishlist/remove/${product.id}/`);
+            setWishlist((prev) => prev.filter((item) => item?.product?.id !== product.id));
+            toast.info("Removed from wishlist");
+        } else {
+            const res = await api.post("wishlist/add/", { product_id: product.id });
+            
 
-      if (wishlistId) {
-        const res = await axios.get(`http://localhost:3000/wishlists/${wishlistId}`);
-        const updatedItems = [...res.data.items, {
-          id: product.id,
-          title: product.title,
-          price: product.price,
-          img: product.img,
-          category: product.category,
-        }];
-
-        await axios.put(`http://localhost:3000/wishlists/${wishlistId}`, {
-          ...res.data,
-          items: updatedItems,
-        });
-        
-
-        setIsInWishlist(true);
-      } else {
-        const newWishlist = await axios.post(`http://localhost:3000/wishlists`, {
-          userId: user.id,
-          items: [
-            {
-              id: product.id,
-              title: product.title,
-              price: product.price,
-              img: product.img,
-              category: product.category,
-            },
-          ],
-        });
-
-        setWishlistId(newWishlist.data.id);
-        setIsInWishlist(true);
-        
-      }
+            setWishlist((prev) => [...prev, res.data]);
+            toast.success("Added to wishlist");
+        }
     } catch (err) {
-      toast.error("Failed to add to wishlist.");
+        toast.error("Action failed");
     }
-  };
+};
+
+
+
 
   return (
-    <div
-    type="button"
-      className="absolute top-2 right-2 text-gray-500 hover:text-green-700 cursor-pointer"
-      onClick={handleAddToWishlist}
-      title={isInWishlist ? "Already in Wishlist" : "Add to Wishlist"}
-    >
+    <div onClick={handleToggleWishlist} className="absolute top-2 right-2 cursor-pointer">
       {isInWishlist ? (
         <FaHeart size={28} className="text-green-600" />
       ) : (
-        <FaHeartCirclePlus size={30} />
+        <FaHeartCirclePlus size={30} className="text-gray-500 hover:text-green-700" />
       )}
     </div>
   );

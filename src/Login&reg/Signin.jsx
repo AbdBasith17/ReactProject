@@ -10,15 +10,31 @@ function SignIn() {
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  const handleLogin = async (e) => {
+ 
+
+const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
+      // 'user' here is already the object returned by AuthContext (res.data.user)
       const user = await login({ email: email.trim(), password: password.trim() });
-      toast.success("Welcome back!");
-      user?.role === "admin" ? navigate("/admin/admindash") : navigate("/");
+      
+      // Check the user object directly
+      if (user && user.role) {
+        // Use toLowerCase to ensure "Admin" or "admin" both work
+        if (user.role.toLowerCase() === "admin") {
+          navigate("/admin/admindash");
+        } else {
+          navigate("/");
+        }
+      } else {
+        // This handles the rare case where login returns 200 but no user data
+        console.error("Login successful but role missing:", user);
+        navigate("/");
+      }
     } catch (err) {
-      toast.error("Invalid credentials");
+      // We don't need a toast here because AuthContext already shows one!
+      console.error("Login error in component:", err);
     } finally {
       setLoading(false);
     }

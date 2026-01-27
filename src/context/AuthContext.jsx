@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
   const addToCart = async (productId, quantity) => {
     try {
       await api.post("cart/add/", { product_id: productId, quantity });
-      await fetchCart(); 
+      await fetchCart();
       toast.success("Added to cart successfully!");
     } catch (err) {
       toast.error("Please login to add items to cart");
@@ -69,7 +69,7 @@ export const AuthProvider = ({ children }) => {
       try {
         const res = await api.get("auth/me/");
         setUser(res.data);
-        // Sync data if user is found
+        
         fetchWishlist();
         fetchCart();
       } catch (err) {
@@ -81,17 +81,31 @@ export const AuthProvider = ({ children }) => {
     loadUser();
   }, []);
 
-  const login = async (data) => {
+  const login = async (credentials) => {
     try {
-      const res = await api.post("auth/login/", data);
-      setUser(res.data.user);
-      await fetchWishlist();
-      await fetchCart();
-      toast.success(`Welcome back, ${res.data.user.name.split(' ')[0]}!`);
-      return res.data.user;
+      const res = await api.post("auth/login/", credentials);
+      
+      // Your Django backend returns { "user": { "id": 1, "name": "...", "role": "..." } }
+      const userData = res.data.user; 
+      
+      setUser(userData);
+      
+      // Fetch user-specific data immediately
+      await Promise.all([fetchWishlist(), fetchCart()]);
+
+      // FIX: Added optional chaining and fallback to prevent 'split' crash if name is null
+      const displayName = userData?.name?.trim() 
+        ? userData.name.split(' ')[0] 
+        : (userData?.role === 'admin' ? "Admin" : "User");
+
+      toast.success(`Welcome back, ${displayName}!`);
+      
+      return userData; // Returning the user object directly to the component
     } catch (err) {
-      toast.error("Invalid credentials");
-      throw err;
+      // Capture the specific error from Django (e.g., "Please verify your email")
+      const errorMessage = err.response?.data?.error || "Invalid credentials";
+      toast.error(errorMessage);
+      throw err; // Re-throw so the component's 'catch' block can stop the loading state
     }
   };
 

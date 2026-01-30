@@ -1,77 +1,113 @@
-
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { FaShoppingBag } from "react-icons/fa";
+import api from "../../api/axios";
+import { FaCheckCircle, FaCircle } from "react-icons/fa";
 
 function UserOrders() {
-  const user = JSON.parse(localStorage.getItem("user"));
   const [orders, setOrders] = useState([]);
-  const [showOrders, setShowOrders] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchUserOrders = async () => {
-      if (!user) return;
-      try {
-        const res = await axios.get(`http://localhost:3000/users/${user.id}`);
-        setOrders(res.data.orders || []);
-      } catch (err) {
-        console.error("Failed to fetch user orders", err);
-      }
-    };
+  useEffect(() => { fetchOrders(); }, []);
 
-    fetchUserOrders();
-  }, [user]);
+  const fetchOrders = async () => {
+    try {
+      const res = await api.get('order/my-orders/');
+      setOrders(res.data);
+    } catch (err) { console.error("Error fetching real orders:", err); } 
+    finally { setLoading(false); }
+  };
 
-  if (!user) return null;
+  const statusSteps = [
+    { label: "Placed", key: "PENDING" }, // Matches your Django choices
+    { label: "Shipped", key: "SHIPPED" },
+    { label: "Out for Delivery", key: "OUT_FOR_DELIVERY" },
+    { label: "Delivered", key: "DELIVERED" }
+  ];
+
+  const getActiveIndex = (status) => statusSteps.findIndex(s => s.key === status);
+
+  if (loading) return <div className="p-8 text-emerald-800 font-bold animate-pulse uppercase text-[10px]">Loading Real-time Data...</div>;
 
   return (
-    <div className="container mx-auto px-4 py-1 max-w-2xl text-center">
-      <button
-        onClick={() => setShowOrders((prev) => !prev)}
-        className="bg-green-700 hover:bg-green-800 text-white font-medium px-5 py-2 rounded mb-6"
-      >
-        {showOrders ? "Hide Orders" : "Show Previous Orders"}
-      </button>
+    <div className="space-y-8">
+      {orders.length === 0 ? (
+        <p className="text-slate-500 font-bold uppercase text-center py-20 border-2 border-dashed border-emerald-100 rounded-[2rem]">No orders placed yet.</p>
+      ) : (
+        orders.map((order) => (
+          <div key={order.id} className="bg-white border border-emerald-100 rounded-[2rem] overflow-hidden shadow-sm">
+            
+            {/* Header: High Visibility Black Text */}
+            <div className="p-6 border-b border-emerald-50 flex justify-between items-center bg-emerald-50/10">
+              <div>
+                <h4 className="text-sm font-black text-slate-950 uppercase tracking-tighter">Order ID: #{order.id}</h4>
+                <p className="text-[10px] text-slate-600 font-bold uppercase mt-1">
+                  Placed on: {new Date(order.created_at).toLocaleDateString()}
+                </p>
+              </div>
+              <span className="px-5 py-2 bg-emerald-800 text-white text-[10px] font-black uppercase tracking-widest rounded-xl italic">
+                {order.status}
+              </span>
+            </div>
 
-      {showOrders && (
-        <>
-          <h3 className="text-2xl font-medium mb-4 flex items-center justify-center gap-2">
-           Your Previous <span className="text-green-700">Orders</span> <FaShoppingBag className="text-green-700" /> 
-          </h3>
+            <div className="p-8 space-y-8">
+              {/* Delivery Address: Black text for readability */}
+              <div>
+                <h5 className="text-[10px] font-black text-emerald-800 uppercase tracking-[0.2em] mb-2">Delivery Address</h5>
+                <div className="text-[12px] font-bold text-slate-950 leading-relaxed uppercase">
+                  <span>{order.address_name}</span> | <span className="text-slate-600">{order.phone}</span>
+                  <p className="mt-1 text-slate-700 normal-case font-medium">{order.shipping_address}</p>
+                </div>
+              </div>
 
-          {orders.length === 0 ? (
-            <p className="text-gray-500">No orders found.</p>
-          ) : (
-            <ul className="space-y-4 text-left ">
-             {[...orders].reverse().map((order, index) => (
-                <li key={index} className="border-slate-300 border-2 p-4 rounded shadow-xl">
-               <p className="text-xl text-gray-600 pb-4"> ORDER SUMMARY</p>
-                  <p className="text-md text-gray-600 pb-2"><span className="text-green-800 font-medium"> Order Placed Data & time:</span> {order.date}</p>
-               {/* <div className="w-{1px} border-1 border-green-700"></div> */}
-                  <ul className="mt-2 space-y-1 pb-3">
-                    {order.items.map((item, idx) => (
-                      <li
-                        key={idx}
-                        className="text-gray-800 text-lg font-semibold flex justify-between"
-                      >
-                        <span>
-                          {item.title} |  Qty:{item.quantity}
-                        </span>
-        
-        
-                        <span>₹{item.price * item.quantity}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <hr />
-                  <div className="mt-2 font-medium  text-lg text-right text-green-700">
-                    Total: ₹{order.total}
+              {/* Real Order Items */}
+              <div className="space-y-4">
+                {order.items?.map((item, idx) => (
+                  <div key={idx} className="flex justify-between items-center py-3 border-b border-slate-50 last:border-0">
+                    <div>
+                      <h4 className="text-[13px] font-black text-slate-950 uppercase tracking-tight">{item.product_name}</h4>
+                      <p className="text-[10px] text-slate-500 font-bold uppercase">Qty: {item.quantity} × ₹{item.price}</p>
+                    </div>
+                    <p className="text-sm font-black text-slate-950 italic">₹{item.subtotal}</p>
                   </div>
-                </li>
-              ))}
-            </ul>
-          )}
-        </>
+                ))}
+              </div>
+
+              {/* Totals */}
+              <div className="flex justify-between items-end pt-6 border-t border-emerald-50">
+                <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-md">
+                  Method: {order.payment_method}
+                </span>
+                <div className="text-right">
+                  <span className="text-[11px] font-black text-slate-900 uppercase tracking-widest mr-4">Grand Total:</span>
+                  <span className="text-2xl font-black text-slate-950 italic">₹{order.total_amount}</span>
+                </div>
+              </div>
+
+              {/* Stepper */}
+              <div className="relative pt-10 pb-4">
+                <div className="absolute top-[49px] left-0 w-full h-[3px] bg-emerald-50 rounded-full"></div>
+                <div 
+                  className="absolute top-[49px] left-0 h-[3px] bg-emerald-600 rounded-full transition-all duration-700"
+                  style={{ width: `${(getActiveIndex(order.status) / (statusSteps.length - 1)) * 100}%` }}
+                ></div>
+                <div className="relative flex justify-between">
+                  {statusSteps.map((step, index) => {
+                    const isActive = index <= getActiveIndex(order.status);
+                    return (
+                      <div key={step.key} className="flex flex-col items-center">
+                        <div className={`w-5 h-5 rounded-full flex items-center justify-center z-10 ${isActive ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-200' : 'bg-white border-2 border-emerald-50 text-emerald-100'}`}>
+                          {isActive ? <FaCheckCircle className="text-[10px]" /> : <FaCircle className="text-[6px]" />}
+                        </div>
+                        <span className={`mt-3 text-[9px] font-black uppercase tracking-tighter ${isActive ? 'text-slate-950' : 'text-slate-300'}`}>
+                          {step.label}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))
       )}
     </div>
   );

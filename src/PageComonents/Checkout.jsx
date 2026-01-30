@@ -57,26 +57,66 @@ const Checkout = () => {
     }
   };
 
-  const handlePlaceOrder = async () => {
-    if (!selectedAddress) {
-      toast.warning("Select a delivery address");
-      return;
-    }
-    try {
-      setSubmitting(true);
-      const payload = {
-        address_id: selectedAddress,
-        payment_method: paymentMethod === 'COD' ? 'COD' : 'RAZORPAY'
+const handlePlaceOrder = async () => {
+  if (!selectedAddress) {
+    toast.warning("Select a delivery address");
+    return;
+  }
+
+  try {
+    setSubmitting(true);
+    const payload = {
+      address_id: selectedAddress,
+      payment_method: paymentMethod === 'COD' ? 'COD' : 'RAZORPAY'
+    };
+
+    const res = await api.post('order/create/', payload);
+
+    if (paymentMethod === 'RAZORPAY') {
+      // 1. Initialize Razorpay Options using data from your PlaceOrderAPIView
+      const options = {
+        key: res.data.key, 
+        amount: res.data.amount * 100, // Razorpay expects paise
+        currency: "INR",
+        name: "Your Store Name",
+        description: "Purchase Description",
+        order_id: res.data.razorpay_order_id,
+        handler: async function (response) {
+          try {
+            // 2. Call your VerifyPaymentAPIView (from the code you shared earlier)
+            await api.post('payment/verify/', {
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+            });
+            
+            toast.success("Payment Successful!");
+            navigate('/orderplaced', { state: { orderId: res.data.order_id } });
+          } catch (err) {
+            toast.error("Payment verification failed. Please contact support.");
+          }
+        },
+        prefill: {
+          // Find the selected address details for the Razorpay form
+          name: addresses.find(a => a.id === selectedAddress)?.full_name,
+          contact: addresses.find(a => a.id === selectedAddress)?.phone,
+        },
+        theme: { color: "#065f46" }, // Emerald-800 to match your UI
       };
-      await api.post('order/create/', payload);
+
+      const rzp1 = new window.Razorpay(options);
+      rzp1.open();
+    } else {
+      // COD Flow
       toast.success("Order placed successfully!");
       navigate('/order-success'); 
-    } catch (err) {
-      toast.error(err.response?.data?.error || "Order failed.");
-    } finally {
-      setSubmitting(false);
     }
-  };
+  } catch (err) {
+    toast.error(err.response?.data?.error || "Order failed.");
+  } finally {
+    setSubmitting(false);
+  }
+};
 
   if (loading) return (
     <div className="h-screen flex items-center justify-center">

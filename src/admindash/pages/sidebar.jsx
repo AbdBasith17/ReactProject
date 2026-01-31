@@ -15,7 +15,7 @@ function Sidebar() {
 
   const handleLogout = async (closeToast) => {
     try {
-      await api.post('accounts/logout/'); 
+      await api.post('auth/logout/'); 
       localStorage.removeItem('user');
       closeToast();
       toast.success("Logged out successfully");

@@ -58,61 +58,64 @@ const Checkout = () => {
   };
 
 const handlePlaceOrder = async () => {
-  if (!selectedAddress) {
-    toast.warning("Select a delivery address");
-    return;
-  }
-
   try {
-    setSubmitting(true);
-    const payload = {
+    setSubmitting(true); // Start loading state
+    const response = await api.post("/order/create/", {
       address_id: selectedAddress,
-      payment_method: paymentMethod === 'COD' ? 'COD' : 'RAZORPAY'
+      payment_method: paymentMethod, // Use the state variable here
+    });
+
+    // 1. Handle Cash on Delivery
+    if (response.data.message === "Order placed (COD)") {
+      toast.success("Order placed successfully!");
+      navigate("/orderplaced");
+      return;
+    }
+
+    // 2. Handle Razorpay
+    const options = {
+      key: response.data.key,
+      amount: response.data.amount * 100,
+      currency: "INR",
+      name: "PERFAURA",
+      order_id: response.data.razorpay_order_id,
+      handler: async function (razorpayResponse) {
+        try {
+          // 🛡️ VERIFY PAYMENT WITH BACKEND
+          // This sends razorpay_order_id, razorpay_payment_id, and razorpay_signature
+          const verifyRes = await api.post("/order/verify-payment/", {
+            razorpay_order_id: razorpayResponse.razorpay_order_id,
+            razorpay_payment_id: razorpayResponse.razorpay_payment_id,
+            razorpay_signature: razorpayResponse.razorpay_signature,
+          });
+
+          if (verifyRes.status === 200) {
+            toast.success("Payment Verified!");
+            navigate("/orderplaced"); // Redirect only after backend confirms
+          }
+        } catch (err) {
+          console.error("Verification failed", err);
+          toast.error("Payment verification failed. Please contact support.");
+        }
+      },
+      prefill: {
+        name: user?.name,
+        contact: user?.phone,
+      },
+      theme: { color: "#065f46" },
+      modal: {
+        ondismiss: function() {
+          setSubmitting(false); // Reset button if user closes popup
+        }
+      }
     };
 
-    const res = await api.post('order/create/', payload);
+    const rzp = new window.Razorpay(options);
+    rzp.open();
 
-    if (paymentMethod === 'RAZORPAY') {
-      // 1. Initialize Razorpay Options using data from your PlaceOrderAPIView
-      const options = {
-        key: res.data.key, 
-        amount: res.data.amount * 100, // Razorpay expects paise
-        currency: "INR",
-        name: "Your Store Name",
-        description: "Purchase Description",
-        order_id: res.data.razorpay_order_id,
-        handler: async function (response) {
-          try {
-            // 2. Call your VerifyPaymentAPIView (from the code you shared earlier)
-            await api.post('payment/verify/', {
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature,
-            });
-            
-            toast.success("Payment Successful!");
-            navigate('/orderplaced', { state: { orderId: res.data.order_id } });
-          } catch (err) {
-            toast.error("Payment verification failed. Please contact support.");
-          }
-        },
-        prefill: {
-          // Find the selected address details for the Razorpay form
-          name: addresses.find(a => a.id === selectedAddress)?.full_name,
-          contact: addresses.find(a => a.id === selectedAddress)?.phone,
-        },
-        theme: { color: "#065f46" }, // Emerald-800 to match your UI
-      };
-
-      const rzp1 = new window.Razorpay(options);
-      rzp1.open();
-    } else {
-      // COD Flow
-      toast.success("Order placed successfully!");
-      navigate('/order-success'); 
-    }
-  } catch (err) {
-    toast.error(err.response?.data?.error || "Order failed.");
+  } catch (error) {
+    console.error("Order creation failed", error);
+    toast.error(error.response?.data?.error || "Failed to initiate order.");
   } finally {
     setSubmitting(false);
   }

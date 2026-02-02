@@ -20,50 +20,50 @@ const processQueue = (error = null) => {
 };
 
 api.interceptors.response.use(
-  response => response,
-  async error => {
+  (response) => response,
+  async (error) => {
     const originalRequest = error.config;
 
-    const skipRefreshEndpoints = [
-      "auth/login/",
-      "auth/logout/",
-      "auth/token/refresh/",
-      "auth/register/",
-    ];
+    
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      
+      
+      const isAuthEndpoint = [
+        "auth/login/",
+        "auth/token/refresh/",
+        "auth/register/",
+      ].some(url => originalRequest.url.includes(url));
 
-    if (
-      error.response?.status !== 401 ||
-      skipRefreshEndpoints.some(url => originalRequest.url.includes(url))
-    ) {
-      return Promise.reject(error);
+      if (isAuthEndpoint) {
+        return Promise.reject(error);
+      }
+
+      if (isRefreshing) {
+        
+        return new Promise((resolve, reject) => {
+          failedQueue.push({ resolve, reject });
+        })
+          .then(() => api.request(originalRequest))
+          .catch((err) => Promise.reject(err));
+      }
+
+      originalRequest._retry = true;
+      isRefreshing = true;
+
+      try {
+        await api.post("auth/token/refresh/");
+        processQueue(); 
+        return api.request(originalRequest); 
+      } catch (refreshError) {
+        processQueue(refreshError);
+        
+        return Promise.reject(refreshError);
+      } finally {
+        isRefreshing = false;
+      }
     }
 
-    if (originalRequest._retry) {
-      return Promise.reject(error);
-    }
-
-    originalRequest._retry = true;
-
-    if (isRefreshing) {
-      return new Promise((resolve, reject) => {
-        failedQueue.push({ resolve, reject });
-      })
-        .then(() => api(originalRequest))
-        .catch(err => Promise.reject(err));
-    }
-
-    isRefreshing = true;
-
-    try {
-      await api.post("auth/token/refresh/");
-      processQueue();
-      return api(originalRequest);
-    } catch (err) {
-      processQueue(err);
-      return Promise.reject(err);
-    } finally {
-      isRefreshing = false;
-    }
+    return Promise.reject(error);
   }
 );
 

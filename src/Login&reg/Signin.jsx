@@ -96,7 +96,7 @@ const handleLogin = async (e) => {
       </div>
 
       <div className="hidden lg:block lg:w-1/2 relative bg-[#1a3a32]">
-        <img src="https://images.unsplash.com/photo-1543451921-0972967527a2?q=80&w=2070&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-overlay" alt="" />
+        <img src="https://images.unsplash.com/photo-1587017539504-67cfbddac569?q=80&w=2000&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-overlay" alt="" />
         <div className="absolute inset-0 flex flex-col justify-end p-20 bg-gradient-to-t from-[#0a1a15] to-transparent text-white">
           <h3 className="text-5xl font-extralight leading-tight mb-4">Discover Your <br/><span className="italic font-serif">Signature Scent.</span></h3>
           <div className="w-12 h-[1px] bg-emerald-500"></div>

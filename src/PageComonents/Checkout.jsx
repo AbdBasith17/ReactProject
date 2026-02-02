@@ -6,17 +6,18 @@ import api from "../api/axios";
 import { useAuth } from '../context/AuthContext';
 
 const Checkout = () => {
-  const { cart } = useAuth();
+  const { user, refreshCart, cart } = useAuth(); 
   const navigate = useNavigate();
-
   const [addresses, setAddresses] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState(null);
-  const [summary, setSummary] = useState({ items_total: 0, tax: 0, delivery_fee: 0, grand_total: 0 });
+  
+  // Removed tax from state since prices are inclusive
+  const [summary, setSummary] = useState({ items_total: 0, delivery_fee: 0, grand_total: 0 });
+  
   const [paymentMethod, setPaymentMethod] = useState('COD');
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [showAddressForm, setShowAddressForm] = useState(false);
-
   const [newAddress, setNewAddress] = useState({
     full_name: '', phone: '', address_line: '', city: '', state: '', pincode: ''
   });
@@ -57,69 +58,62 @@ const Checkout = () => {
     }
   };
 
-const handlePlaceOrder = async () => {
-  try {
-    setSubmitting(true); // Start loading state
-    const response = await api.post("/order/create/", {
-      address_id: selectedAddress,
-      payment_method: paymentMethod, // Use the state variable here
-    });
+  const handlePlaceOrder = async () => {
+    try {
+      setSubmitting(true);
+      
+      const response = await api.post("/order/create/", {
+        address_id: selectedAddress,
+        payment_method: paymentMethod,
+      });
 
-    // 1. Handle Cash on Delivery
-    if (response.data.message === "Order placed (COD)") {
-      toast.success("Order placed successfully!");
-      navigate("/orderplaced");
-      return;
-    }
-
-    // 2. Handle Razorpay
-    const options = {
-      key: response.data.key,
-      amount: response.data.amount * 100,
-      currency: "INR",
-      name: "PERFAURA",
-      order_id: response.data.razorpay_order_id,
-      handler: async function (razorpayResponse) {
-        try {
-          // 🛡️ VERIFY PAYMENT WITH BACKEND
-          // This sends razorpay_order_id, razorpay_payment_id, and razorpay_signature
-          const verifyRes = await api.post("/order/verify-payment/", {
-            razorpay_order_id: razorpayResponse.razorpay_order_id,
-            razorpay_payment_id: razorpayResponse.razorpay_payment_id,
-            razorpay_signature: razorpayResponse.razorpay_signature,
-          });
-
-          if (verifyRes.status === 200) {
-            toast.success("Payment Verified!");
-            navigate("/orderplaced"); // Redirect only after backend confirms
-          }
-        } catch (err) {
-          console.error("Verification failed", err);
-          toast.error("Payment verification failed. Please contact support.");
-        }
-      },
-      prefill: {
-        name: user?.name,
-        contact: user?.phone,
-      },
-      theme: { color: "#065f46" },
-      modal: {
-        ondismiss: function() {
-          setSubmitting(false); // Reset button if user closes popup
-        }
+      if (response.data.message === "Order placed (COD)") {
+        toast.success("Order placed successfully!");
+        await refreshCart();
+        navigate("/orderplaced" , { replace: true});
+        return;
       }
-    };
 
-    const rzp = new window.Razorpay(options);
-    rzp.open();
-
-  } catch (error) {
-    console.error("Order creation failed", error);
-    toast.error(error.response?.data?.error || "Failed to initiate order.");
-  } finally {
-    setSubmitting(false);
-  }
-};
+      const options = {
+        key: response.data.key,
+        amount: response.data.amount * 100,
+        currency: "INR",
+        name: "PERFAURA",
+        order_id: response.data.razorpay_order_id,
+        handler: async function (razorpayResponse) {
+          try {
+            const verifyRes = await api.post("/payment/verify/", {
+              razorpay_order_id: razorpayResponse.razorpay_order_id,
+              razorpay_payment_id: razorpayResponse.razorpay_payment_id,
+              razorpay_signature: razorpayResponse.razorpay_signature,
+            });
+            if (verifyRes.status === 200) {
+              toast.success("Payment Successful!");
+              await refreshCart();
+              navigate("/orderplaced", { replace: true});
+            }
+          } catch (err) {
+            toast.error("Payment verification failed.");
+          }
+        },
+        prefill: {
+          name: user?.name || "",
+          email: user?.email || "",
+        },
+        theme: { color: "#065f46" },
+        modal: {
+          ondismiss: function() {
+            setSubmitting(false);
+          }
+        }
+      };
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (error) {
+      toast.error(error.response?.data?.error || "Failed to initiate order.");
+      setSubmitting(false);
+    }
+  };
 
   if (loading) return (
     <div className="h-screen flex items-center justify-center">
@@ -129,10 +123,7 @@ const handlePlaceOrder = async () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Container widened to max-w-7xl to fill screen more */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        
-        {/* Header - Reduced size from text-4xl to text-2xl */}
         <div className="flex items-center gap-3 mb-6">
             <button onClick={() => navigate('/cart')} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
                 <FaArrowLeft className="text-sm" />
@@ -141,11 +132,7 @@ const handlePlaceOrder = async () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          
-          {/* LEFT: Address & Payment (Gained more col-span for width) */}
           <div className="lg:col-span-8 space-y-8">
-            
-            {/* 1. Address Selection */}
             <section className="border-t border-gray-100 pt-6">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-base font-black uppercase tracking-tight flex items-center gap-2">
@@ -161,7 +148,7 @@ const handlePlaceOrder = async () => {
               </div>
 
               {showAddressForm && (
-                <form onSubmit={handleAddAddress} className="bg-gray-50 p-6 rounded-2xl mb-6 grid grid-cols-2 gap-3 border border-gray-100">
+                <form onSubmit={handleAddAddress} className="bg-gray-50 p-6 rounded-2xl mb-6 grid grid-cols-2 gap-3 border border-gray-100 shadow-sm">
                   <input className="col-span-2 p-3 text-sm rounded-xl border-none ring-1 ring-gray-200 focus:ring-1 focus:ring-emerald-800 outline-none" placeholder="Full Name" required value={newAddress.full_name} onChange={e => setNewAddress({...newAddress, full_name: e.target.value})} />
                   <input className="p-3 text-sm rounded-xl border-none ring-1 ring-gray-200 outline-none" placeholder="Phone" required value={newAddress.phone} onChange={e => setNewAddress({...newAddress, phone: e.target.value})} />
                   <input className="p-3 text-sm rounded-xl border-none ring-1 ring-gray-200 outline-none" placeholder="Pincode" required value={newAddress.pincode} onChange={e => setNewAddress({...newAddress, pincode: e.target.value})} />
@@ -177,7 +164,7 @@ const handlePlaceOrder = async () => {
                   <div 
                     key={addr.id}
                     onClick={() => setSelectedAddress(addr.id)}
-                    className={`p-4 rounded-2xl border transition-all cursor-pointer relative ${selectedAddress === addr.id ? 'border-emerald-600 bg-emerald-50/20' : 'border-gray-100 hover:border-gray-200'}`}
+                    className={`p-4 rounded-2xl border transition-all cursor-pointer relative ${selectedAddress === addr.id ? 'border-emerald-600 bg-emerald-50/20 shadow-sm' : 'border-gray-100 hover:border-gray-200'}`}
                   >
                     {selectedAddress === addr.id && <FaCheckCircle className="absolute top-4 right-4 text-emerald-600" size={16} />}
                     <p className="font-black text-gray-900 uppercase text-xs mb-1">{addr.full_name}</p>
@@ -188,7 +175,6 @@ const handlePlaceOrder = async () => {
               </div>
             </section>
 
-            {/* 2. Payment Selection */}
             <section className="border-t border-gray-100 pt-6">
               <h3 className="text-base font-black uppercase tracking-tight flex items-center gap-2 mb-4">
                 <span className="bg-emerald-800 text-white w-5 h-5 rounded-full flex items-center justify-center text-[10px]">2</span>
@@ -217,9 +203,8 @@ const handlePlaceOrder = async () => {
             </section>
           </div>
 
-          {/* RIGHT: Order Summary Sidebar (Fixed Width Adjustment) */}
           <div className="lg:col-span-4">
-            <div className="bg-[#F9F9F9] rounded-3xl p-6 sticky top-24 border border-gray-100">
+            <div className="bg-[#F9F9F9] rounded-3xl p-6 sticky top-24 border border-gray-100 shadow-sm">
               <h3 className="text-lg font-black text-gray-900 mb-6 uppercase tracking-tight italic">Your Order</h3>
               
               <div className="space-y-4 mb-6 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
@@ -245,15 +230,15 @@ const handlePlaceOrder = async () => {
                   <span>₹{summary.items_total}</span>
                 </div>
                 <div className="flex justify-between text-gray-500 text-[10px] font-bold uppercase tracking-widest">
-                  <span>GST (5%)</span>
-                  <span>₹{summary.tax}</span>
-                </div>
-                <div className="flex justify-between text-gray-500 text-[10px] font-bold uppercase tracking-widest">
                   <span>Shipping</span>
                   <span className={summary.delivery_fee === 0 ? 'text-emerald-700' : ''}>
                     {summary.delivery_fee === 0 ? 'FREE' : `₹${summary.delivery_fee}`}
                   </span>
                 </div>
+
+                {/* Optional: Add a small note about inclusive tax */}
+                <p className="text-[8px] text-gray-400 font-bold uppercase text-right">* Prices are inclusive of all taxes</p>
+
                 <div className="border-t border-gray-200 pt-4 flex justify-between items-center">
                   <span className="font-black text-gray-900 uppercase text-[10px]">Total</span>
                   <span className="font-black text-xl text-gray-900 italic">₹{summary.grand_total}</span>
@@ -270,7 +255,6 @@ const handlePlaceOrder = async () => {
               </button>
             </div>
           </div>
-
         </div>
       </div>
     </div>

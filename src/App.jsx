@@ -30,12 +30,15 @@ import AdminRouteProtect from "./Routeprotector/adminrouteprotect";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import ForgotPassword from "./Login&reg/ForgotPassword";
+
+
 function AppLayout() {
   const location = useLocation();
 
   const hideLayout =
     location.pathname.startsWith("/admin") ||
-    ["/signin", "/register"].includes(location.pathname);
+    ["/signin", "/register","/forgot"].includes(location.pathname);
 
   return (
     <>
@@ -49,6 +52,8 @@ function AppLayout() {
         <Route path="/register" element={<Register />} />
         <Route path="/productpage" element={<ProductPage />} />
         <Route path="/productview/:id" element={<ProductOverview />} />
+
+        <Route path="/forgot" element={<ForgotPassword />} />
 
         
         <Route

@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
 
   const isAuthenticated = !!user;
 
-  // --- WISHLIST LOGIC ---
+ //wshlst
   const fetchWishlist = async () => {
     try {
       const res = await api.get("wishlist/");
@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // --- CART LOGIC ---
+  //cart
   const fetchCart = async () => {
     try {
       const res = await api.get("cart/");
@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // --- AUTH LOGIC ---
+  //auth
   useEffect(() => {
     const loadUser = async () => {
       try {
@@ -85,12 +85,12 @@ export const AuthProvider = ({ children }) => {
     try {
       const res = await api.post("auth/login/", credentials);
       
-      // Your Django backend returns { "user": { "id": 1, "name": "...", "role": "..." } }
+      
       const userData = res.data.user; 
       
       setUser(userData);
       
-      // Fetch user-specific data immediately
+     
       await Promise.all([fetchWishlist(), fetchCart()]);
 
       // FIX: Added optional chaining and fallback to prevent 'split' crash if name is null
@@ -102,10 +102,10 @@ export const AuthProvider = ({ children }) => {
       
       return userData; // Returning the user object directly to the component
     } catch (err) {
-      // Capture the specific error from Django (e.g., "Please verify your email")
+      
       const errorMessage = err.response?.data?.error || "Invalid credentials";
       toast.error(errorMessage);
-      throw err; // Re-throw so the component's 'catch' block can stop the loading state
+      throw err; 
     }
   };
 

@@ -26,12 +26,14 @@ import Orders from "./admindash/pages/order";
 
 import RouteProtect from "./Routeprotector/Routeprotector";
 import AdminRouteProtect from "./Routeprotector/adminrouteprotect";
+import GuestRoute from "./Routeprotector/GuestRoute";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import ForgotPassword from "./Login&reg/ForgotPassword";
 
+import NotFound from "./Othercomponets/notfound";
 
 function AppLayout() {
   const location = useLocation();
@@ -48,12 +50,12 @@ function AppLayout() {
         <Route path="/" element={<Home />} />
         <Route path="/men" element={<MenPage />} />
         <Route path="/women" element={<WomenPage />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/signin" element={<GuestRoute><SignIn /></GuestRoute>} />
+        <Route path="/register" element={<GuestRoute><Register /></GuestRoute>} />
         <Route path="/productpage" element={<ProductPage />} />
         <Route path="/productview/:id" element={<ProductOverview />} />
 
-        <Route path="/forgot" element={<ForgotPassword />} />
+        <Route path="/forgot" element={<GuestRoute><ForgotPassword /></GuestRoute>} />
 
         
         <Route
@@ -115,10 +117,18 @@ function AppLayout() {
           <Route path="user" element={<Users />} />
           <Route path="order" element={<Orders />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
 
       {!hideLayout && <Footer />}
-      <ToastContainer position="top-center" />
+      <ToastContainer 
+        position="top-center" 
+        autoClose={3000} 
+        hideProgressBar={false} 
+        newestOnTop={false} 
+        closeOnClick 
+        pauseOnHover 
+      />
     </>
   );
 }

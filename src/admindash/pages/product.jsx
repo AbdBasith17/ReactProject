@@ -173,6 +173,7 @@ function Products() {
             <tr>
               <th className="px-8 py-5">Product Detail</th>
               <th className="px-8 py-5 text-center">Stock Status</th>
+              <th className="px-8 py-5 text-center">Unit Sold</th>
               <th className="px-8 py-5 text-center">Volume</th>
               <th className="px-8 py-5 text-center">Price</th>
               <th className="px-8 py-5 text-center">Status</th>
@@ -190,6 +191,18 @@ function Products() {
                   </div>
                 </td>
                 <td className="px-8 py-5 text-center text-[11px] font-black text-emerald-700 italic">{prod.stock} PCs</td>
+                <td className="px-8 py-5 text-center">
+                  <div className="inline-flex flex-col items-center">
+                    <span className="text-[12px] font-black text-gray-900">
+                      {prod.sold || 0}
+                    </span>
+                    {prod.sold > 50 && (
+                      <span className="text-[7px] font-black uppercase text-orange-500 tracking-tighter">
+                        Hot Seller
+                      </span>
+                    )}
+                  </div>
+                </td>
                 <td className="px-8 py-5 text-center text-[11px] font-bold text-gray-400 italic">{prod.ml}</td>
                 <td className="px-8 py-5 text-center font-black text-[12px]">₹{prod.price}</td>
 

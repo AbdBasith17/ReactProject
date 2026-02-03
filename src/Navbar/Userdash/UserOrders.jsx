@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import api from "../../api/axios";
 import { FaCheckCircle, FaCircle, FaInfoCircle, FaBan } from "react-icons/fa";
-import { toast, ToastContainer } from "react-toastify";
+import { toast} from "react-toastify";
 
 function UserOrders() {
   const [orders, setOrders] = useState([]);
@@ -176,7 +176,7 @@ function UserOrders() {
           </div>
         );
       })}
-      <ToastContainer position="bottom-right" />
+     
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Search, Package, Printer, MapPin, User, Phone } from 'lucide-react';
 import api from "../../api/axios"; 
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const STATUS_COLORS = {
   ORDER_PLACED: "bg-orange-50 text-orange-600 border-orange-100",
@@ -179,7 +179,7 @@ function Orders() {
           </tbody>
         </table>
       </div>
-      <ToastContainer position="bottom-right" />
+      
     </div>
   );
 }

@@ -40,7 +40,7 @@ function OTPVerification({ email, onSuccess }) {
           <input
             type="text"
             value={otp}
-            onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))} // Only numbers
+            onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
             className="w-full text-center text-3xl tracking-[0.4em] pb-2 border-b-2 border-gray-100 focus:border-emerald-800 outline-none transition-all font-light bg-transparent"
             placeholder="000000"
             maxLength={6}
@@ -108,22 +108,34 @@ function Register() {
     }
   };
 
-  // Switch to OTP view if registration successful
   if (otpSent) {
     return <OTPVerification email={form.email} onSuccess={() => navigate("/signin")} />;
   }
 
   return (
-    <div className="min-h-screen w-full flex bg-white font-sans overflow-y-auto">
+    <div className="min-h-screen w-full flex flex-col lg:flex-row bg-white font-sans overflow-y-auto">
+      
+      {/* MOBILE TOP PORTION: Visible only on screens smaller than lg */}
+      <div className="lg:hidden w-full bg-[#1a3a32] py-10 flex flex-col items-center justify-center shadow-lg">
+        <h1 
+          className="text-2xl font-bold tracking-tighter cursor-pointer text-white" 
+          onClick={() => navigate("/")}
+        >
+          PERF<span className="text-emerald-400 font-light tracking-[0.1em]">AURA</span>
+        </h1>
+        <div className="w-12 h-[2px] bg-emerald-400 mt-3 opacity-60"></div>
+      </div>
+
       {/* Left Column: Form */}
       <div className="w-full lg:w-1/2 flex flex-col p-6 md:p-10 relative">
-        <div className="w-full flex justify-center py-4">
+        {/* DESKTOP LOGO: Visible only on lg screens */}
+        <div className="hidden lg:flex w-full justify-center py-4">
           <h1 className="text-2xl font-bold tracking-tighter cursor-pointer" onClick={() => navigate("/")}>
             PERF<span className="text-emerald-800 font-light tracking-[0.1em]">AURA</span>
           </h1>
         </div>
 
-        <div className="flex-1 flex flex-col justify-center max-w-sm w-full mx-auto">
+        <div className="flex-1 flex flex-col justify-center max-w-sm w-full mx-auto py-6">
           <header className="mb-4 text-center lg:text-left">
             <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-1 tracking-tight">Create Account</h2>
             <p className="text-gray-400 text-sm tracking-wide">Join the world of Perfaura.</p>
@@ -166,7 +178,7 @@ function Register() {
             <div className="relative flex justify-center text-[10px] uppercase tracking-[0.2em]"><span className="bg-white px-4 text-gray-400 font-bold">Or</span></div>
           </div>
 
-          <div className="flex justify-center">
+          <div className="flex justify-center overflow-hidden">
             <GoogleLogin 
               onSuccess={handleGoogleLogin} 
               onError={() => toast.error("Login Failed")} 

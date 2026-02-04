@@ -2,34 +2,39 @@ import React from 'react';
 
 const About = () => {
   return (
-    /* Restored original min-h-screen height */
-    <div className="relative w-full min-h-screen bg-white flex items-center px-4 sm:px-6 lg:px-8 py-10">
+    <div className="relative w-full min-h-[60vh] bg-white flex items-center justify-center px-6 sm:px-10 lg:px-16 py-16 lg:py-20">
       <div className="max-w-4xl mx-auto text-center">
-        {/* Luxury tracking restored from admin reference */}
-        <h2 className="text-sm sm:text-base font-bold text-emerald-800 tracking-[0.4em] uppercase mb-4">ABOUT</h2>
         
-        {/* Restored original text-5xl size */}
-        <h1 className="text-2xl sm:text-4xl md:text-4xl font-black text-gray-900 mt-2 tracking-tighter uppercase ">
-          PERF<span className="text-emerald-700 font-light tracking-[0.1em] not-italic">AURA</span>
+        <div className="mb-4 overflow-hidden">
+          <h2 className="text-[9px] font-bold text-gray-400 tracking-[0.5em] uppercase">
+            Our Essence
+          </h2>
+        </div>
+        
+        <h1 className="text-2xl md:text-4xl font-black text-gray-900 mt-2 tracking-tighter uppercase mb-8">
+          PERF<span className="text-emerald-700 font-light italic tracking-tight">AURA</span>
         </h1>
         
-        {/* Restored original text-xl size and leading */}
-        <p className="mt-8 text-base sm:text-lg md:text-lg text-gray-800 leading-relaxed text-justify sm:text-center font-medium italic">
-          Perfaura is not just an online store, but your ultimate destination for all things fragrance-related. 
-          Discover a curated collection of the finest original imported perfumes, meticulously selected to cater 
-          to your unique tastes and preferences. 
-        </p>
-        <p className="mt-6 text-base sm:text-lg md:text-lg text-gray-600 leading-relaxed text-justify sm:text-center">
-          At Perfaura, we pride ourselves on offering the best prices possible, 
-          ensuring that luxury and elegance are within reach for every fragrance enthusiast. Enjoy the convenience of 
-          shopping from the comfort of your home with our seamless online shopping experience, complemented by free shipping 
-          on every order. Experience the allure of our perfumes and indulge in the essence of luxury with Perfaura.
-        </p>
+        <div className="space-y-6">
+          <p className="text-base md:text-xl text-gray-800 leading-relaxed text-justify sm:text-center font-bold tracking-tight max-w-2xl mx-auto">
+            Perfaura is not just an online store, but your ultimate destination for all things fragrance-related. 
+            Discover a curated collection of the finest original imported perfumes. 
+          </p>
 
-        {/* Brand decorative line */}
-        <div className="w-24 h-[1px] bg-emerald-800 mx-auto mt-12 opacity-30"></div>
+          <p className="text-xs md:text-base text-gray-500 leading-loose text-justify sm:text-center max-w-xl mx-auto font-medium">
+            At Perfaura, we pride ourselves on offering the best prices possible, 
+            ensuring that luxury and elegance are within reach for every fragrance enthusiast. Experience the allure of our perfumes and indulge in the essence of luxury.
+          </p>
+        </div>
+
+        <div className="flex items-center justify-center gap-4 mt-12">
+          <div className="w-10 h-[1px] bg-emerald-800/20"></div>
+          <div className="w-1 h-1 rounded-full bg-emerald-700"></div>
+          <div className="w-10 h-[1px] bg-emerald-800/20"></div>
+        </div>
       </div>
     </div>
   );
 };
+
 export default About;

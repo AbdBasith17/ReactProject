@@ -37,7 +37,7 @@ const WishlistPage = () => {
   );
 
   return (
-    <div className="min-h-screen bg-white py-12 px-6">
+    <div className="min-h-screen bg-white py-6 px-6">
       <div className="max-w-7xl mx-auto">
         <header className="mb-12 border-b border-gray-100 pb-8 flex justify-between items-end">
           <div>

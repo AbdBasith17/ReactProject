@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <footer className="bg-[#f9fafb] text-gray-900 pt-16 pb-8 px-8 mt-20 border-t border-gray-200">
+    <footer className="bg-[#f9fafb] text-gray-900 pt-12 pb-8 px-8 border-t border-gray-200">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-gray-200 pb-12">
         
         {/* BRAND COLUMN */}

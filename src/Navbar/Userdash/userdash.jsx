@@ -13,17 +13,14 @@ function UserDashboard() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  // --- 1. AUTO REDIRECT IF NOT LOGGED IN ---
   useEffect(() => {
     if (!user) {
       navigate("/signin");
     }
   }, [user, navigate]);
 
-  // Prevent flashing content while redirecting
-  if (!user) return null; 
+  if (!user) return null;
 
-  // --- 2. LOGOUT CONFIRMATION LOGIC ---
   const handleLogoutFlow = () => {
     toast.info(
       <div className="flex flex-col gap-3 p-1">
@@ -66,51 +63,71 @@ function UserDashboard() {
   };
 
   const tabs = [
-    { id: "orders", label: "My Orders", icon: <FaBox /> },
-    { id: "addresses", label: "Addresses", icon: <FaMapMarkerAlt /> },
-    { id: "profile", label: "Account info", icon: <FaUser /> },
+    { id: "orders", label: "Orders", icon: <FaBox /> },
+    { id: "addresses", label: "Address", icon: <FaMapMarkerAlt /> },
+    { id: "profile", label: "Profile", icon: <FaUser /> },
   ];
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="mb-10 border-l-4 border-emerald-800 pl-4">
-          <h2 className="text-3xl font-black text-emerald-900 tracking-tight italic uppercase">Account</h2>
-          <p className="text-emerald-700 text-[10px] font-bold uppercase tracking-widest mt-1">Manage your orders and preferences</p>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-10">
+        
+        {/* --- HEADER: ACCOUNT LEFT, LOGOUT RIGHT --- */}
+        <div className="flex items-center justify-between mb-8 border-l-4 border-emerald-800 pl-4">
+          <div>
+            <h2 className="text-2xl lg:text-3xl font-black text-emerald-900 tracking-tight italic uppercase leading-none">
+              Account
+            </h2>
+            <p className="hidden sm:block text-emerald-700 text-[10px] font-bold uppercase tracking-widest mt-1">
+              Manage your orders and preferences
+            </p>
+          </div>
+          
+          <button 
+            onClick={handleLogoutFlow}
+            className="flex items-center gap-2 px-4 py-2 bg-red-50 text-red-600 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-red-100 transition-all border border-red-100"
+          >
+            <FaSignOutAlt className="text-sm" /> 
+            <span className="hidden xs:block">Logout</span>
+          </button>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          {/* Sidebar */}
-          <div className="lg:col-span-3 space-y-2">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`w-full flex items-center gap-4 px-6 py-4 rounded-2xl transition-all text-[10px] font-black uppercase tracking-widest
-                  ${activeTab === tab.id 
-                    ? "bg-emerald-800 text-white shadow-lg shadow-emerald-200" 
-                    : "text-gray-400 hover:bg-emerald-50 hover:text-emerald-800"}`}
-              >
-                {tab.icon} {tab.label}
-              </button>
-            ))}
-            
-            <div className="pt-6 mt-6 border-t border-emerald-100">
-              <button 
-                onClick={handleLogoutFlow}
-                className="w-full flex items-center gap-4 px-6 py-4 rounded-2xl text-red-500 hover:bg-red-50 transition-all text-[10px] font-black uppercase tracking-widest border border-transparent hover:border-red-100"
-              >
-                <FaSignOutAlt /> Logout
-              </button>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12">
+          
+          {/* --- SIDEBAR / MOBILE TAB GRID --- */}
+          <div className="lg:col-span-3">
+            {/* Grid of 3 columns on mobile, single column on desktop */}
+            <div className="grid grid-cols-3 lg:grid-cols-1 gap-2 lg:gap-3">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex flex-col lg:flex-row items-center justify-center lg:justify-start gap-2 lg:gap-4 px-2 py-4 lg:px-6 lg:py-4 rounded-2xl transition-all text-[8px] xs:text-[9px] lg:text-[10px] font-black uppercase tracking-widest border lg:border-none
+                    ${activeTab === tab.id 
+                      ? "bg-emerald-800 text-white shadow-lg shadow-emerald-200 border-emerald-800" 
+                      : "bg-white lg:bg-transparent text-gray-400 border-gray-100 hover:bg-emerald-50 hover:text-emerald-800"}`}
+                >
+                  <span className="text-base lg:text-lg">{tab.icon}</span>
+                  <span className="text-center">{tab.label}</span>
+                </button>
+              ))}
+            </div>
+
+            {/* Desktop Only separator for extra logout if desired (optional) */}
+            <div className="hidden lg:block pt-6 mt-6 border-t border-emerald-100">
+               <p className="text-[9px] text-gray-400 uppercase font-bold tracking-widest text-center lg:text-left">Perfaura Secure Account</p>
             </div>
           </div>
 
-          {/* Content */}
-          <div className="lg:col-span-9 bg-emerald-50/20 p-8 rounded-[2rem] border border-emerald-100/50">
-            {activeTab === "orders" && <UserOrders />}
-            {activeTab === "addresses" && <UserAddresses />}
-            {activeTab === "profile" && <UserDetails />}
+          {/* --- CONTENT AREA --- */}
+          <div className="lg:col-span-9 bg-emerald-50/10 p-4 sm:p-6 lg:p-8 rounded-[1.5rem] lg:rounded-[2rem] border border-emerald-100/50 min-h-[400px]">
+            <div className="animate-in fade-in slide-in-from-bottom-2 duration-500">
+              {activeTab === "orders" && <UserOrders />}
+              {activeTab === "addresses" && <UserAddresses />}
+              {activeTab === "profile" && <UserDetails />}
+            </div>
           </div>
+
         </div>
       </div>
     </div>

@@ -12,69 +12,36 @@ export const AuthProvider = ({ children }) => {
 
   const isAuthenticated = !!user;
 
- //wshlst
   const fetchWishlist = async () => {
     try {
       const res = await api.get("wishlist/");
       setWishlist(res.data);
     } catch (err) {
-      console.error("Wishlist sync failed", err);
+      console.warn("Guest user: Wishlist empty");
     }
   };
 
-  //cart
   const fetchCart = async () => {
     try {
       const res = await api.get("cart/");
       setCart(res.data);
     } catch (err) {
-      if (err.response?.status !== 401) {
-        console.error("Error fetching cart", err);
-      }
+      // Quietly fail for guests
     }
   };
 
-  const addToCart = async (productId, quantity) => {
-    try {
-      await api.post("cart/add/", { product_id: productId, quantity });
-      await fetchCart();
-      toast.success("Added to cart successfully!");
-    } catch (err) {
-      toast.error("Please login to add items to cart");
-    }
-  };
-
-  const updateCartQty = async (productId, newQty) => {
-    try {
-      await api.patch(`cart/update/${productId}/`, { quantity: newQty });
-      await fetchCart();
-    } catch (err) {
-      toast.error("Failed to update quantity");
-    }
-  };
-
-  const removeFromCart = async (productId) => {
-    try {
-      await api.delete(`cart/remove/${productId}/`);
-      await fetchCart();
-      toast.info("Item removed from cart");
-    } catch (err) {
-      toast.error("Failed to remove item");
-    }
-  };
-
-  //auth
+  // Auth Logic on Mount
   useEffect(() => {
     const loadUser = async () => {
       try {
         const res = await api.get("auth/me/");
         setUser(res.data);
-        
-        fetchWishlist();
-        fetchCart();
+        await Promise.all([fetchWishlist(), fetchCart()]);
       } catch (err) {
+        // If 401 or any error occurs, user remains null (Guest mode)
         setUser(null);
       } finally {
+        // IMPORTANT: Always set loading to false so the App can render
         setLoading(false);
       }
     };
@@ -84,27 +51,14 @@ export const AuthProvider = ({ children }) => {
   const login = async (credentials) => {
     try {
       const res = await api.post("auth/login/", credentials);
-      
-      
       const userData = res.data.user; 
-      
       setUser(userData);
-      
-     
       await Promise.all([fetchWishlist(), fetchCart()]);
-
-      // FIX: Added optional chaining and fallback to prevent 'split' crash if name is null
-      const displayName = userData?.name?.trim() 
-        ? userData.name.split(' ')[0] 
-        : (userData?.role === 'admin' ? "Admin" : "User");
-
+      const displayName = userData?.name?.split(' ')[0] || "User";
       toast.success(`Welcome back, ${displayName}!`);
-      
-      return userData; // Returning the user object directly to the component
+      return userData; 
     } catch (err) {
-      
-      const errorMessage = err.response?.data?.error || "Invalid credentials";
-      toast.error(errorMessage);
+      toast.error(err.response?.data?.error || "Invalid credentials");
       throw err; 
     }
   };
@@ -112,11 +66,23 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       await api.post("auth/logout/");
-      toast.success("Logged out successfully");
+    } catch (err) {
+      console.warn("Already logged out on server");
     } finally {
       setUser(null);
       setWishlist([]);
       setCart([]);
+      toast.success("Logged out successfully");
+    }
+  };
+
+  const addToCart = async (productId, quantity) => {
+    try {
+      await api.post("cart/add/", { product_id: productId, quantity });
+      await fetchCart();
+      toast.success("Added to cart!");
+    } catch (err) {
+      toast.error("Please login to add items to cart");
     }
   };
 
@@ -124,25 +90,24 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         user,
-        setUser,
-        wishlist,
-        setWishlist,
-        cart,
-        setCart,
         isAuthenticated,
         loading,
         login,
         logout,
         addToCart,
-        updateCartQty,
-        removeFromCart,
-        refreshWishlist: fetchWishlist,
-        refreshCart: fetchCart
+        cart,
+        wishlist,
+        refreshCart: fetchCart,
+        refreshWishlist: fetchWishlist
       }}
     >
+      {/* Show a centered spinner while checking initial auth status */}
       {loading ? (
-        <div className="h-screen flex items-center justify-center">
-           <p className="text-gray-400 animate-pulse tracking-widest uppercase text-xs">Loading Perfaura...</p>
+        <div className="h-screen flex items-center justify-center bg-white text-emerald-900 font-bold tracking-widest uppercase text-xs">
+          <div className="flex flex-col items-center gap-3">
+            <div className="w-6 h-6 border-2 border-emerald-800 border-t-transparent rounded-full animate-spin"></div>
+            Perfaura
+          </div>
         </div>
       ) : (
         children

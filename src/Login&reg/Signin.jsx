@@ -46,19 +46,31 @@ function SignIn() {
   };
 
   return (
-    <div className="min-h-screen w-full flex bg-white font-sans overflow-y-auto">
+    <div className="min-h-screen w-full flex flex-col lg:flex-row bg-white font-sans overflow-y-auto">
+      
+      {/* MOBILE TOP PORTION: Visible only on mobile/tablet */}
+      <div className="lg:hidden w-full bg-[#1a3a32] py-10 flex flex-col items-center justify-center shadow-lg">
+        <h1 
+          className="text-2xl font-bold tracking-tighter cursor-pointer text-white" 
+          onClick={() => navigate("/")}
+        >
+          PERF<span className="text-emerald-400 font-light tracking-[0.1em]">AURA</span>
+        </h1>
+        <div className="w-12 h-[2px] bg-emerald-400 mt-3 opacity-60"></div>
+      </div>
+
       <div className="w-full lg:w-1/2 flex flex-col p-6 md:p-10 relative">
-        {/* CENTERED LOGO AT TOP */}
-        <div className="w-full flex justify-center py-4">
+        {/* DESKTOP LOGO: Visible only on lg screens */}
+        <div className="hidden lg:flex w-full justify-center py-4">
           <h1 className="text-2xl font-bold tracking-tighter cursor-pointer" onClick={() => navigate("/")}>
             PERF<span className="text-emerald-800 font-light tracking-[0.1em]">AURA</span>
           </h1>
         </div>
 
         {/* MAIN CONTENT AREA */}
-        <div className="max-w-sm w-full mx-auto flex-1 flex flex-col justify-center">
+        <div className="max-w-sm w-full mx-auto flex-1 flex flex-col justify-center py-6">
           <div className="mb-6 text-center lg:text-left">
-            <h2 className="text-4xl font-light text-gray-900 mb-2 tracking-tight">Welcome Back</h2>
+            <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-2 tracking-tight">Welcome Back</h2>
             <p className="text-gray-400 text-sm tracking-wide">Please enter your details to sign in.</p>
           </div>
 
@@ -110,6 +122,7 @@ function SignIn() {
         </div>
       </div>
 
+      {/* DESKTOP SIDE IMAGE */}
       <div className="hidden lg:block lg:w-1/2 relative bg-[#1a3a32]">
         <img src="https://images.unsplash.com/photo-1587017539504-67cfbddac569?q=80&w=2000&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-overlay" alt="" />
         <div className="absolute inset-0 flex flex-col justify-end p-20 bg-gradient-to-t from-[#0a1a15] to-transparent text-white">
@@ -120,4 +133,5 @@ function SignIn() {
     </div>
   );
 }
+
 export default SignIn;

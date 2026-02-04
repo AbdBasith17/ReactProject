@@ -1,26 +1,28 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Cormorant Garamond", serif;
-
-  --color-emerald-900: #1a3a32;
-  --color-emerald-950: #0a1a15;
+  --font-sans: "Montserrat", sans-serif;
+  --font-serif: "Playfair Display", serif;
 }
 
-
 @layer base {
-  body {
-    @apply font-sans antialiased text-gray-900 bg-white;
+  html, body {
     margin: 0;
     padding: 0;
+    /* This is the most important part for sticky to work */
+    overflow-x: hidden;
+    overflow-y: auto !important;
+    height: auto !important;
   }
 
-  
-  .font-serif {
+  #root {
+    /* If root is flex or has hidden overflow, sticky dies */
+    display: block; 
+    overflow: visible !important;
+  }
+
+  .luxury-text {
     font-family: var(--font-serif);
-    font-style: italic;
   }
 }

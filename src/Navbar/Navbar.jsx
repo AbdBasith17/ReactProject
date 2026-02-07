@@ -47,18 +47,22 @@ function Navbar() {
   };
 
   return (
-    // Change your nav tag to this:
     <nav className={`fixed top-0 w-full z-[100] transition-all duration-500 ${isTransparent
-        ? "bg-transparent py-6"
-        : "bg-white shadow-md py-4 border-b border-gray-100"
+      ? "bg-transparent py-6"
+      : "bg-white shadow-md py-4 border-b border-gray-100"
       }`}>
       <div className="container mx-auto px-5 lg:px-10">
-        <div className="flex items-center justify-between">
+        
+        <div className="flex items-center justify-between w-full">
 
-          {/* LEFT: LOGO */}
-          <div className="flex items-center gap-4">
-            <button className="lg:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-              <FaBars size={24} className={isTransparent ? "text-white" : "text-black"} />
+          {/* LEFT: Fixed width on Desktop only */}
+          <div className="flex items-center gap-4 lg:w-[250px] z-[120]">
+            <button 
+              className="lg:hidden p-1" 
+              onClick={() => setIsMenuOpen(true)} // Explicitly set to true
+              aria-label="Open Menu"
+            >
+              <FaBars size={22} className={isTransparent ? "text-white" : "text-black"} />
             </button>
             <h1
               className={`text-2xl font-bold tracking-tighter cursor-pointer transition-colors ${isTransparent ? "text-white" : "text-black"}`}
@@ -68,11 +72,11 @@ function Navbar() {
             </h1>
           </div>
 
-          {/* CENTER: DESKTOP LINKS */}
-          <div className="hidden lg:block">
-            <ul className="flex items-center gap-10">
+          {/* CENTER: Slides left/right smoothly */}
+          <div className="hidden lg:flex flex-1 justify-center transition-all duration-500 ease-in-out px-4">
+            <ul className="flex items-center gap-8 xl:gap-10">
               {navLinks.map(([path, label]) => (
-                <li key={path} className="relative group">
+                <li key={path} className="relative group flex-shrink-0">
                   <Link
                     to={path}
                     className={`text-[11px] font-bold uppercase tracking-[0.25em] transition-colors ${isTransparent ? "text-white/80 hover:text-white" : "text-gray-500 hover:text-black"
@@ -86,92 +90,111 @@ function Navbar() {
             </ul>
           </div>
 
-          {/* RIGHT: ICONS & ACCOUNT */}
-          <div className="flex items-center gap-4 lg:gap-6">
-
-            {/* Search Bar Animation */}
-            <div className="hidden lg:flex items-center" ref={searchRef}>
+          {/* RIGHT: Icons + Search */}
+          <div className="flex items-center justify-end gap-2 lg:gap-4 lg:min-w-[250px] transition-all duration-500 ease-in-out">
+            
+            <div className="hidden lg:flex items-center overflow-hidden" ref={searchRef}>
               <AnimatePresence>
                 {isSearchOpen && (
                   <motion.div
                     initial={{ width: 0, opacity: 0 }}
-                    animate={{ width: 220, opacity: 1 }}
+                    animate={{ width: 200, opacity: 1 }}
                     exit={{ width: 0, opacity: 0 }}
-                    className="overflow-hidden"
+                    transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
                   >
                     <Searching customColor={isTransparent ? "white" : "black"} />
                   </motion.div>
                 )}
               </AnimatePresence>
-              <button
-                onClick={() => setIsSearchOpen(!isSearchOpen)}
-                className={`ml-2 transition-transform hover:scale-110 ${isTransparent ? "text-white" : "text-gray-700"}`}
-              >
-                {isSearchOpen ? <FaXmark size={20} /> : <FaMagnifyingGlass size={19} />}
-              </button>
             </div>
 
-            {/* Icons Group */}
-            <div className={`flex items-center gap-4 lg:gap-5 ${isTransparent ? "text-white" : "text-gray-700"}`}>
-              <button onClick={() => handleProtectedAction("/wishlist")} className="relative hover:scale-110 transition-transform">
-                <FaRegHeart size={20} />
-                {wishlistCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-emerald-600 text-white text-[9px] w-4 h-4 flex items-center justify-center rounded-full font-bold">
-                    {wishlistCount}
-                  </span>
-                )}
-              </button>
+            <button
+              onClick={() => setIsSearchOpen(!isSearchOpen)}
+              className={`p-2 transition-transform hover:scale-110 ${isTransparent ? "text-white" : "text-gray-700"}`}
+            >
+              {isSearchOpen ? <FaXmark size={18} /> : <FaMagnifyingGlass size={18} />}
+            </button>
 
-              <button onClick={() => handleProtectedAction("/cart")} className="relative hover:scale-110 transition-transform">
-                <IoCartOutline size={22} />
-                {cartCount > 0 && (
-                  <span className="absolute -top-1 -right-2 bg-emerald-600 text-white text-[9px] w-4 h-4 flex items-center justify-center rounded-full font-bold">
-                    {cartCount}
-                  </span>
-                )}
-              </button>
+            <button onClick={() => handleProtectedAction("/wishlist")} className="relative p-1">
+              <FaRegHeart size={19} className={isTransparent ? "text-white" : "text-gray-700"} />
+              {wishlistCount > 0 && (
+                <span className="absolute top-0 -right-1 bg-emerald-600 text-white text-[8px] w-3.5 h-3.5 flex items-center justify-center rounded-full font-bold">
+                  {wishlistCount}
+                </span>
+              )}
+            </button>
 
-              {/* USER ACCOUNT SECTION */}
-              <div className="ml-1">
-                <button className="flex items-center gap-2 group" onClick={() => handleProtectedAction("/userdata")}>
-                  {user ? (
-                    <div className="flex items-center gap-2">
-                      <div className="text-right hidden xl:block leading-tight">
-                        <p className={`text-[9px] uppercase tracking-widest font-bold ${isTransparent ? "text-gray-300" : "text-gray-400"}`}>Account</p>
-                        <p className={`text-[11px] font-bold uppercase tracking-tighter ${isTransparent ? "text-white" : "text-gray-800"}`}>
-                          {user.name ? user.name.split(" ")[0] : "User"}
-                        </p>
-                      </div>
-                      <HiOutlineUserCircle size={26} className="group-hover:scale-110 transition-transform" />
-                    </div>
-                  ) : (
-                    <motion.span
-                      whileHover={{ scale: 1.05 }}
-                      onClick={(e) => { e.stopPropagation(); navigate("/signin"); }}
-                      className={`text-[10px] font-bold uppercase tracking-[0.2em] px-5 py-2 rounded-full transition-all ${isTransparent ? "bg-white text-black" : "bg-emerald-900 text-white"}`}
-                    >
-                      Login
-                    </motion.span>
-                  )}
-                </button>
-              </div>
-            </div>
+            <button onClick={() => handleProtectedAction("/cart")} className="relative p-1">
+              <IoCartOutline size={22} className={isTransparent ? "text-white" : "text-gray-700"} />
+              {cartCount > 0 && (
+                <span className="absolute top-0 -right-1 bg-emerald-600 text-white text-[8px] w-3.5 h-3.5 flex items-center justify-center rounded-full font-bold">
+                  {cartCount}
+                </span>
+              )}
+            </button>
+
+            <button
+              onClick={() => handleProtectedAction("/userdata")}
+              className="flex items-center gap-3 group ml-1"
+            >
+              {user && (
+                <div className="hidden md:flex flex-col items-end leading-none gap-1">
+                  <span className={`text-[7px] font-bold uppercase tracking-[0.2em] transition-colors ${isTransparent ? "text-white/60 group-hover:text-white" : "text-gray-400 group-hover:text-black"}`}>
+                    Account
+                  </span>
+                  <span className={`text-[9px] font-black uppercase tracking-widest transition-colors ${isTransparent ? "text-emerald-400" : "text-emerald-800"}`}>
+                    {user.displayName || user.name || user.email?.split('@')[0]}
+                  </span>
+                </div>
+              )}
+              <HiOutlineUserCircle size={28} className={isTransparent ? "text-white" : "text-gray-700"} />
+            </button>
           </div>
         </div>
+
+        {/* MOBILE SEARCH (Separate Row) */}
+        <AnimatePresence>
+          {isSearchOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1, marginTop: 16 }}
+              exit={{ height: 0, opacity: 0 }}
+              className="lg:hidden overflow-hidden w-full"
+            >
+              <div className="pb-2">
+                <Searching customColor={isTransparent ? "white" : "black"} />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
-      {/* MOBILE MENU */}
+      {/* MOBILE MENU OVERLAY */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            initial={{ x: "-100%" }} animate={{ x: 0 }} exit={{ x: "-100%" }}
-            transition={{ type: "tween", duration: 0.4 }}
-            className="fixed inset-0 top-0 left-0 w-full h-screen bg-black z-[110] flex flex-col p-10"
+            initial={{ opacity: 0, x: "-100%" }} 
+            animate={{ opacity: 1, x: 0 }} 
+            exit={{ opacity: 0, x: "-100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed inset-0 w-full h-screen bg-black/95 backdrop-blur-lg z-[200] flex flex-col p-10"
           >
-            <button onClick={() => setIsMenuOpen(false)} className="self-end text-white mb-10"><FaXmark size={30} /></button>
+            <div className="flex justify-between items-center mb-16">
+               <h1 className="text-white text-2xl font-bold tracking-tighter">
+                PERF<span className="text-white/80 font-light tracking-[0.1em]">AURA</span>
+              </h1>
+              <button onClick={() => setIsMenuOpen(false)} className="text-white"><FaXmark size={30} /></button>
+            </div>
+            
             <div className="flex flex-col gap-8">
               {navLinks.map(([path, label]) => (
-                <Link key={path} to={path} onClick={() => setIsMenuOpen(false)} className="text-white text-3xl font-serif tracking-widest uppercase italic">{label}</Link>
+                <Link
+                  key={path} to={path}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="text-white text-xl font-black tracking-tighter uppercase hover:text-emerald-400 transition-colors"
+                >
+                  {label}
+                </Link>
               ))}
             </div>
           </motion.div>

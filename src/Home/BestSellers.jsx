@@ -17,18 +17,19 @@ function BestSeller() {
   }, []);
 
   return (
-    <div className="w-full bg-[#f9f9f7] py-20 border-y border-gray-100">
-      <div className="max-w-7xl mx-auto text-center px-4 mb-10">
-        <p className="text-[9px] font-bold text-gray-400 tracking-[0.4em] uppercase mb-2">
-          Check Out Our
+    <section className="w-full py-24">
+      <div className="max-w-7xl mx-auto text-center px-4 mb-16">
+        <p className="text-[10px] font-bold text-emerald-800 tracking-[0.4em] uppercase mb-3">
+          Curated Excellence
         </p>
-        <h3 className="text-2xl md:text-4xl font-black text-gray-900 tracking-tighter uppercase">
+        <h3 className="text-3xl md:text-5xl font-black text-gray-900 tracking-tighter uppercase">
           Best <span className="text-emerald-700 font-light italic tracking-tight">Sellers</span>
         </h3>
+        <div className="w-12 h-[2px] bg-emerald-800/20 mx-auto mt-6"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 lg:px-10">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-10">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-12 md:gap-x-10">
           {products.map((product) => (
             <ItemCard
               key={product.id} 
@@ -42,7 +43,7 @@ function BestSeller() {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

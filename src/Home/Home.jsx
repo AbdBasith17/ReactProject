@@ -1,7 +1,8 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import backgroundImage from "./images/bging1.jpg"; 
+import bgSmall from "./images/bgsmall.jpg"; 
 
 // Sub-components
 import BestSellers from "./BestSellers";
@@ -9,7 +10,17 @@ import About from "./About";
 import Change from "./Change";
 
 const Home = () => {
-  // Animation Variants
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Fast expansion: trigger at 20px scroll
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const fadeInUp = {
     hidden: { opacity: 0, y: 40 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
@@ -23,55 +34,78 @@ const Home = () => {
   return (
     <div className="relative w-full">
       {/* --- SECTION 1: HERO --- */}
-      <section className="relative h-screen w-full">
+      <section className="relative h-screen w-full flex flex-col justify-end overflow-hidden">
         <div className="fixed inset-0 h-screen w-full -z-10">
           <img 
             src={backgroundImage} 
             alt="Perfaura Hero" 
-            className="w-full h-full object-cover object-center"
+            className="hidden md:block w-full h-full object-cover object-center"
+          />
+          <img 
+            src={bgSmall} 
+            alt="Perfaura Hero Mobile" 
+            className="block md:hidden w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-black/40" />
         </div>
 
-        <div className="h-full w-full flex flex-col justify-end md:justify-center items-start px-6 md:px-20 pb-20 md:pb-0">
+        {/* md:items-end + md:pb-24 = Positions the card lower than center on desktop. 
+            Adjust md:pb-24 (e.g. to pb-16 for lower, pb-32 for higher)
+        */}
+        <div className="w-full h-full flex justify-start items-end md:items-end px-0 md:px-20 pb-0 md:pb-20">
           <motion.div 
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="backdrop-blur-xl text-white p-8 md:p-12 rounded-3xl max-w-xs md:max-w-xl border border-white/20 shadow-2xl"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="backdrop-blur-2xl bg-white/10 text-white 
+                       pt-6 pb-10 px-6 md:p-12 
+                       w-full md:w-auto md:max-w-xl 
+                       rounded-t-[2.5rem] rounded-b-none md:rounded-[3rem] 
+                       border-t border-x md:border border-white/20 shadow-2xl"
           >
-            <h2 className="text-2xl md:text-4xl leading-tight font-black mb-4 uppercase tracking-tighter">
-              EVERY FRAGRANCE TELLS A STORY,<br />
+            <h2 className="text-xl md:text-4xl leading-tight font-black mb-2 md:mb-4 uppercase tracking-tighter">
+              EVERY FRAGRANCE TELLS A STORY,<br className="hidden md:block" />
               LET YOURS BEGIN WITH PERF
               <span className="text-emerald-400 font-light italic tracking-tight">AURA</span>.
             </h2>
             
-            <p className="text-sm md:text-base mb-8 opacity-80 font-medium tracking-wide">
+            <p className="text-xs md:text-base mb-6 md:mb-8 opacity-80 font-medium tracking-wide leading-relaxed max-w-sm">
               We want you to express yourself through a deeply sensorial experience.
             </p>
 
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <button className="group relative inline-flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border border-white/30 font-medium text-neutral-200 transition-all duration-500 hover:w-64 cursor-pointer bg-emerald-950/40 backdrop-blur-md">
-                <div className="inline-flex whitespace-nowrap opacity-0 transition-all duration-300 group-hover:-translate-x-3 group-hover:opacity-100 text-[10px] tracking-[0.2em] uppercase font-bold">
-                  <Link to="/productpage">Explore The Art Of Perfumes</Link>
-                </div>
-                <div className="absolute right-3.5">
-                  <svg width="15" height="15" viewBox="0 0 15 15" fill="none" className="h-5 w-5">
-                    <path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd"></path>
-                  </svg>
-                </div>
-              </button>
-            </motion.div>
+            {/* FAST EXPANDING BUTTON */}
+            <Link 
+              to="/productpage"
+              className={`
+                group relative inline-flex h-11 md:h-12 items-center justify-center overflow-hidden rounded-full 
+                border border-white/30 font-medium text-neutral-200 transition-all duration-1000 ease-out cursor-pointer 
+                bg-emerald-950/60 backdrop-blur-md
+                ${isScrolled ? 'w-full md:w-64' : 'w-11'} 
+                lg:w-12  lg:hover:w-80
+              `}
+            >
+              <div className={`
+                inline-flex whitespace-nowrap transition-all duration-1000 text-[10px] tracking-[0.2em] uppercase font-bold
+                ${isScrolled ? 'opacity-100 -translate-x-3' : 'opacity-0'}
+                lg:opacity-0 lg:group-hover:opacity-100 lg:group-hover:-translate-x-3
+              `}>
+                Explore The Art Of Perfumes
+              </div>
+              <div className="absolute right-3 md:right-4">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" className="h-4 w-4 md:h-5 md:w-5">
+                  <path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd"></path>
+                </svg>
+              </div>
+            </Link>
           </motion.div>
         </div>
       </section>
 
       <main className="relative z-10 bg-white">
         
-        {/* SECTION: NEW FRAGRANCE (Tighter layout + Scroll Motion) */}
+        {/* COMPONENT 1: NEW FRAGRANCE (Feature) */}
         <section className="py-16 md:py-24 px-6 lg:px-24">
           <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-10 items-center">
-            
             <motion.div 
               initial="hidden"
               whileInView="visible"
@@ -107,22 +141,35 @@ const Home = () => {
               <p className="text-gray-500 text-sm md:text-base leading-relaxed max-w-sm italic">
                 "We want you to express yourself through a deeply sensorial experience. Scents that linger and define your aura."
               </p>
-              <button className="bg-black text-white px-8 py-3 text-[10px] font-bold tracking-[0.3em] uppercase hover:bg-emerald-900 transition-all duration-300">
-                Shop Collection
-              </button>
+              <Link to="/productpage">
+                <button className="bg-black text-white px-8 py-3 text-[10px] font-bold tracking-[0.3em] uppercase hover:bg-emerald-900 transition-all duration-300">
+                    Shop Collection
+                </button>
+              </Link>
             </motion.div>
           </div>
         </section>
 
-        {/* BEST SELLERS (No title here, handled by component) */}
-        <div className="my-10">
+        {/* COMPONENT 2: ABOUT (Placed in between) */}
+        
+          <div className="py-10 bg-[#fafaf9]">
           <BestSellers />
+          <div className="flex justify-center pb-10">
+             <Link 
+              to="/productpage" 
+              className="group flex flex-col items-center gap-2"
+             >
+               <span className="text-[11px] font-bold uppercase tracking-[0.5em] text-gray-400 group-hover:text-emerald-800 transition-colors">
+                 View All Collections
+               </span>
+               <div className="h-[1px] w-12 bg-gray-300 group-hover:w-24 group-hover:bg-emerald-800 transition-all duration-500" />
+             </Link>
+          </div>
         </div>
 
-        {/* SECTION: INSTINCTIVE (Tighter layout + Reverse Motion) */}
-        <section className="py-16 md:py-24 px-6 lg:px-24 bg-[#fafafa]">
+        {/* COMPONENT 3: INSTINCTIVE SECTION (Feature) */}
+        <section className="py-16 md:py-24 px-6 lg:px-24 bg-white">
           <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-10 items-center">
-            
             <motion.div 
               initial="hidden"
               whileInView="visible"
@@ -160,7 +207,10 @@ const Home = () => {
           </div>
         </section>
 
-        <About />
+        
+      <About />
+
+        {/* COMPONENT 5: CHANGE (Final Footer) */}
         <Change />
       </main>
     </div>

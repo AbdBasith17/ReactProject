@@ -30,7 +30,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Auth Logic on Mount
   useEffect(() => {
     const loadUser = async () => {
       try {
@@ -38,10 +37,8 @@ export const AuthProvider = ({ children }) => {
         setUser(res.data);
         await Promise.all([fetchWishlist(), fetchCart()]);
       } catch (err) {
-        // If 401 or any error occurs, user remains null (Guest mode)
         setUser(null);
       } finally {
-        // IMPORTANT: Always set loading to false so the App can render
         setLoading(false);
       }
     };
@@ -76,32 +73,21 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const addToCart = async (productId, quantity) => {
-    try {
-      await api.post("cart/add/", { product_id: productId, quantity });
-      await fetchCart();
-      toast.success("Added to cart!");
-    } catch (err) {
-      toast.error("Please login to add items to cart");
-    }
-  };
-
   return (
     <AuthContext.Provider
       value={{
         user,
+        setUser, // CRITICAL: Export this
         isAuthenticated,
         loading,
         login,
         logout,
-        addToCart,
         cart,
         wishlist,
-        refreshCart: fetchCart,
-        refreshWishlist: fetchWishlist
+        refreshCart: fetchCart, // CRITICAL: Export this
+        refreshWishlist: fetchWishlist // CRITICAL: Export this
       }}
     >
-      {/* Show a centered spinner while checking initial auth status */}
       {loading ? (
         <div className="h-screen flex items-center justify-center bg-white text-emerald-900 font-bold tracking-widest uppercase text-xs">
           <div className="flex flex-col items-center gap-3">

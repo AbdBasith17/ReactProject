@@ -2,15 +2,17 @@ import React from 'react';
 
 const About = () => {
   return (
-    <section className="relative w-full bg-white flex items-center justify-center px-6 py-24 lg:py-32">
-      <div className="max-w-4xl mx-auto text-center">
+    /* Background and padding matched to BestSeller (w-full py-24) */
+    <section className="w-full py-5 bg-white">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10 flex flex-col items-center justify-center text-center">
         
-        <div className="mb-6">
-          <h2 className="text-[10px] font-bold text-emerald-800 tracking-[0.5em] uppercase">
+        <div className="mb-3">
+          <p className="text-[10px] font-bold text-emerald-800 tracking-[0.4em] uppercase">
             Our Essence
-          </h2>
+          </p>
         </div>
         
+        {/* Heading style matched to BestSeller (3xl md:5xl font-black) */}
         <h1 className="text-3xl md:text-5xl font-black text-gray-900 tracking-tighter uppercase mb-10">
           PERF<span className="text-emerald-700 font-light italic tracking-tight">AURA</span>
         </h1>
@@ -28,11 +30,8 @@ const About = () => {
           </p>
         </div>
 
-        <div className="flex items-center justify-center gap-6 mt-16">
-          <div className="w-16 h-[1px] bg-gray-200"></div>
-          <div className="w-1.5 h-1.5 rounded-full bg-emerald-700"></div>
-          <div className="w-16 h-[1px] bg-gray-200"></div>
-        </div>
+        {/* Separator matched to BestSeller (w-12 h-[2px] bg-emerald-800/20 mt-12) */}
+        <div className="w-12 h-[2px] bg-emerald-800/20 mx-auto mt-12"></div>
       </div>
     </section>
   );

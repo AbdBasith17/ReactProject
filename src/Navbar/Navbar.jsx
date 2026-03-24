@@ -42,58 +42,81 @@ function Navbar() {
   ];
 
   const handleProtectedAction = (path) => {
-    if (user) { navigate(path); }
-    else { toast.info("Please login to continue", { position: "top-center" }); }
+    if (user) {
+      navigate(path);
+    } else {
+      toast.info("Please login to continue", { position: "top-center" });
+      navigate("/login");
+    }
   };
 
   return (
-    <nav className={`fixed top-0 w-full z-[100] transition-all duration-500 ${isTransparent
-      ? "bg-transparent py-6"
-      : "bg-white shadow-md py-4 border-b border-gray-100"
-      }`}>
+    <nav
+      className={`fixed top-0 w-full z-[100] transition-all duration-500 ${
+        isTransparent
+          ? "bg-transparent py-6"
+          : "bg-white shadow-md py-4 border-b border-gray-100"
+      }`}
+    >
       <div className="container mx-auto px-5 lg:px-10">
-        
         <div className="flex items-center justify-between w-full">
-
-          {/* LEFT: Fixed width on Desktop only */}
+          {/* LEFT: Logo & Mobile Toggle */}
           <div className="flex items-center gap-4 lg:w-[250px] z-[120]">
-            <button 
-              className="lg:hidden p-1" 
-              onClick={() => setIsMenuOpen(true)} // Explicitly set to true
+            <button
+              className="lg:hidden p-1"
+              onClick={() => setIsMenuOpen(true)}
               aria-label="Open Menu"
             >
-              <FaBars size={22} className={isTransparent ? "text-white" : "text-black"} />
+              <FaBars
+                size={22}
+                className={isTransparent ? "text-white" : "text-black"}
+              />
             </button>
             <h1
-              className={`text-2xl font-bold tracking-tighter cursor-pointer transition-colors ${isTransparent ? "text-white" : "text-black"}`}
+              className={`text-2xl font-bold tracking-tighter cursor-pointer transition-colors ${
+                isTransparent ? "text-white" : "text-black"
+              }`}
               onClick={() => navigate("/")}
             >
-              PERF<span className={`${isTransparent ? "text-white/80" : "text-emerald-800"} font-light tracking-[0.1em]`}>AURA</span>
+              PERF
+              <span
+                className={`${
+                  isTransparent ? "text-white/80" : "text-emerald-800"
+                } font-light tracking-[0.1em]`}
+              >
+                AURA
+              </span>
             </h1>
           </div>
 
-          {/* CENTER: Slides left/right smoothly */}
+          {/* CENTER: Navigation Links (Desktop) */}
           <div className="hidden lg:flex flex-1 justify-center transition-all duration-500 ease-in-out px-4">
             <ul className="flex items-center gap-8 xl:gap-10">
               {navLinks.map(([path, label]) => (
                 <li key={path} className="relative group flex-shrink-0">
                   <Link
                     to={path}
-                    className={`text-[11px] font-bold uppercase tracking-[0.25em] transition-colors ${isTransparent ? "text-white/80 hover:text-white" : "text-gray-500 hover:text-black"
-                      }`}
+                    className={`text-[11px] font-bold uppercase tracking-[0.25em] transition-colors ${
+                      isTransparent
+                        ? "text-white/80 hover:text-white"
+                        : "text-gray-500 hover:text-black"
+                    }`}
                   >
                     {label}
                   </Link>
-                  <span className={`absolute -bottom-1 left-0 h-[1.5px] bg-emerald-500 transition-all duration-300 ${location.pathname === path ? "w-full" : "w-0 group-hover:w-full"}`}></span>
+                  <span
+                    className={`absolute -bottom-1 left-0 h-[1.5px] bg-emerald-500 transition-all duration-300 ${
+                      location.pathname === path ? "w-full" : "w-0 group-hover:w-full"
+                    }`}
+                  ></span>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* RIGHT: Icons + Search */}
+          {/* RIGHT: Search, Wishlist, Cart, User/Login */}
           <div className="flex items-center justify-end gap-2 lg:gap-4 lg:min-w-[250px] transition-all duration-500 ease-in-out">
-            
-            <div className="hidden lg:flex items-center overflow-hidden" ref={searchRef}>
+            <div className="hidden lg:flex items-center" ref={searchRef}>
               <AnimatePresence>
                 {isSearchOpen && (
                   <motion.div
@@ -101,6 +124,8 @@ function Navbar() {
                     animate={{ width: 200, opacity: 1 }}
                     exit={{ width: 0, opacity: 0 }}
                     transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+                    // Removed overflow-hidden here so results can show below the bar
+                    className="relative" 
                   >
                     <Searching customColor={isTransparent ? "white" : "black"} />
                   </motion.div>
@@ -110,7 +135,9 @@ function Navbar() {
 
             <button
               onClick={() => setIsSearchOpen(!isSearchOpen)}
-              className={`p-2 transition-transform hover:scale-110 ${isTransparent ? "text-white" : "text-gray-700"}`}
+              className={`p-2 transition-transform hover:scale-110 ${
+                isTransparent ? "text-white" : "text-gray-700"
+              }`}
             >
               {isSearchOpen ? <FaXmark size={18} /> : <FaMagnifyingGlass size={18} />}
             </button>
@@ -133,11 +160,12 @@ function Navbar() {
               )}
             </button>
 
-            <button
-              onClick={() => handleProtectedAction("/userdata")}
-              className="flex items-center gap-3 group ml-1"
-            >
-              {user && (
+            {/* AUTH SECTION */}
+            {user ? (
+              <button
+                onClick={() => navigate("/userdata")}
+                className="flex items-center gap-3 group ml-1"
+              >
                 <div className="hidden md:flex flex-col items-end leading-none gap-1">
                   <span className={`text-[7px] font-bold uppercase tracking-[0.2em] transition-colors ${isTransparent ? "text-white/60 group-hover:text-white" : "text-gray-400 group-hover:text-black"}`}>
                     Account
@@ -146,9 +174,20 @@ function Navbar() {
                     {user.displayName || user.name || user.email?.split('@')[0]}
                   </span>
                 </div>
-              )}
-              <HiOutlineUserCircle size={28} className={isTransparent ? "text-white" : "text-gray-700"} />
-            </button>
+                <HiOutlineUserCircle size={28} className={isTransparent ? "text-white" : "text-gray-700"} />
+              </button>
+            ) : (
+              <button
+                onClick={() => navigate("/signin")}
+                className={`ml-2 px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-300 border ${
+                  isTransparent 
+                    ? "border-white text-white hover:bg-white hover:text-black" 
+                    : "border-black text-black hover:bg-black hover:text-white"
+                }`}
+              >
+                Login
+              </button>
+            )}
           </div>
         </div>
 
@@ -159,7 +198,8 @@ function Navbar() {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1, marginTop: 16 }}
               exit={{ height: 0, opacity: 0 }}
-              className="lg:hidden overflow-hidden w-full"
+              // Changed overflow-hidden to visible so dropdown results are seen on mobile
+              className="lg:hidden w-full relative z-[110]"
             >
               <div className="pb-2">
                 <Searching customColor={isTransparent ? "white" : "black"} />
@@ -173,29 +213,42 @@ function Navbar() {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, x: "-100%" }} 
-            animate={{ opacity: 1, x: 0 }} 
+            initial={{ opacity: 0, x: "-100%" }}
+            animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "-100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
             className="fixed inset-0 w-full h-screen bg-black/95 backdrop-blur-lg z-[200] flex flex-col p-10"
           >
             <div className="flex justify-between items-center mb-16">
-               <h1 className="text-white text-2xl font-bold tracking-tighter">
+              <h1 className="text-white text-2xl font-bold tracking-tighter">
                 PERF<span className="text-white/80 font-light tracking-[0.1em]">AURA</span>
               </h1>
-              <button onClick={() => setIsMenuOpen(false)} className="text-white"><FaXmark size={30} /></button>
+              <button onClick={() => setIsMenuOpen(false)} className="text-white">
+                <FaXmark size={30} />
+              </button>
             </div>
-            
+
             <div className="flex flex-col gap-8">
               {navLinks.map(([path, label]) => (
                 <Link
-                  key={path} to={path}
+                  key={path}
+                  to={path}
                   onClick={() => setIsMenuOpen(false)}
                   className="text-white text-xl font-black tracking-tighter uppercase hover:text-emerald-400 transition-colors"
                 >
                   {label}
                 </Link>
               ))}
+              
+              {!user && (
+                <Link
+                  to="/signin"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="mt-4 text-emerald-400 text-xl font-black tracking-tighter uppercase border-t border-white/10 pt-8"
+                >
+                  Login
+                </Link>
+              )}
             </div>
           </motion.div>
         )}

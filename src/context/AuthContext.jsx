@@ -26,7 +26,24 @@ export const AuthProvider = ({ children }) => {
       const res = await api.get("cart/");
       setCart(res.data);
     } catch (err) {
-      // Quietly fail for guests
+      console.warn("Guest user: Cart empty");
+    }
+  };
+
+  // ADD TO CART FUNCTIONALITY
+  const addToCart = async (productId, quantity = 1) => {
+    try {
+      const res = await api.post("cart/add/", { 
+        product_id: productId, 
+        quantity: quantity 
+      });
+      await fetchCart(); // Sync local state with DB
+      toast.success("Added to bag");
+      return res.data;
+    } catch (err) {
+      const errorMsg = err.response?.data?.detail || "Could not add to cart";
+      toast.error(errorMsg);
+      throw err;
     }
   };
 
@@ -64,7 +81,7 @@ export const AuthProvider = ({ children }) => {
     try {
       await api.post("auth/logout/");
     } catch (err) {
-      console.warn("Already logged out on server");
+      console.warn("Already logged out");
     } finally {
       setUser(null);
       setWishlist([]);
@@ -77,21 +94,24 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         user,
-        setUser, // CRITICAL: Export this
+        setUser,
         isAuthenticated,
         loading,
         login,
         logout,
         cart,
+        setCart,
         wishlist,
-        refreshCart: fetchCart, // CRITICAL: Export this
-        refreshWishlist: fetchWishlist // CRITICAL: Export this
+        setWishlist,
+        addToCart, // FIXED: Exported
+        refreshCart: fetchCart,
+        refreshWishlist: fetchWishlist
       }}
     >
       {loading ? (
-        <div className="h-screen flex items-center justify-center bg-white text-emerald-900 font-bold tracking-widest uppercase text-xs">
-          <div className="flex flex-col items-center gap-3">
-            <div className="w-6 h-6 border-2 border-emerald-800 border-t-transparent rounded-full animate-spin"></div>
+        <div className="h-screen flex items-center justify-center bg-white text-emerald-900 font-bold tracking-[0.3em] uppercase text-[10px]">
+          <div className="flex flex-col items-center gap-4">
+            <div className="w-6 h-6 border-2 border-emerald-900 border-t-transparent rounded-full animate-spin"></div>
             Perfaura
           </div>
         </div>

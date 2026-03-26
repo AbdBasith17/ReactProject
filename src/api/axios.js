@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE = process.env.REACT_APP_API_URL || "https://13.51.114.178";
+const API_BASE = process.env.REACT_APP_API_URL || "https://perfaura-api.duckdns.org";
 
 const api = axios.create({
   baseURL: `${API_BASE}/api/`,

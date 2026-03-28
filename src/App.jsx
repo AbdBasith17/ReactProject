@@ -80,7 +80,7 @@ function AppLayout() {
             <Route path="/checkout" element={<RouteProtect><Checkout /></RouteProtect>} />
             <Route path="/wishlist" element={<RouteProtect><Wishlist /></RouteProtect>} />
             <Route path="/orderplaced" element={<RouteProtect><OrderPlaced /></RouteProtect>} />
-            <Route path="/userdata" element={<UserDashboard />} />
+            <Route path="/userdata" element={<RouteProtect><UserDashboard /></RouteProtect>} />
 
             {/* Admin Routes */}
             <Route

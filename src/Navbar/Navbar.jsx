@@ -46,7 +46,7 @@ function Navbar() {
       navigate(path);
     } else {
       toast.info("Please login to continue", { position: "top-center" });
-      navigate("/login");
+      navigate("/signin");
     }
   };
 
@@ -114,7 +114,7 @@ function Navbar() {
             </ul>
           </div>
 
-          {/* RIGHT: Search, Wishlist, Cart, User/Login */}
+          {/* RIGHT: Search, Wishlist, Cart, User/signin*/}
           <div className="flex items-center justify-end gap-2 lg:gap-4 lg:min-w-[250px] transition-all duration-500 ease-in-out">
             <div className="hidden lg:flex items-center" ref={searchRef}>
               <AnimatePresence>

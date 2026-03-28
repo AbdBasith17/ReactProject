@@ -46,7 +46,8 @@ function Navbar() {
       navigate(path);
     } else {
       toast.info("Please login to continue", { position: "top-center" });
-      navigate("/signin");
+      
+      
     }
   };
 

@@ -82,7 +82,7 @@ function Navbar() {
               PERF
               <span
                 className={`${
-                  isTransparent ? "text-white/80" : "text-emerald-800"
+                  isTransparent ? "text-emerald-500" : "text-emerald-800"
                 } font-light tracking-[0.1em]`}
               >
                 AURA

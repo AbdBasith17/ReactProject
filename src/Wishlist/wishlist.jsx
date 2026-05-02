@@ -44,9 +44,9 @@ const WishlistPage = () => {
         {wishlist?.length === 0 ? (
           <div className="py-20 text-center text-gray-400">Your wishlist is empty.</div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 cursor-pointer" >
             {wishlist.map((item) => (
-              <div key={item.id} className="group relative">
+              <div key={item.id} className="group relative cursor-pointer"   onClick={() => navigate(`/productview/${item.product?.id}`)} >
                 <div className="aspect-square bg-gray-50 rounded-2xl overflow-hidden relative">
                   <button onClick={(e) => removeItem(e, item.product?.id)} className="absolute top-2 right-2 z-10 p-2 bg-white rounded-full shadow-md text-red-500">
                     <FaHeartCircleMinus size={20} />

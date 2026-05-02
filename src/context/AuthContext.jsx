@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
         product_id: productId, 
         quantity: quantity 
       });
-      await fetchCart(); // Sync local state with DB
+      await fetchCart(); 
       toast.success("Added to bag");
       return res.data;
     } catch (err) {
@@ -103,7 +103,7 @@ export const AuthProvider = ({ children }) => {
         setCart,
         wishlist,
         setWishlist,
-        addToCart, // FIXED: Exported
+        addToCart, 
         refreshCart: fetchCart,
         refreshWishlist: fetchWishlist
       }}

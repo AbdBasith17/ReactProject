@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE = process.env.REACT_APP_API_URL || "https://perfaura-api.duckdns.org";
+const API_BASE = import.meta.env.REACT_APP_API_URL || "https://perfaura-api.duckdns.org";
 
 const api = axios.create({
   baseURL: `${API_BASE}/api/`,
@@ -61,8 +61,7 @@ api.interceptors.response.use(
           })
           .catch((refreshError) => {
             processQueue(refreshError);
-            // GENTLE FIX: We no longer force window.location.href = "/signin"
-            // This allows guest users to stay on public pages like Home.
+            
             reject(refreshError);
           })
           .finally(() => {

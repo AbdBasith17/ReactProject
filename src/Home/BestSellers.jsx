@@ -44,7 +44,7 @@ function BestSeller() {
               id={product.id}
               images={product.images}
               title={product.title}
-              category={product.category}
+              category_name={product.category_name}
               price={`₹${product.price}`}
               ml={product.ml}
             />

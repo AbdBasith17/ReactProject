@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import backgroundImage from "./images/bging1.jpg";
-import bgSmall from "./images/bgsmall.jpg";
+
+import BackgroundSlideshow from "./BackgroundSlideshow";
+
 import bgmen from "./images/bgmen.jpeg";
 import bgwomen from "./images/bgwomen.jpeg";
 
@@ -46,19 +47,7 @@ const Home = () => {
     <div className="relative w-full">
       {/* --- SECTION 1: HERO --- */}
       <section className="relative h-screen w-full flex flex-col justify-end overflow-hidden">
-        <div className="fixed inset-0 h-screen w-full -z-10">
-          <img
-            src={backgroundImage}
-            alt="Perfaura Hero"
-            className="hidden md:block w-full h-full object-cover object-center"
-          />
-          <img
-            src={bgSmall}
-            alt="Perfaura Hero Mobile"
-            className="block md:hidden w-full h-full object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-black/40" />
-        </div>
+       <BackgroundSlideshow/>
 
         <div className="w-full h-full flex justify-start items-end md:items-end px-0 md:px-20 pb-0 md:pb-20">
           <motion.div
@@ -74,7 +63,7 @@ const Home = () => {
             <h2 className="text-xl md:text-4xl leading-tight font-black mb-2 md:mb-4 uppercase tracking-tighter">
               EVERY FRAGRANCE TELLS A STORY,<br className="hidden md:block" />
               LET YOURS BEGIN WITH PERF
-              <span className="text-emerald-400 font-light italic tracking-tight">AURA</span>.
+              <span className="text-emerald-400 font-light  tracking-tight">AURA</span>
             </h2>
 
             <p className="text-xs md:text-base mb-6 md:mb-8 opacity-80 font-medium tracking-wide leading-relaxed max-w-sm">

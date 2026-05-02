@@ -58,6 +58,7 @@ function ProductOverview() {
             <div className="relative aspect-square w-full max-w-[440px] mx-auto rounded-[2rem] bg-[#F9F9F9] border border-gray-50 flex items-center justify-center p-10 overflow-hidden">
               <div className="absolute top-4 right-4 z-20 scale-90">
                 <AddToWishlistButton product={product} />
+                
               </div>
               <img
                 src={selectedImage}
@@ -85,7 +86,7 @@ function ProductOverview() {
           <div className="w-full md:w-[55%] flex flex-col pt-2">
             <div className="border-b border-gray-100 pb-6 mb-6">
               <span className="text-gray-400 text-[11px] font-bold uppercase tracking-[0.25em]">
-                {product.category} {product.ml && `• ${product.ml}`}
+                {product.category_name} {product.ml && `• ${product.ml}`}
               </span>
               <h1 className="text-3xl md:text-4xl font-black text-gray-900 mt-1 mb-1 tracking-tight uppercase">
                 {product.title}

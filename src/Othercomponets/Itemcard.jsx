@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import AddToWishlistButton from "../Wishlist/Addtowish";
 
-function ItemCard({ id, images, title, category, price, ml, brand, oldPrice }) {
+function ItemCard({ id, images, title, category_name, price, ml, brand, oldPrice }) {
   const navigate = useNavigate();
 
   const imageUrl =
@@ -22,7 +22,7 @@ function ItemCard({ id, images, title, category, price, ml, brand, oldPrice }) {
         {/* Wishlist Button - Scaled down slightly */}
         <div className="absolute top-3 right-3 z-10 scale-90">
           <AddToWishlistButton
-            product={{ id, title, price, category }}
+            product={{ id, title, price, category_name }}
           />
         </div>
 
@@ -44,10 +44,11 @@ function ItemCard({ id, images, title, category, price, ml, brand, oldPrice }) {
 
         {/* Category/Type Label */}
         <span className="text-gray-400 text-[11px] font-medium uppercase tracking-wider">
-          {category} {ml && `• ${ml}`}
+          {category_name} {ml && `• ${ml}`}
+          
         </span>
 
-        {/* Product Title - Reduced text size to text-base */}
+        
         <h3
           onClick={() => navigate(`/productview/${id}`)}
           className="text-sm font-bold text-gray-900 leading-tight cursor-pointer hover:text-green-700 transition-colors line-clamp-1 mt-1"
